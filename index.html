@@ -5,7 +5,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#050C10">
 <title>MLBB Helper</title>
-<link rel="stylesheet" href="style.css?v=20261113b">
+<script>
+// Stale copies: browsers keep this page for a while. On every open (and when the tab comes back) the page asks for
+// version.txt past every cache; if a newer version is online it reloads itself once under a new address.
+// To publish: put the same new version into version.txt, BUILD below and the two ?v= file addresses.
+(function () {
+  var BUILD = '20261113c';
+  function check() {
+    fetch('version.txt?t=' + Date.now(), { cache: 'no-store' }).then(function (r) { return r.ok ? r.text() : ''; }).then(function (v) {
+      v = v.trim();
+      if (v && v !== BUILD && sessionStorage.getItem('mld.reloaded') !== v) { sessionStorage.setItem('mld.reloaded', v); location.replace(location.pathname + '?v=' + v + location.hash); }
+    }).catch(function () { });
+  }
+  check(); document.addEventListener('visibilitychange', function () { if (!document.hidden) check(); });
+})();
+</script>
+<link rel="stylesheet" href="style.css?v=20261113c">
 </head>
 <body>
 <header id="top">
@@ -70,6 +85,6 @@
 <div id="analysis" hidden><div class="anbody"></div></div>
 <div id="sheet" hidden><div class="sheetback"></div><div class="sheetbody" role="dialog" aria-modal="true"></div></div>
 <div id="toast" hidden></div>
-<script src="app.js?v=20261113b"></script>
+<script src="app.js?v=20261113c"></script>
 </body>
 </html>
