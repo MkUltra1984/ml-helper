@@ -335,3 +335,46 @@ body[data-design="m3"] .sug:nth-child(n+4) { display: none; }
 body[data-design="m2"] #dna { order: 8; }
 @media (min-width: 900px) { .sheetbody { width: min(560px, 100%); margin: 0 auto; border: 2px solid var(--gold); border-bottom: 0; } }
 @media (min-width: 900px) { body[data-design="m2"] .slot { aspect-ratio: auto; height: 108px; } }
+
+/* ---- fit on a phone: the whole page inside the visible screen, in both orientations ---- */
+html, body { height: 100%; } body { height: 100dvh; overflow: hidden; }
+.chiprow { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; align-items: center; }
+.chiprow .chips { overflow: visible; flex: none; }
+.chipsep { flex: none; width: 1px; height: 18px; background: var(--line); }
+.bhead .bad { color: var(--bad); margin-left: auto; }
+.pronote { margin: -2px 0 0; }
+.bmeta span img + img { margin-left: -2px; }
+
+@media (max-width: 899px) {
+  #top { padding: 5px 10px; } .brand b { font-size: 16px !important; } .ghost { padding: 4px 10px; }
+  #suggest { padding: 4px 10px 2px; } .sughead { margin-bottom: 3px; } body[data-design^="m"] .sughead b { font-size: 15px; }
+  body[data-design^="m"] .sug { width: 200px; } body[data-design^="m"] .sug img { width: 52px; min-height: 66px; }
+  body[data-design^="m"] .sugtext { padding: 4px 6px; gap: 2px; } body[data-design^="m"] .sug b { font-size: 14px; }
+  body[data-design^="m"] .why { font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; max-width: 136px; }
+  body[data-design^="m"] .why em { display: inline-block; margin: 0 4px 0 0; font-size: 9.5px; padding: 0 4px; }
+  .modes { padding: 5px 10px 3px; } body[data-design^="m"] .mode { padding: 6px 4px; font-size: 14px; }
+  .hint { display: none; }
+  .filters { gap: 5px; padding: 3px 10px 5px; grid-template-columns: 1fr; }
+  #q, #sort { padding: 6px 8px; }
+  .grid { padding: 2px 10px 8px; }
+  #dna { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2px 10px; padding: 4px 10px 5px; }
+  .dnatitle { display: none; }
+  .dnarow { grid-template-columns: auto 1fr 1fr auto; grid-template-areas: "l l l l" "a ba be e"; gap: 1px 4px; margin: 0; }
+  .dnarow > span { grid-area: l; min-width: 0; font-size: 9.5px; } .dnarow > b:first-child { grid-area: a; } .dnarow > .dnabar.a { grid-area: ba; } .dnarow > .dnabar.e { grid-area: be; } .dnarow > b:last-child { grid-area: e; }
+  .dnarow b { font-size: 11px; } .dnabar { height: 5px; }
+  .combos { grid-column: 1 / -1; margin-top: 2px; } .combo { font-size: 11px; }
+  body[data-design="m2"] #board { padding: 4px 6px 6px; } body[data-design="m2"] .sidehead { padding: 2px 6px; font-size: 12px; }
+  body[data-design="m2"] .slot { aspect-ratio: 5 / 9; }
+}
+/* phone held sideways: the teams, DNA and suggestions on the left, the hero list on the right */
+@media (orientation: landscape) and (max-height: 560px) {
+  body[data-design="m2"] { display: grid; grid-template-columns: minmax(0, 46fr) minmax(0, 54fr); grid-template-rows: auto auto auto minmax(0, 1fr); }
+  body[data-design="m2"] #top { grid-column: 1 / -1; grid-row: 1; padding: 2px 10px; } body[data-design="m2"] #dataNote { display: none; }
+  body[data-design="m2"] #board { grid-column: 1; grid-row: 2; order: 0; border-top: 0; border-bottom: 2px solid var(--gold); padding: 4px 6px; }
+  body[data-design="m2"] .slot { aspect-ratio: 1; height: auto; }
+  body[data-design="m2"] #dna { grid-column: 1; grid-row: 3; order: 0; border-top: 0; }
+  body[data-design="m2"] #suggest { grid-column: 1; grid-row: 4; order: 0; overflow-y: auto; min-height: 0; }
+  body[data-design="m2"] .suglist { flex-direction: column; overflow: visible; } body[data-design="m2"] .sug { width: 100%; } body[data-design^="m"] .why { max-width: none; }
+  body[data-design="m2"] #picker { grid-column: 2; grid-row: 2 / 5; order: 0; min-height: 0; border-left: 1px solid var(--line); border-top: 0; }
+  body[data-design="m2"] .filters .row { display: none; }
+}

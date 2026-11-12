@@ -7,7 +7,7 @@ A free draft helper for **Mobile Legends: Bang Bang**. Keep it open beside the g
 - **Fast input:** all heroes as a grid, sorted by the current meta, with lane and role filters and search. One tap picks. Your own heroes come first.
 - **Why this pick?** Suggestions with a reason: who the hero counters, who it combines with, and what to be careful about.
 - **Worth banning:** before the first pick, the heroes that are banned most right now and the ones that counter your own heroes.
-- **Hero sheet:** hold a hero for its matchups in the game's own words and the builds players use per lane, with pick and win rate.
+- **Hero sheet:** hold a hero for its matchups in the game's own words and the builds players use per lane with pick and win rate, and what pro players built in the latest MPL Indonesia games.
 - **Draft DNA:** both teams compared on durability, damage and skill effects, the best combo in each team, and a team type such as Pick-off, Front to back or Dive.
 - **English and German**, switchable in the settings.
 
@@ -33,7 +33,7 @@ Ein kostenloser Draft-Helfer für **Mobile Legends: Bang Bang**. Auf einem zweit
 - **Schnelle Eingabe:** alle Helden als Raster, nach der aktuellen Meta sortiert, mit Lane- und Rollenfiltern und Suche. Ein Tippen wählt. Deine eigenen Helden stehen vorn.
 - **Warum dieser Pick?** Vorschläge mit Begründung: wen der Held kontert, mit wem er zusammenpasst und worauf man achten muss.
 - **Bannen lohnt sich:** vor dem ersten Pick die aktuell meistgebannten Helden und die, die deine eigenen Helden kontern.
-- **Heldenblatt:** Held gedrückt halten für seine Matchups und die Builds der Spieler pro Lane, mit Pick- und Siegrate. Die Matchup-Texte kommen aus dem Spiel und sind englisch.
+- **Heldenblatt:** Held gedrückt halten für seine Matchups und die Builds der Spieler pro Lane mit Pick- und Siegrate sowie die Builds der Profis aus den letzten Spielen der MPL Indonesia. Die Matchup-Texte kommen aus dem Spiel und sind englisch.
 - **Draft-DNA:** beide Teams im Vergleich bei Standfestigkeit, Schaden und Fähigkeiten, die beste Kombo je Team und ein Team-Typ wie Pick-off, Front to back oder Dive.
 
 **Sicher:** ML Helper ist eine Webseite. Du gibst den Draft von Hand ein. Die Seite liest, verändert oder berührt das Spiel nicht, braucht kein Konto, und nichts wird installiert.
