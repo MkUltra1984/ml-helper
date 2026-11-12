@@ -15,6 +15,8 @@ const LANES = ['exp', 'jungle', 'mid', 'gold', 'roam'];
 const RANK_IMG = 'https://wsrv.nl/?url=https%3A%2F%2Fakmweb.youngjoygame.com%2Fweb%2Fgms%2Fimage%2F';
 const RANK_ICONS = { mythic: RANK_IMG + '641379610654942449fa3d5cf633d38c.png', honor: RANK_IMG + '078ee96145da945b0cbbb8e2a48ca7c9.png', glory: RANK_IMG + 'acc8347c7284e6d9caa09d3b3f8e0948.png' };
 const ROLES = ['tank', 'fighter', 'assassin', 'mage', 'marksman', 'support'];
+// Own symbols for the hero types and lanes (white shapes in img/, made with tools/*-icons.py: the game's silhouettes drawn as an upgraded tier)
+const OWN_ICONS = { lanes: Object.fromEntries(LANES.map(k => [k, `img/lane-${k}.png`])), roles: Object.fromEntries(ROLES.map(k => [k, `img/role-${k}.png`])) };
 const T = {
   en: { title: 'ML Helper', sMeta: 'Meta picks', reset: 'New draft', enemy: 'Enemy', ally: 'Your team', bans: 'Bans', suggest: 'Why this pick?', poolOnly: 'my heroes only', tagStrong: 'Counters', tagPairs: 'Combo', tagWeak: 'Careful', tagMeta: 'Meta pick',
     build: 'Build', builds: 'Core items players use', used: 'used by', emblem: 'Emblem', noBuild: 'No build data for this lane.', remove: 'Take out of the draft', undo: 'Undo', sPickShort: 'Pick', sBanShort: 'Ban', tagWeakTo: 'Weak against',
@@ -116,7 +118,7 @@ const ids = x => (Array.isArray(x) ? x : (x && x.target_hero_id) || []).map(Numb
 
 async function loadHeroes(force) {
   const key = `heroes3.${S.rank}.${S.days}`, cached = store.get(key, null);
-  if (!force && cached && Date.now() - cached.at < 12 * 3600 * 1000) { S.heroes = new Map(cached.list.map(x => [x.id, x])); S.icons = cached.icons || S.icons; return; }
+  if (!force && cached && Date.now() - cached.at < 12 * 3600 * 1000) { S.heroes = new Map(cached.list.map(x => [x.id, x])); S.icons = OWN_ICONS; return; }
   const icons = { lanes: {}, roles: {} };
   const [pos, rank] = await Promise.all([api('/heroes/positions?size=300&index=1&lang=en'), api(`/heroes/rank?days=${S.days}&rank=${S.rank}&size=300&index=1&sort_field=pick_rate&sort_order=desc`)]);
   const map = new Map();
@@ -138,7 +140,7 @@ async function loadHeroes(force) {
   }
   if (!map.size) throw new Error('no heroes');
   S.heroes = map;
-  S.icons = icons;
+  S.icons = OWN_ICONS;
   store.set(key, { at: Date.now(), list: [...map.values()], icons });
 }
 // who does best / worst against (counters) or beside (compatibility) one hero
