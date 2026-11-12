@@ -455,3 +455,5 @@ body[data-design^="m"] .chip.sym.on { background: var(--gold); border-color: var
 /* optional bans: a short row of what was banned, only when there is one */
 .side.bans[hidden] { display: none; }
 body[data-design^="m"] .side.bans .slots { grid-template-columns: repeat(10, minmax(0, 1fr)); }
+/* six Draft DNA bars: three per row on a phone */
+@media (max-width: 899px) { #dna { gap: 3px 10px; } }
