@@ -19,7 +19,7 @@ const T = {
     dna: 'Draft DNA', dnaEarly: 'Short games', dnaMid: 'Mid-length', dnaLate: 'Long games', dnaOff: 'Damage', dnaCc: 'Control', dnaSus: 'Sustain', dnaYou: 'You', dnaThem: 'Enemy', dnaEven: 'Even', combo: 'Combo', banTitle: 'Worth banning', hurts: 'counters your', holdHint: 'Tap picks. Hold a hero for builds and matchups.',
     id_pick: ['Pick-off', 'Assassins hunt single targets. Avoid long fights.'], id_ftb: ['Front to back', 'A frontline protects the damage dealers in the back.'], id_dive: ['Dive', 'Everyone jumps the enemy backline together.'],
     id_poke: ['Poke & burst', 'Mages wear the enemy down before the fight starts.'], id_sustain: ['Sustain', 'Supports keep the team alive through long fights.'], id_team: ['Teamfight', 'Strongest when all five fight together.'],
-    mEnemy: 'Enemy pick', mAlly: 'Our pick', mBan: 'Ban', mFav: '★ My heroes', startLane: 'Lane', startRole: 'Role', startMine: 'My heroes', startHint: 'Pick a type.', back: 'Back', rankAsk: 'Your rank (for the right statistics)', rk_mythic: 'Mythic', rk_honor: 'Mythical Honor', rk_glory: 'Mythical Glory+', lnWr: 'win rate', lnEarly: 'short', lnLate: 'long', lnCounters: 'counters', lnEarlyEdge: 'wins short games more often', lnLateEdge: 'wins long games more often', lnLaneEdge: 'has the better win rate on this lane', ph_short: 'strong in short games', ph_mid: 'strong in mid-length games', ph_long: 'strong in long games', ph_even: 'steady at any game length', lnOnLane: 'on this lane', lnEven: 'Even matchup', analysis: 'Analysis', anTitle: 'Team composition & win conditions', anSpike: 'Team power by game length', anSpikeNote: 'Average win rate of the five heroes in games of that length (minutes).', anLanes: 'Lane matchups',
+    mEnemy: 'Enemy pick', mAlly: 'Our pick', mBan: 'Ban', mFav: '★ My heroes', startLane: 'Lane', startRole: 'Role', startMine: 'My heroes', startHint: 'Pick a type.', back: 'Back', rankAsk: 'Your rank? The statistics come from games at that rank.', in0: 'Keep this page open beside the game during the draft.', in1: 'Tap what the enemy and your team pick.', in2: 'See which heroes fit, and why.', in3: 'Hold a hero for builds and counter items.', inOk: 'Got it', inHelp: 'How it works', oops: 'Something went wrong here. Please reload the page.', rk_mythic: 'Mythic', rk_honor: 'Mythical Honor', rk_glory: 'Mythical Glory+', lnWr: 'win rate', lnEarly: 'short', lnLate: 'long', lnCounters: 'counters', lnEarlyEdge: 'wins short games more often', lnLateEdge: 'wins long games more often', lnLaneEdge: 'has the better win rate on this lane', ph_short: 'strong in short games', ph_mid: 'strong in mid-length games', ph_long: 'strong in long games', ph_even: 'steady at any game length', lnOnLane: 'on this lane', lnEven: 'Even matchup', analysis: 'Analysis', anTitle: 'Team composition & win conditions', anSpike: 'Team power by game length', anSpikeNote: 'Average win rate of the five heroes in games of that length (minutes).', anLanes: 'Lane matchups',
     anLaneNote: 'Win projection per lane, an estimate: mostly the win rate of each hero on that lane, plus the counter lists of the game. "Short" and "long" are win rates in games of under 12 and over 20 minutes; they say how the games of a hero end, not who wins the laning phase. Use ⇄ to move a hero to the next lane. Tap a hero for builds and counter items.', anWin: 'Core win conditions', anEst: 'All of this is calculated from public statistics and simple rules. Treat it as a hint, not a verdict.',
     tEarly: 'Wins short games', tLate: 'Wins long games', tEven: 'No timing edge', bEarly: 'Strongest in short games: press the lead and end before 16 minutes', bLate: 'Stronger the longer it goes: farm safely and stall', bEven: 'No clear timing edge: play around Turtle and Lord',
     wc_id_pick: ['Catch single heroes before fights start', 'Control the jungle paths', 'Avoid long front-to-back fights'], wc_id_ftb: ['Protect the damage dealer in the back', 'Fight at objectives, frontline first', 'Do not chase into their jungle'],
@@ -40,7 +40,7 @@ const T = {
     dna: 'Draft-DNA', dnaEarly: 'Kurze Spiele', dnaMid: 'Mittellange', dnaLate: 'Lange Spiele', dnaOff: 'Schaden', dnaCc: 'Kontrolle', dnaSus: 'Standfestigkeit', dnaYou: 'Du', dnaThem: 'Gegner', dnaEven: 'Gleich', combo: 'Kombo', banTitle: 'Bannen lohnt sich', hurts: 'kontert deine', holdHint: 'Tippen wählt. Held gedrückt halten für Builds und Matchups.',
     id_pick: ['Pick-off', 'Assassinen jagen einzelne Ziele. Lange Kämpfe meiden.'], id_ftb: ['Front to back', 'Eine Frontlinie schützt die Schadensverursacher dahinter.'], id_dive: ['Dive', 'Alle springen gemeinsam auf die gegnerische Backline.'],
     id_poke: ['Poke & Burst', 'Magier zermürben den Gegner, bevor der Kampf beginnt.'], id_sustain: ['Sustain', 'Supporter halten das Team in langen Kämpfen am Leben.'], id_team: ['Teamfight', 'Am stärksten, wenn alle fünf zusammen kämpfen.'],
-    mEnemy: 'Gegner-Pick', mAlly: 'Unser Pick', mBan: 'Ban', mFav: '★ Meine Helden', startLane: 'Lane', startRole: 'Rolle', startMine: 'Meine Helden', startHint: 'Typ wählen.', back: 'Zurück', rankAsk: 'Dein Rang (für die passende Statistik)', rk_mythic: 'Mythic', rk_honor: 'Mythical Honor', rk_glory: 'Mythical Glory+', lnWr: 'Siegrate', lnEarly: 'kurz', lnLate: 'lang', lnCounters: 'kontert', lnEarlyEdge: 'gewinnt kurze Spiele öfter', lnLateEdge: 'gewinnt lange Spiele öfter', lnLaneEdge: 'hat auf dieser Lane die bessere Siegrate', ph_short: 'stark in kurzen Spielen', ph_mid: 'stark in mittellangen Spielen', ph_long: 'stark in langen Spielen', ph_even: 'in jeder Spiellänge stabil', lnOnLane: 'auf dieser Lane', lnEven: 'Ausgeglichenes Matchup', analysis: 'Analyse', anTitle: 'Team-Aufstellung & Siegbedingungen', anSpike: 'Team-Stärke nach Spiellänge', anSpikeNote: 'Durchschnittliche Siegrate der fünf Helden in Spielen dieser Länge (Minuten).', anLanes: 'Lane-Matchups',
+    mEnemy: 'Gegner-Pick', mAlly: 'Unser Pick', mBan: 'Ban', mFav: '★ Meine Helden', startLane: 'Lane', startRole: 'Rolle', startMine: 'Meine Helden', startHint: 'Typ wählen.', back: 'Zurück', rankAsk: 'Dein Rang? Die Statistik stammt aus Spielen auf diesem Rang.', in0: 'Lass diese Seite während des Drafts neben dem Spiel offen.', in1: 'Tippe an, was der Gegner und dein Team wählen.', in2: 'Sieh, welche Helden passen und warum.', in3: 'Held gedrückt halten für Builds und Konter-Items.', inOk: 'Alles klar', inHelp: 'So funktioniert es', oops: 'Hier ist etwas schiefgelaufen. Bitte die Seite neu laden.', rk_mythic: 'Mythic', rk_honor: 'Mythical Honor', rk_glory: 'Mythical Glory+', lnWr: 'Siegrate', lnEarly: 'kurz', lnLate: 'lang', lnCounters: 'kontert', lnEarlyEdge: 'gewinnt kurze Spiele öfter', lnLateEdge: 'gewinnt lange Spiele öfter', lnLaneEdge: 'hat auf dieser Lane die bessere Siegrate', ph_short: 'stark in kurzen Spielen', ph_mid: 'stark in mittellangen Spielen', ph_long: 'stark in langen Spielen', ph_even: 'in jeder Spiellänge stabil', lnOnLane: 'auf dieser Lane', lnEven: 'Ausgeglichenes Matchup', analysis: 'Analyse', anTitle: 'Team-Aufstellung & Siegbedingungen', anSpike: 'Team-Stärke nach Spiellänge', anSpikeNote: 'Durchschnittliche Siegrate der fünf Helden in Spielen dieser Länge (Minuten).', anLanes: 'Lane-Matchups',
     anLaneNote: 'Sieg-Prognose pro Lane, eine Schätzung: vor allem die Siegrate jedes Helden auf dieser Lane, dazu die Konter-Listen des Spiels. „Kurz“ und „lang“ sind Siegraten in Spielen unter 12 und über 20 Minuten; sie sagen, wie die Spiele eines Helden enden, nicht wer die Lane-Phase gewinnt. Mit ⇄ einen Helden auf die nächste Lane schieben. Held antippen für Builds und Konter-Items.', anWin: 'Siegbedingungen', anEst: 'Alles hier ist aus öffentlichen Statistiken und einfachen Regeln berechnet. Ein Hinweis, kein Urteil.',
     tEarly: 'Gewinnt kurze Spiele', tLate: 'Gewinnt lange Spiele', tEven: 'Kein Zeitvorteil', bEarly: 'Am stärksten in kurzen Spielen: Vorsprung nutzen und vor Minute 16 beenden', bLate: 'Je länger, desto stärker: sicher farmen und verzögern', bEven: 'Kein klarer Zeitvorteil: um Turtle und Lord spielen',
     wc_id_pick: ['Einzelne Helden fangen, bevor Kämpfe beginnen', 'Die Jungle-Wege kontrollieren', 'Lange Front-to-back-Kämpfe meiden'], wc_id_ftb: ['Den Schadensverursacher hinten schützen', 'An Zielen kämpfen, Frontlinie zuerst', 'Nicht in ihren Jungle hinterherlaufen'],
@@ -61,7 +61,7 @@ const $ = id => document.getElementById(id);
 const store = { get(k, d) { try { const v = localStorage.getItem('mld.' + k); return v == null ? d : JSON.parse(v); } catch { return d; } }, set(k, v) { try { localStorage.setItem('mld.' + k, JSON.stringify(v)); } catch { } } };
 const S = {
   lang: store.get('lang', (navigator.language || 'en').startsWith('de') ? 'de' : 'en'), rank: store.get('rank2', 'glory'), days: store.get('days', 7),
-  favs: new Set(),   // the 'My heroes' list was removed at the owner's request; the code that reads it stays harmless sort: store.get('sort', 'meta'), format: 'ranked', skipped: 0, icons: { lanes: {}, roles: {} },
+  favs: new Set(),   // the 'My heroes' list was removed at the owner's request; the code that reads it stays harmless sort: 'meta', rankPicked: false, format: 'ranked', skipped: 0, icons: { lanes: {}, roles: {} },
   design: new URLSearchParams(location.search).get('design') || 'm2',
   mode: 'enemy', lanes: new Set(), roles: new Set(), q: '',
   enemy: [], ally: [], bans: [],
@@ -301,6 +301,9 @@ function drawChips() {
   $('roleChips').replaceChildren();
 }
 function drawGrid() {
+  try { drawGridInner(); } catch (e) { console.warn('grid', e); const g = $('grid'); g.classList.remove('start'); g.replaceChildren(h('p', { class: 'faint' }, `${t('oops')} (${e.message})`)); }
+}
+function drawGridInner() {
   const grid = $('grid');
   if (!S.ready) { grid.replaceChildren(h('p', { class: 'faint' }, t(S.failed ? 'failed' : 'loading'))); return; }
   const q = S.q.trim().toLowerCase(), used = taken();
@@ -314,17 +317,19 @@ function drawGrid() {
   if (start) {
     const big = (set, key, icons) => h('button', { class: 'bigbtn', onclick: () => pickFilter(set, key) }, icons[key] ? h('img', { src: icons[key], alt: '' }) : null, h('span', {}, t(key)));
     S.lanes.clear();
-    // before the first pick of a draft: which rank the statistics should come from (the choice is remembered)
-    const empty = !S.enemy.length && !S.ally.length && !S.bans.length;
-    const setRank = r => { if (S.rank === r) return; S.rank = r; store.set('rank2', r); $('rank').value = r; S.vs.clear(); S.beside.clear(); boot(false); };
-    grid.replaceChildren(...(empty ? [h('p', { class: 'faint starthint' }, t('rankAsk')),
-        h('div', { class: 'rankrow' }, ['mythic', 'honor', 'glory'].map(r => h('button', { class: 'rankbtn' + (S.rank === r ? ' on' : ''), 'aria-pressed': String(S.rank === r), onclick: () => setRank(r) }, t('rk_' + r))))] : []),
-      h('p', { class: 'faint starthint' }, t('startHint')), h('div', { class: 'bigrow roles step1' }, ROLES.map(k => big(S.roles, k, S.icons.roles))));
+    // Step 0, once per draft: the rank whose statistics to use. It shows alone before the types and is gone after a tap.
+    if (!S.rankPicked && !S.enemy.length && !S.ally.length) {
+      const choose = r => { S.rankPicked = true; if (S.rank === r) { drawGrid(); return; } S.rank = r; store.set('rank2', r); $('rank').value = r; S.vs.clear(); S.beside.clear(); boot(false); };
+      grid.replaceChildren(h('p', { class: 'faint starthint' }, t('rankAsk')),
+        h('div', { class: 'rankstep' }, ['mythic', 'honor', 'glory'].map(r => h('button', { class: 'rankbtn' + (S.rank === r ? ' on' : ''), onclick: () => choose(r) }, t('rk_' + r)))));
+      return;
+    }
+    grid.replaceChildren(h('p', { class: 'faint starthint' }, t('startHint')), h('div', { class: 'bigrow roles step1' }, ROLES.map(k => big(S.roles, k, S.icons.roles))));
     return;
   }
   // meta = how often a hero is in the draft at all (picked or banned), lifted a little by its win rate
   const meta = x => (x.pick + x.ban) * (0.5 + x.win);
-  const by = { meta: (a, b) => meta(b) - meta(a), pick: (a, b) => b.pick - a.pick, win: (a, b) => b.win - a.win, ban: (a, b) => b.ban - a.ban, name: (a, b) => a.name.localeCompare(b.name) }[S.sort];
+  const by = { meta: (a, b) => meta(b) - meta(a), pick: (a, b) => b.pick - a.pick, win: (a, b) => b.win - a.win, ban: (a, b) => b.ban - a.ban, name: (a, b) => a.name.localeCompare(b.name) }[S.sort] || ((a, b) => meta(b) - meta(a));
   const list = [...S.heroes.values()].filter(x => passesFilter(x) && (!q || x.name.toLowerCase().includes(q)))
     .sort((a, b) => (S.favs.has(b.id) ? 1 : 0) - (S.favs.has(a.id) ? 1 : 0) || by(a, b) || a.name.localeCompare(b.name));
   if (!list.length) { grid.replaceChildren(h('p', { class: 'faint' }, t('none'))); return; }
@@ -641,6 +646,7 @@ async function boot(force) {
   const hm = /^#h=([^\/&]*)\/([^\/&]*)/.exec(decodeURIComponent(location.hash)), byName = s2 => s2.split(',').map(n => { const k = n.toLowerCase().replace(/[^a-z0-9]/g, ''); const x = k && [...S.heroes.values()].find(o => o.name.toLowerCase().replace(/[^a-z0-9]/g, '') === k); return x ? x.id : 0; }).filter(Boolean);
   const d = hm && S.ready ? { enemy: byName(hm[1]), ally: byName(hm[2]), bans: [] } : m ? { enemy: nums(m[1]), ally: nums(m[2]), bans: nums(m[3]) } : store.get('draft', null);
   if (S.ready && d && !boot.restored) { boot.restored = true; for (const k of ['enemy', 'ally']) S[k] = (d[k] || []).filter(i => S.heroes.has(i)).slice(0, 5); S.bans = (d.bans || []).filter(i => S.heroes.has(i)).slice(0, 10); S.enemy.forEach(i => loadRelation('counters', i)); S.ally.forEach(i => loadRelation('compatibility', i)); [...S.enemy, ...S.ally].forEach(i => { loadDetail(i); const hx = S.heroes.get(i); loadTimeline(i, (hx && hx.lanes[0]) || 'mid').then(drawDna); }); }
+  if (S.enemy.length || S.ally.length) S.rankPicked = true;
   drawPhase.last = -1; const ph = phase(); setMode(ph.kind === 'ban' ? 'ban' : 'enemy'); drawPhase.last = ph.i;
   applyLang(); drawBoard(); drawDna();
   const fm = /[#&]role=(\w+)(?:&lane=(\w+))?/.exec(location.hash); if (S.ready && fm && !boot.fl) { boot.fl = true; S.roles.add(fm[1]); if (fm[2]) S.lanes.add(fm[2]); drawChips(); drawGrid(); }   // #...&role=<type>[&lane=<lane>] opens step 2 of the picker (support, screenshots)
@@ -649,11 +655,14 @@ async function boot(force) {
 }
 for (const b of document.querySelectorAll('.mode')) b.addEventListener('click', () => setMode(b.dataset.mode));
 $('q').addEventListener('input', e => { S.q = e.target.value; drawGrid(); });
-$('sort').value = S.sort; $('sort').addEventListener('change', e => { S.sort = e.target.value; store.set('sort', S.sort); drawGrid(); });
-$('btnReset').addEventListener('click', () => { S.enemy = []; S.ally = []; S.bans = []; store.set('draft', { enemy: [], ally: [], bans: [] }); S.skipped = 0; drawPhase.last = -1; place.wasFull = false; setMode('enemy'); drawPhase(true); drawGrid(); drawSuggest(); drawDna(); });
+$('btnReset').addEventListener('click', () => { S.enemy = []; S.ally = []; S.bans = []; store.set('draft', { enemy: [], ally: [], bans: [] }); S.skipped = 0; drawPhase.last = -1; place.wasFull = false; S.rankPicked = false; clearFilters(); setMode('enemy'); drawPhase(true); drawGrid(); drawSuggest(); drawDna(); });
 $('sheet').querySelector('.sheetback').addEventListener('click', () => closeSheet());
 document.addEventListener('keydown', e => { if (e.key === 'Escape') { if (!$('sheet').hidden) closeSheet(); else closeAnalysis(); } });
 $('btnMenu').addEventListener('click', () => $('menu').showModal());
+// a one-panel explanation on the first visit; "How it works" in the settings shows it again
+$('btnHelp').addEventListener('click', () => { $('menu').close(); $('intro').showModal(); });
+$('intro').addEventListener('close', () => store.set('seenIntro', 1));
+if (!store.get('seenIntro', 0) && !/[#&](sheet|analysis|nointro)/.test(location.hash)) setTimeout(() => { try { $('intro').showModal(); } catch { } }, 300);
 $('lang').value = S.lang; $('lang').addEventListener('change', e => { S.lang = e.target.value; store.set('lang', S.lang); applyLang(); });
 $('rank').value = S.rank; $('rank').addEventListener('change', e => { S.rank = e.target.value; store.set('rank2', S.rank); S.vs.clear(); S.beside.clear(); boot(false); });
 $('days').value = String(S.days); $('days').addEventListener('change', e => { S.days = Number(e.target.value); store.set('days', S.days); S.vs.clear(); S.beside.clear(); boot(false); });

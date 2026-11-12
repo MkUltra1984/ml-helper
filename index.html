@@ -41,13 +41,6 @@
     <div class="chiprow"><div class="chips" id="laneChips"></div><span class="chipsep"></span><div class="chips" id="roleChips"></div></div>
     <div class="row">
       <input id="q" type="search" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Search hero">
-      <select id="sort" aria-label="Sort">
-        <option value="meta" data-t="sMeta">Meta picks</option>
-        <option value="pick" data-t="sPick">Most picked</option>
-        <option value="win" data-t="sWin">Win rate</option>
-        <option value="ban" data-t="sBan">Most banned</option>
-        <option value="name" data-t="sName">Name</option>
-      </select>
     </div>
   </div>
   <div id="grid" class="grid"></div>
@@ -59,8 +52,19 @@
   <label><span data-t="rank">Statistics from rank</span> <select id="rank"><option value="all">All</option><option value="epic">Epic</option><option value="legend">Legend</option><option value="mythic">Mythic</option><option value="honor">Mythical Honor</option><option value="glory">Mythical Glory</option></select></label>
   <label><span data-t="days">Time window</span> <select id="days"><option value="7">7</option><option value="15">15</option><option value="30">30</option></select></label>
   <button id="btnRefresh" data-t="refresh">Reload game data</button>
+  <button id="btnHelp" data-t="inHelp">How it works</button>
   <p class="faint" data-t="credit">Unofficial fan tool. Game data © Moonton (Mobile Legends: Bang Bang), read through the public API of RoneAI (arena.rone.dev). Not affiliated with or endorsed by Moonton. You enter the draft by hand; this page does not read or touch the game.</p>
   <form method="dialog"><button data-t="close">Close</button></form>
+</dialog>
+<dialog id="intro">
+  <h2 data-t="title">ML Helper</h2>
+  <p data-t="in0">Keep this page open beside the game during the draft.</p>
+  <ol>
+    <li data-t="in1">Tap what the enemy and your team pick.</li>
+    <li data-t="in2">See which heroes fit, and why.</li>
+    <li data-t="in3">Hold a hero for builds and counter items.</li>
+  </ol>
+  <form method="dialog"><button class="primary" data-t="inOk">Got it</button></form>
 </dialog>
 <div id="analysis" hidden><div class="anbody"></div></div>
 <div id="sheet" hidden><div class="sheetback"></div><div class="sheetbody" role="dialog" aria-modal="true"></div></div>

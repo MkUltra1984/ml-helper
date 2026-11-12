@@ -598,3 +598,18 @@ body[data-design="m2"] .chiprow { gap: 6px; }
 
 /* three modes: Enemy pick, Our pick, Ban */
 body[data-design="m2"] .modes { grid-template-columns: 1fr 1fr 0.6fr; }
+
+/* ---- phone fixes: nothing in the picker may be wider than the screen ---- */
+body[data-design="m2"] .filters, body[data-design="m2"] .filters > *, body[data-design="m2"] .filters .row { min-width: 0; max-width: 100%; }
+body[data-design="m2"] .filters .row { display: flex; }
+body[data-design="m2"] #q { width: 100%; }
+/* rank step at the start of a draft: three big buttons, alone */
+.rankstep { display: grid; gap: 10px; }
+.rankstep .rankbtn { height: clamp(58px, 11vh, 92px); font-size: 17px; letter-spacing: .08em; }
+@media (orientation: landscape) and (min-width: 700px) { .rankstep { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+/* first-visit panel */
+#intro h2 { font-family: "Bahnschrift Condensed", "Arial Narrow", Impact, sans-serif; text-transform: uppercase; letter-spacing: .08em; font-size: 22px; }
+#intro p { margin: 0 0 8px; color: var(--dim); }
+#intro ol { margin: 0 0 14px; padding-left: 22px; } #intro li { margin: 6px 0; font-size: 15.5px; }
+#intro .primary { width: 100%; height: 44px; background: var(--gold); border-color: var(--gold); color: #06101f; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+dialog { border-radius: 0; border: 2px solid var(--gold); }
