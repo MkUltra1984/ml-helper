@@ -575,3 +575,4 @@ body[data-design^="m"] .sug b { padding-bottom: 5px; border-bottom: 1px solid va
 body[data-design^="m"] .why { padding: 5px 0; }
 body[data-design^="m"] .why + .why { border-top: 1px solid var(--line); }
 body[data-design^="m"] .why:last-child { padding-bottom: 0; }
+.lnstat i { display: block; font-style: normal; font-size: 9.5px; color: var(--faint); margin-bottom: 1px; }

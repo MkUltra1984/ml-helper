@@ -16,12 +16,12 @@ const T = {
   en: { title: 'ML Helper', sMeta: 'Meta picks', reset: 'New draft', enemy: 'Enemy', ally: 'Your team', bans: 'Bans', suggest: 'Why this pick?', poolOnly: 'my heroes only', tagStrong: 'Counters', tagPairs: 'Combo', tagWeak: 'Careful', tagMeta: 'Meta pick',
     build: 'Build', builds: 'Core items players use', used: 'used by', emblem: 'Emblem', noBuild: 'No build data for this lane.', remove: 'Take out of the draft', sPickShort: 'Pick', sBanShort: 'Ban', tagWeakTo: 'Weak against',
     pro: 'Pro builds', proNote: 'Full builds from the newest pro games (MPL Indonesia, Philippines, Malaysia), newest first.', proNone: 'No full build for this hero in the newest pro games.', proFail: 'The pro games could not be loaded.', won: 'won', lost: 'lost',
-    dna: 'Draft DNA', dnaEarly: 'Early', dnaMid: 'Mid', dnaLate: 'Late', dnaOff: 'Damage', dnaCc: 'Control', dnaSus: 'Sustain', dnaYou: 'You', dnaThem: 'Enemy', dnaEven: 'Even', combo: 'Combo', banTitle: 'Worth banning', hurts: 'counters your', holdHint: 'Tap picks. Hold a hero for builds and matchups.',
+    dna: 'Draft DNA', dnaEarly: 'Short games', dnaMid: 'Mid-length', dnaLate: 'Long games', dnaOff: 'Damage', dnaCc: 'Control', dnaSus: 'Sustain', dnaYou: 'You', dnaThem: 'Enemy', dnaEven: 'Even', combo: 'Combo', banTitle: 'Worth banning', hurts: 'counters your', holdHint: 'Tap picks. Hold a hero for builds and matchups.',
     id_pick: ['Pick-off', 'Assassins hunt single targets. Avoid long fights.'], id_ftb: ['Front to back', 'A frontline protects the damage dealers in the back.'], id_dive: ['Dive', 'Everyone jumps the enemy backline together.'],
     id_poke: ['Poke & burst', 'Mages wear the enemy down before the fight starts.'], id_sustain: ['Sustain', 'Supports keep the team alive through long fights.'], id_team: ['Teamfight', 'Strongest when all five fight together.'],
-    mEnemy: 'Enemy pick', mAlly: 'Our pick', mBan: 'Ban', mFav: '★ My heroes', startLane: 'Lane', startRole: 'Role', startMine: 'My heroes', startHint: 'Tap a role or a lane, then the hero.', lnWr: 'win rate', lnEarly: 'early', lnLate: 'late', lnCounters: 'counters', lnEarlyEdge: 'is stronger early', lnLateEdge: 'scales better late', lnEven: 'Even matchup', analysis: 'Analysis', anTitle: 'Team composition & win conditions', anSpike: 'Team power by game length', anSpikeNote: 'Average win rate of the five heroes in games of that length (minutes).', anLanes: 'Lane matchups',
-    anLaneNote: 'Win projection per lane, an estimate from matchup statistics. Use ⇄ to move a hero to the next lane. Tap a hero for builds and counter items.', anWin: 'Core win conditions', anEst: 'All of this is calculated from public statistics and simple rules. Treat it as a hint, not a verdict.',
-    tEarly: 'Early game', tLate: 'Late game scaling', tEven: 'Steady all game', bEarly: 'Strongest in short games: press the lead and end before 16 minutes', bLate: 'Stronger the longer it goes: farm safely and stall', bEven: 'No clear timing edge: play around Turtle and Lord',
+    mEnemy: 'Enemy pick', mAlly: 'Our pick', mBan: 'Ban', mFav: '★ My heroes', startLane: 'Lane', startRole: 'Role', startMine: 'My heroes', startHint: 'Tap a role or a lane, then the hero.', lnWr: 'win rate', lnEarly: 'short', lnLate: 'long', lnCounters: 'counters', lnEarlyEdge: 'wins short games more often', lnLateEdge: 'wins long games more often', lnLaneEdge: 'has the better win rate on this lane', lnOnLane: 'on this lane', lnEven: 'Even matchup', analysis: 'Analysis', anTitle: 'Team composition & win conditions', anSpike: 'Team power by game length', anSpikeNote: 'Average win rate of the five heroes in games of that length (minutes).', anLanes: 'Lane matchups',
+    anLaneNote: 'Win projection per lane, an estimate: mostly the win rate of each hero on that lane, plus the counter lists of the game. "Short" and "long" are win rates in games of under 12 and over 20 minutes; they say how the games of a hero end, not who wins the laning phase. Use ⇄ to move a hero to the next lane. Tap a hero for builds and counter items.', anWin: 'Core win conditions', anEst: 'All of this is calculated from public statistics and simple rules. Treat it as a hint, not a verdict.',
+    tEarly: 'Wins short games', tLate: 'Wins long games', tEven: 'No timing edge', bEarly: 'Strongest in short games: press the lead and end before 16 minutes', bLate: 'Stronger the longer it goes: farm safely and stall', bEven: 'No clear timing edge: play around Turtle and Lord',
     wc_id_pick: ['Catch single heroes before fights start', 'Control the jungle paths', 'Avoid long front-to-back fights'], wc_id_ftb: ['Protect the damage dealer in the back', 'Fight at objectives, frontline first', 'Do not chase into their jungle'],
     wc_id_dive: ['Jump their backline together on one target', 'Force fights when key skills are ready', 'Do not split up before a dive'], wc_id_poke: ['Wear them down before objectives', 'Keep distance, do not get engaged on', 'Siege turrets from skill range'],
     wc_id_sustain: ['Take long fights and heal through the damage', 'Group as five around the carry', 'Trade objectives instead of risky picks'], wc_id_team: ['Group for Turtle and Lord fights', 'Combine area skills in one fight', 'Do not get caught alone'],
@@ -37,12 +37,12 @@ const T = {
   de: { title: 'ML Helper', sMeta: 'Meta-Picks', reset: 'Neuer Draft', enemy: 'Gegner', ally: 'Dein Team', bans: 'Bans', suggest: 'Warum dieser Pick?', poolOnly: 'nur meine Helden', tagStrong: 'Kontert', tagPairs: 'Kombo', tagWeak: 'Vorsicht', tagMeta: 'Meta-Pick',
     build: 'Build', builds: 'Kern-Items der Spieler', used: 'genutzt von', emblem: 'Emblem', noBuild: 'Keine Build-Daten für diese Lane.', remove: 'Aus dem Draft nehmen', sPickShort: 'Pick', sBanShort: 'Ban', tagWeakTo: 'Schwach gegen',
     pro: 'Profi-Builds', proNote: 'Volle Builds aus den neuesten Profi-Spielen (MPL Indonesia, Philippinen, Malaysia), neueste zuerst.', proNone: 'Kein voller Build für diesen Helden in den neuesten Profi-Spielen.', proFail: 'Die Profi-Spiele konnten nicht geladen werden.', won: 'gewonnen', lost: 'verloren',
-    dna: 'Draft-DNA', dnaEarly: 'Früh', dnaMid: 'Mitte', dnaLate: 'Spät', dnaOff: 'Schaden', dnaCc: 'Kontrolle', dnaSus: 'Standfestigkeit', dnaYou: 'Du', dnaThem: 'Gegner', dnaEven: 'Gleich', combo: 'Kombo', banTitle: 'Bannen lohnt sich', hurts: 'kontert deine', holdHint: 'Tippen wählt. Held gedrückt halten für Builds und Matchups.',
+    dna: 'Draft-DNA', dnaEarly: 'Kurze Spiele', dnaMid: 'Mittellange', dnaLate: 'Lange Spiele', dnaOff: 'Schaden', dnaCc: 'Kontrolle', dnaSus: 'Standfestigkeit', dnaYou: 'Du', dnaThem: 'Gegner', dnaEven: 'Gleich', combo: 'Kombo', banTitle: 'Bannen lohnt sich', hurts: 'kontert deine', holdHint: 'Tippen wählt. Held gedrückt halten für Builds und Matchups.',
     id_pick: ['Pick-off', 'Assassinen jagen einzelne Ziele. Lange Kämpfe meiden.'], id_ftb: ['Front to back', 'Eine Frontlinie schützt die Schadensverursacher dahinter.'], id_dive: ['Dive', 'Alle springen gemeinsam auf die gegnerische Backline.'],
     id_poke: ['Poke & Burst', 'Magier zermürben den Gegner, bevor der Kampf beginnt.'], id_sustain: ['Sustain', 'Supporter halten das Team in langen Kämpfen am Leben.'], id_team: ['Teamfight', 'Am stärksten, wenn alle fünf zusammen kämpfen.'],
-    mEnemy: 'Gegner-Pick', mAlly: 'Unser Pick', mBan: 'Ban', mFav: '★ Meine Helden', startLane: 'Lane', startRole: 'Rolle', startMine: 'Meine Helden', startHint: 'Rolle oder Lane antippen, dann den Helden.', lnWr: 'Siegrate', lnEarly: 'früh', lnLate: 'spät', lnCounters: 'kontert', lnEarlyEdge: 'ist früh stärker', lnLateEdge: 'skaliert spät besser', lnEven: 'Ausgeglichenes Matchup', analysis: 'Analyse', anTitle: 'Team-Aufstellung & Siegbedingungen', anSpike: 'Team-Stärke nach Spiellänge', anSpikeNote: 'Durchschnittliche Siegrate der fünf Helden in Spielen dieser Länge (Minuten).', anLanes: 'Lane-Matchups',
-    anLaneNote: 'Sieg-Prognose pro Lane, eine Schätzung aus Matchup-Statistiken. Mit ⇄ einen Helden auf die nächste Lane schieben. Held antippen für Builds und Konter-Items.', anWin: 'Siegbedingungen', anEst: 'Alles hier ist aus öffentlichen Statistiken und einfachen Regeln berechnet. Ein Hinweis, kein Urteil.',
-    tEarly: 'Early Game', tLate: 'Late-Game-Skalierung', tEven: 'Durchgehend stabil', bEarly: 'Am stärksten in kurzen Spielen: Vorsprung nutzen und vor Minute 16 beenden', bLate: 'Je länger, desto stärker: sicher farmen und verzögern', bEven: 'Kein klarer Zeitvorteil: um Turtle und Lord spielen',
+    mEnemy: 'Gegner-Pick', mAlly: 'Unser Pick', mBan: 'Ban', mFav: '★ Meine Helden', startLane: 'Lane', startRole: 'Rolle', startMine: 'Meine Helden', startHint: 'Rolle oder Lane antippen, dann den Helden.', lnWr: 'Siegrate', lnEarly: 'kurz', lnLate: 'lang', lnCounters: 'kontert', lnEarlyEdge: 'gewinnt kurze Spiele öfter', lnLateEdge: 'gewinnt lange Spiele öfter', lnLaneEdge: 'hat auf dieser Lane die bessere Siegrate', lnOnLane: 'auf dieser Lane', lnEven: 'Ausgeglichenes Matchup', analysis: 'Analyse', anTitle: 'Team-Aufstellung & Siegbedingungen', anSpike: 'Team-Stärke nach Spiellänge', anSpikeNote: 'Durchschnittliche Siegrate der fünf Helden in Spielen dieser Länge (Minuten).', anLanes: 'Lane-Matchups',
+    anLaneNote: 'Sieg-Prognose pro Lane, eine Schätzung: vor allem die Siegrate jedes Helden auf dieser Lane, dazu die Konter-Listen des Spiels. „Kurz“ und „lang“ sind Siegraten in Spielen unter 12 und über 20 Minuten; sie sagen, wie die Spiele eines Helden enden, nicht wer die Lane-Phase gewinnt. Mit ⇄ einen Helden auf die nächste Lane schieben. Held antippen für Builds und Konter-Items.', anWin: 'Siegbedingungen', anEst: 'Alles hier ist aus öffentlichen Statistiken und einfachen Regeln berechnet. Ein Hinweis, kein Urteil.',
+    tEarly: 'Gewinnt kurze Spiele', tLate: 'Gewinnt lange Spiele', tEven: 'Kein Zeitvorteil', bEarly: 'Am stärksten in kurzen Spielen: Vorsprung nutzen und vor Minute 16 beenden', bLate: 'Je länger, desto stärker: sicher farmen und verzögern', bEven: 'Kein klarer Zeitvorteil: um Turtle und Lord spielen',
     wc_id_pick: ['Einzelne Helden fangen, bevor Kämpfe beginnen', 'Die Jungle-Wege kontrollieren', 'Lange Front-to-back-Kämpfe meiden'], wc_id_ftb: ['Den Schadensverursacher hinten schützen', 'An Zielen kämpfen, Frontlinie zuerst', 'Nicht in ihren Jungle hinterherlaufen'],
     wc_id_dive: ['Gemeinsam auf ein Ziel in ihrer Backline springen', 'Kämpfe erzwingen, wenn die wichtigen Skills bereit sind', 'Vor einem Dive nicht aufteilen'], wc_id_poke: ['Vor Zielen zermürben', 'Abstand halten, sich nicht fangen lassen', 'Türme aus Skill-Reichweite belagern'],
     wc_id_sustain: ['Lange Kämpfe nehmen und den Schaden wegheilen', 'Zu fünft um den Carry gruppieren', 'Ziele tauschen statt riskanter Picks'], wc_id_team: ['Für Turtle- und Lord-Kämpfe gruppieren', 'Flächen-Skills in einem Kampf kombinieren', 'Nicht allein erwischen lassen'],
@@ -522,12 +522,17 @@ async function counterItems(x, d) {
 // condition" graphic of tournament streams:
 //   power by game length   /api/academy/heroes/<id>/win-rate/timeline?lane=   win rate in games of 10-12 ... 20+ minutes
 //   lane matchups          the heroes are put on the five lanes by their usual lanes (tap a lane name to move one);
-//                          the projection is 50% shifted by who wins more in short games on that lane (the
-//                          laning phase), the two win rates, the game's strong/weak lists and the matchup
-//                          statistics, kept between 30 and 70; each lane also says why
+//                          the projection is 50% shifted mostly by each hero's win rate ON THAT LANE (it differs a
+//                          lot: Selena wins 45% as roamer and 49% in mid at Mythical Glory), then the game's
+//                          strong/weak lists, the matchup statistics and a little of the short-game numbers,
+//                          kept between 30 and 70; each lane also says why.
+//   NOTE on the game-length numbers: they are the win rate in games that END at that length. That is not strength in
+//   the laning phase. A hero that takes turrets fast (Kimmy on gold: 58% under 12 minutes, 45% over 20) ends her wins
+//   early; a pick-off roamer (Selena: 42% under 12, 50% over 20) wins late. So they are named "short" and "long"
+//   games here and only nudge the lane projection.
 //   win conditions         the team type (teamIdentity) and whether the team is better early or late
-const AN = { lanes: { ally: {}, enemy: {} }, time: new Map() };
-{ const c = store.get('timelines', null); if (c && Date.now() - c.at < 24 * 3600 * 1000) for (const [k, v] of c.list) AN.time.set(k, v); }
+const AN = { lanes: { ally: {}, enemy: {} }, time: new Map(), total: new Map() };
+{ const c = store.get('timelines2', null); if (c && Date.now() - c.at < 24 * 3600 * 1000) for (const [k, v, tot] of c.list) { AN.time.set(k, v); if (tot) AN.total.set(k, tot); } }
 let timeSave = 0;
 function assignLanes(side) {
   const ids = S[side].slice(0, 5), fixed = AN.lanes[side]; let best = null, bestScore = -1;
@@ -543,18 +548,20 @@ async function loadTimeline(id, lane) {
   const key = `${id}.${lane}.${S.rank}`; if (AN.time.has(key)) return AN.time.get(key);
   let v = null;
   try { const recs = await api(`/academy/heroes/${id}/win-rate/timeline?lane=${lane}&rank=${S.rank}&lang=en`); const tw = arr(((recs[0] || {}).data || {}).time_win_rate);
-    if (tw.length >= 3) v = tw.map(b => ({ from: b.time_min, w: Number(b.win_rate) || 0 })); } catch (e) { console.warn('timeline', id, e.message); return null; }
+    if (tw.length >= 3) v = tw.map(b => ({ from: b.time_min, w: Number(b.win_rate) || 0 }));
+    const tot = Number(((recs[0] || {}).data || {}).total_win_rate) || 0; if (tot) AN.total.set(key, tot); } catch (e) { console.warn('timeline', id, e.message); return null; }
   AN.time.set(key, v);
-  clearTimeout(timeSave); timeSave = setTimeout(() => { const old = store.get('timelines', null); store.set('timelines', { at: old && Date.now() - old.at < 24 * 3600 * 1000 ? old.at : Date.now(), list: [...AN.time].filter(x => x[1]) }); }, 800);
+  clearTimeout(timeSave); timeSave = setTimeout(() => { const old = store.get('timelines2', null); store.set('timelines2', { at: old && Date.now() - old.at < 24 * 3600 * 1000 ? old.at : Date.now(), list: [...AN.time].filter(x => x[1]).map(([k, v]) => [k, v, AN.total.get(k) || 0]) }); }, 800);
   return v;
 }
 function laneInfo(a, e, lane) {   // our hero a against their hero e on one lane: chance in percent, numbers and reasons
   const tl = x => (x ? AN.time.get(`${x.id}.${lane}.${S.rank}`) : null);
-  const num = x => { if (!x) return null; const c = tl(x); return { wr: x.win * 100, early: c && c.length ? c[0].w * 100 : null, late: c && c.length ? c[c.length - 1].w * 100 : null }; };
+  const num = x => { if (!x) return null; const c = tl(x), lw = AN.total.get(`${x.id}.${lane}.${S.rank}`); return { wr: (lw || x.win) * 100, onLane: !!lw, early: c && c.length ? c[0].w * 100 : null, late: c && c.length ? c[c.length - 1].w * 100 : null }; };
   const na = num(a), ne = num(e); if (!a || !e) return { p: null, na, ne, why: [] };
-  const why = []; let p = 50 + (a.win - e.win) * 40;
-  if (na.early != null && ne.early != null) { const d = na.early - ne.early; p += d * 0.9; if (Math.abs(d) >= 1) why.push(`${(d > 0 ? a : e).name} ${t('lnEarlyEdge')}`); }
-  if (na.late != null && ne.late != null) { const d = na.late - ne.late; if (Math.abs(d) >= 1.5) why.push(`${(d > 0 ? a : e).name} ${t('lnLateEdge')}`); }
+  const why = []; let p = 50 + (na.wr - ne.wr) * 1.2;
+  if (Math.abs(na.wr - ne.wr) >= 1) why.push(`${(na.wr > ne.wr ? a : e).name} ${t('lnLaneEdge')}`);
+  if (na.early != null && ne.early != null) { const d = na.early - ne.early; p += d * 0.25; if (Math.abs(d) >= 2) why.push(`${(d > 0 ? a : e).name} ${t('lnEarlyEdge')}`); }
+  if (na.late != null && ne.late != null) { const d = na.late - ne.late; if (Math.abs(d) >= 2) why.push(`${(d > 0 ? a : e).name} ${t('lnLateEdge')}`); }
   if (a.strong.includes(e.id) || e.weak.includes(a.id)) { p += 5; why.unshift(`${a.name} ${t('lnCounters')} ${e.name}`); }
   if (a.weak.includes(e.id) || e.strong.includes(a.id)) { p -= 5; why.unshift(`${e.name} ${t('lnCounters')} ${a.name}`); }
   const live = S.vs.get(e.id); if (live) { if (live.good.has(a.id)) p += live.good.get(a.id) * 100; if (live.bad.has(a.id)) p += live.bad.get(a.id) * 100; }
@@ -568,7 +575,7 @@ async function openAnalysis() {
   const move = (side, lane) => { const map = side === 'ally' ? LA : LE, id = map[lane]; if (!id) return; const next = LANE_ORDER[(LANE_ORDER.indexOf(lane) + 1) % 5], other = map[next];
     AN.lanes[side] = { ...Object.fromEntries(Object.entries(map).map(([l, i]) => [i, l])), [id]: next }; if (other) AN.lanes[side][other] = lane; openAnalysis(); };
   const spec = id => { const d = D.detail.get(id); return d && d.spec.length ? d.spec[0] : ''; };
-  const stat = n => (n ? h('span', { class: 'lnstat' }, h('b', {}, `${n.wr.toFixed(1)}%`), n.early != null ? ` ${t('lnEarly')} ${n.early.toFixed(0)} · ${t('lnLate')} ${n.late.toFixed(0)}` : '') : null);
+  const stat = n => (n ? h('span', { class: 'lnstat' }, h('b', {}, `${n.wr.toFixed(1)}%`), n.onLane ? h('i', {}, t('lnOnLane')) : null, n.early != null ? ` ${t('lnEarly')} ${n.early.toFixed(0)} · ${t('lnLate')} ${n.late.toFixed(0)}` : '') : null);
   const laneRows = () => LANE_ORDER.map(l => { const a = S.heroes.get(LA[l]), e = S.heroes.get(LE[l]), r = laneInfo(a, e, l), p = r.p;
     return h('div', { class: 'anlane' }, h('div', { class: 'anlanehead' }, h('button', { class: 'lanebtn a', onclick: () => move('ally', l), 'aria-label': t(l) }, '⇄'),
         h('b', {}, S.icons.lanes[l] ? h('img', { src: S.icons.lanes[l], alt: '' }) : null, t(l)), h('button', { class: 'lanebtn e', onclick: () => move('enemy', l), 'aria-label': t(l) }, '⇄')),
