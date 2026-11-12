@@ -16,7 +16,7 @@ const T = {
   en: { title: 'ML Helper', sMeta: 'Meta picks', reset: 'New draft', enemy: 'Enemy', ally: 'Your team', bans: 'Bans', suggest: 'Why this pick?', poolOnly: 'my heroes only', tagStrong: 'Counters', tagPairs: 'Combo', tagWeak: 'Careful', tagMeta: 'Meta pick',
     build: 'Build', builds: 'Core items players use', used: 'used by', emblem: 'Emblem', noBuild: 'No build data for this lane.', remove: 'Take out of the draft', sPickShort: 'Pick', sBanShort: 'Ban', tagWeakTo: 'Weak against',
     pro: 'Pro builds', proNote: 'Full builds from the newest pro games (MPL Indonesia, Philippines, Malaysia), newest first.', proNone: 'No full build for this hero in the newest pro games.', proFail: 'The pro games could not be loaded.', won: 'won', lost: 'lost',
-    dna: 'Draft DNA', dnaEarly: 'Early', dnaMid: 'Mid', dnaLate: 'Late', dnaOff: 'Damage', dnaCc: 'Crowd control', dnaSus: 'Sustain', combo: 'Combo', banTitle: 'Worth banning', hurts: 'counters your', holdHint: 'Tap picks. Hold a hero for builds and matchups.',
+    dna: 'Draft DNA', dnaEarly: 'Early', dnaMid: 'Mid', dnaLate: 'Late', dnaOff: 'Damage', dnaCc: 'Control', dnaSus: 'Sustain', dnaYou: 'You', dnaThem: 'Enemy', dnaEven: 'Even', combo: 'Combo', banTitle: 'Worth banning', hurts: 'counters your', holdHint: 'Tap picks. Hold a hero for builds and matchups.',
     id_pick: ['Pick-off', 'Assassins hunt single targets. Avoid long fights.'], id_ftb: ['Front to back', 'A frontline protects the damage dealers in the back.'], id_dive: ['Dive', 'Everyone jumps the enemy backline together.'],
     id_poke: ['Poke & burst', 'Mages wear the enemy down before the fight starts.'], id_sustain: ['Sustain', 'Supports keep the team alive through long fights.'], id_team: ['Teamfight', 'Strongest when all five fight together.'],
     mEnemy: 'Enemy pick', mAlly: 'Our pick', mBan: 'Ban', mFav: '★ My heroes', startLane: 'Lane', startRole: 'Role', startMine: 'My heroes', startHint: 'Tap a role or a lane, then the hero.', lnWr: 'win rate', lnEarly: 'early', lnLate: 'late', lnCounters: 'counters', lnEarlyEdge: 'is stronger early', lnLateEdge: 'scales better late', lnEven: 'Even matchup', analysis: 'Analysis', anTitle: 'Team composition & win conditions', anSpike: 'Team power by game length', anSpikeNote: 'Average win rate of the five heroes in games of that length (minutes).', anLanes: 'Lane matchups',
@@ -37,7 +37,7 @@ const T = {
   de: { title: 'ML Helper', sMeta: 'Meta-Picks', reset: 'Neuer Draft', enemy: 'Gegner', ally: 'Dein Team', bans: 'Bans', suggest: 'Warum dieser Pick?', poolOnly: 'nur meine Helden', tagStrong: 'Kontert', tagPairs: 'Kombo', tagWeak: 'Vorsicht', tagMeta: 'Meta-Pick',
     build: 'Build', builds: 'Kern-Items der Spieler', used: 'genutzt von', emblem: 'Emblem', noBuild: 'Keine Build-Daten für diese Lane.', remove: 'Aus dem Draft nehmen', sPickShort: 'Pick', sBanShort: 'Ban', tagWeakTo: 'Schwach gegen',
     pro: 'Profi-Builds', proNote: 'Volle Builds aus den neuesten Profi-Spielen (MPL Indonesia, Philippinen, Malaysia), neueste zuerst.', proNone: 'Kein voller Build für diesen Helden in den neuesten Profi-Spielen.', proFail: 'Die Profi-Spiele konnten nicht geladen werden.', won: 'gewonnen', lost: 'verloren',
-    dna: 'Draft-DNA', dnaEarly: 'Früh', dnaMid: 'Mitte', dnaLate: 'Spät', dnaOff: 'Schaden', dnaCc: 'Kontrolle', dnaSus: 'Standfestigkeit', combo: 'Kombo', banTitle: 'Bannen lohnt sich', hurts: 'kontert deine', holdHint: 'Tippen wählt. Held gedrückt halten für Builds und Matchups.',
+    dna: 'Draft-DNA', dnaEarly: 'Früh', dnaMid: 'Mitte', dnaLate: 'Spät', dnaOff: 'Schaden', dnaCc: 'Kontrolle', dnaSus: 'Standfestigkeit', dnaYou: 'Du', dnaThem: 'Gegner', dnaEven: 'Gleich', combo: 'Kombo', banTitle: 'Bannen lohnt sich', hurts: 'kontert deine', holdHint: 'Tippen wählt. Held gedrückt halten für Builds und Matchups.',
     id_pick: ['Pick-off', 'Assassinen jagen einzelne Ziele. Lange Kämpfe meiden.'], id_ftb: ['Front to back', 'Eine Frontlinie schützt die Schadensverursacher dahinter.'], id_dive: ['Dive', 'Alle springen gemeinsam auf die gegnerische Backline.'],
     id_poke: ['Poke & Burst', 'Magier zermürben den Gegner, bevor der Kampf beginnt.'], id_sustain: ['Sustain', 'Supporter halten das Team in langen Kämpfen am Leben.'], id_team: ['Teamfight', 'Am stärksten, wenn alle fünf zusammen kämpfen.'],
     mEnemy: 'Gegner-Pick', mAlly: 'Unser Pick', mBan: 'Ban', mFav: '★ Meine Helden', startLane: 'Lane', startRole: 'Rolle', startMine: 'Meine Helden', startHint: 'Rolle oder Lane antippen, dann den Helden.', lnWr: 'Siegrate', lnEarly: 'früh', lnLate: 'spät', lnCounters: 'kontert', lnEarlyEdge: 'ist früh stärker', lnLateEdge: 'skaliert spät besser', lnEven: 'Ausgeglichenes Matchup', analysis: 'Analyse', anTitle: 'Team-Aufstellung & Siegbedingungen', anSpike: 'Team-Stärke nach Spiellänge', anSpikeNote: 'Durchschnittliche Siegrate der fünf Helden in Spielen dieser Länge (Minuten).', anLanes: 'Lane-Matchups',
@@ -314,7 +314,8 @@ function drawGrid() {
     const mine = [...S.favs].map(i => S.heroes.get(i)).filter(Boolean).sort((a, b) => b.pick - a.pick);
     grid.replaceChildren(h('p', { class: 'faint starthint' }, t('startHint')),
       h('div', { class: 'bigrow roles' }, ROLES.map(k => big(S.roles, k, S.icons.roles))), h('div', { class: 'bigrow lanes' }, LANES.map(k => big(S.lanes, k, S.icons.lanes))),
-      ...(mine.length ? [h('div', { class: 'startlabel' }, t('startMine')), h('div', { class: 'minegrid' }, mine.map(tileOf))] : []));
+      ...(mine.length ? [h('div', { class: 'startlabel' }, t('startMine')), h('div', { class: 'minegrid' }, mine.map(tileOf))] : []),
+      h('div', { class: 'startlabel' }, t('sMeta')), h('div', { class: 'minegrid' }, [...S.heroes.values()].filter(x => !used.has(x.id) && !S.favs.has(x.id)).sort((a, b) => (b.pick + b.ban) * (0.5 + b.win) - (a.pick + a.ban) * (0.5 + a.win)).slice(0, 21).map(tileOf)));
     return;
   }
   // meta = how often a hero is in the draft at all (picked or banned), lifted a little by its win rate
@@ -465,6 +466,9 @@ function holdToOpen(el, id) {
 //   Damage               average of the game's own offense rating (0 to 10)
 //   Crowd control        how many of the picks carry a control tag (Crowd Control, Control, Initiator)
 //   Sustain              average durability rating, lifted by half a point per hero with a Regen or Guard tag
+// Shown as a tug of war: the bar grows from the middle towards the team that is ahead, with "You +1.4" or "Even"
+// beside it. Win rates always sit close to 50%, so the raw numbers look alike; what matters is the gap, and a gap of
+// two points in average win rate is a lot. A full bar means 4 points of win rate, 2.5 rating points or 3 heroes.
 // Estimates to compare two drafts, not the numbers shown on a stream.
 function drawDna() {
   const box = $('dna'); if (!box) return;
@@ -473,7 +477,7 @@ function drawDna() {
   const timeOf = (list, bucket) => { const v = list.map(id => { const x = S.heroes.get(id), tl = x && AN.time.get(`${id}.${x.lanes[0] || 'mid'}.${S.rank}`); return tl && tl.length ? tl[Math.min(bucket, tl.length - 1)].w * 100 : null; }).filter(n => n != null);
     return v.length ? v.reduce((a, b) => a + b, 0) / v.length : null; };
   const sustain = list => { const a = avg(list, 0); return a == null ? null : Math.min(10, a + 0.5 * tagged(list, ['Regen', 'Guard'])); };
-  const both = (k, fa, fe, width, fmt) => ({ label: t(k), a: fa, e: fe, width, fmt });
+  const both = (k, fa, fe, width, fmt) => ({ k, label: t(k), a: fa, e: fe, width, fmt });
   const pctW = v => Math.max(4, Math.min(100, (v - 44) * 100 / 12)), tenW = v => v * 10, fiveW = v => v * 20, f1 = v => v.toFixed(1), f0 = v => String(v);
   const rows = [both('dnaEarly', timeOf(S.ally, 0), timeOf(S.enemy, 0), pctW, f1), both('dnaMid', timeOf(S.ally, 2), timeOf(S.enemy, 2), pctW, f1), both('dnaLate', timeOf(S.ally, 5), timeOf(S.enemy, 5), pctW, f1),
     both('dnaOff', avg(S.ally, 1), avg(S.enemy, 1), tenW, f1), both('dnaCc', det(S.ally).length ? tagged(S.ally, ['Crowd Control', 'Control', 'Initiator']) : null, det(S.enemy).length ? tagged(S.enemy, ['Crowd Control', 'Control', 'Initiator']) : null, fiveW, f0),
@@ -490,8 +494,10 @@ function drawDna() {
   box.hidden = false;
   const comboEl = (c, cls) => (c ? h('span', { class: 'combo ' + cls }, h('em', {}, t('combo')), h('img', { src: c.a.img, alt: '' }), h('img', { src: c.b.img, alt: '' }), `${c.a.name} + ${c.b.name}`) : h('span', {}));
   box.replaceChildren(h('div', { class: 'dnatitle' }, t('dna')),
-    ...rows.map(r => h('div', { class: 'dnarow' }, h('b', { class: r.a > r.e ? 'lead' : '' }, r.fmt(r.a)), h('div', { class: 'dnabar a' }, h('i', { style: `width:${r.width(r.a)}%` })), h('span', {}, r.label),
-      h('div', { class: 'dnabar e' }, h('i', { style: `width:${r.width(r.e)}%` })), h('b', { class: r.e > r.a ? 'lead' : '' }, r.fmt(r.e)))),
+    ...rows.map(r => { const full = /Early|Mid|Late/.test(r.k) ? 4 : r.k === 'dnaCc' ? 3 : 2.5, even = /Early|Mid|Late/.test(r.k) ? 0.6 : r.k === 'dnaCc' ? 0.5 : 0.4;
+      const d = r.a - r.e, lead = Math.abs(d) < even ? '' : d > 0 ? 'a' : 'e', w = lead ? Math.max(8, Math.min(100, Math.abs(d) / full * 100)) : 0;
+      return h('div', { class: 'dnarow tug', title: `${r.fmt(r.a)} : ${r.fmt(r.e)}` }, h('span', {}, r.label), h('b', { class: lead }, lead ? `${t(lead === 'a' ? 'dnaYou' : 'dnaThem')} +${Math.abs(d).toFixed(r.k === 'dnaCc' ? 0 : 1)}` : t('dnaEven')),
+        h('div', { class: 'tugbar' }, h('div', { class: 'half a' }, h('i', { style: `width:${lead === 'a' ? w : 0}%` })), h('div', { class: 'half e' }, h('i', { style: `width:${lead === 'e' ? w : 0}%` })))); }),
     ...(ca || ce ? [h('div', { class: 'combos' }, comboEl(ca, 'a'), comboEl(ce, 'e'))] : []));
 }
 
