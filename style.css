@@ -438,6 +438,30 @@ dialog .primary { width: 100%; height: 48px; margin: 0; background: var(--accent
   .anbar { height: 44px; } .anback { height: 36px; }
 }
 
+/* numbered review 1 and 2: the title stays on one line, no statistics note under it; the team comparison must fit small phones */
+#dataNote { display: none; }
+.brand b { white-space: nowrap; }
+@media (max-width: 430px) { .brand b { font-size: 16px; letter-spacing: .05em; } #top { gap: 6px; } #btnReset { padding: 0 8px; font-size: 12px; } #btnUndo, #btnMenu { width: 36px; } }
+@media (orientation: portrait), (max-width: 699px) {
+  /* two columns of compact rows (label and lead above the bar) instead of six long rows; scrolls only if a phone is very short */
+  body:has(#picker.start) #dna { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-content: start; gap: 8px 14px; padding: 8px var(--pad); overflow-y: auto; }
+  body:has(#picker.start) .dnatitle { grid-column: 1 / -1; }
+  body:has(#picker.start) .dnarow { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "l v" "b b"; gap: 3px 6px; align-items: baseline; }
+  body:has(#picker.start) .dnarow > span, body:has(#picker.start) .dnarow > b { font-size: 12px; }
+  body:has(#picker.start) .tugbar { height: 8px; }
+  body:has(#picker.start) .combos { grid-column: 1 / -1; }
+}
+@media (orientation: portrait) and (max-height: 760px) { .bigrow.step1 { grid-auto-rows: 76px; } .bigbtn img { width: 38px; height: 38px; } .bigbtn { gap: 4px; } .starthint { display: none; } }
+
+/* top bar: title and the three buttons sit on one optical centre line (capitals of the condensed face ride high, so the title is nudged down) */
+#top { align-items: center; }
+.brand { flex-direction: row; align-items: center; height: 100%; line-height: 1; }
+.brand b { display: block; line-height: 1; padding-top: 2px; }
+.ghost { display: inline-flex; align-items: center; justify-content: center; line-height: 1; padding-top: 1px; }
+#btnUndo, #btnMenu { font-size: 17px; padding: 0; }
+
+#btnUndo, #btnMenu { padding: 0; } #btnUndo svg, #btnMenu svg { display: block; }
+
 /* ---- motion: short, never looping during a draft; off when the device asks for reduced motion ---- */
 @media (prefers-reduced-motion: no-preference) {
   @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
