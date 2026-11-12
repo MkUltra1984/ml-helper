@@ -19,7 +19,7 @@ const T = {
     dna: 'Draft DNA', dnaDur: 'Durability', dnaOff: 'Damage', dnaCtl: 'Skill effects', combo: 'Combo', banTitle: 'Worth banning', hurts: 'counters your', holdHint: 'Tap picks. Hold a hero for builds and matchups.',
     id_pick: ['Pick-off', 'Assassins hunt single targets. Avoid long fights.'], id_ftb: ['Front to back', 'A frontline protects the damage dealers in the back.'], id_dive: ['Dive', 'Everyone jumps the enemy backline together.'],
     id_poke: ['Poke & burst', 'Mages wear the enemy down before the fight starts.'], id_sustain: ['Sustain', 'Supports keep the team alive through long fights.'], id_team: ['Teamfight', 'Strongest when all five fight together.'],
-    mEnemy: 'Enemy pick', mAlly: 'Our pick', mBan: 'Ban', mFav: '★ My heroes', analysis: 'Analysis', anTitle: 'Team composition & win conditions', anSpike: 'Team power by game length', anSpikeNote: 'Average win rate of the five heroes in games of that length (minutes).', anLanes: 'Lane matchups',
+    mEnemy: 'Enemy pick', mAlly: 'Our pick', mBan: 'Ban', mFav: '★ My heroes', startLane: 'Lane', startRole: 'Role', startMine: 'My heroes', startHint: 'Tap a lane or a role, then the hero.', analysis: 'Analysis', anTitle: 'Team composition & win conditions', anSpike: 'Team power by game length', anSpikeNote: 'Average win rate of the five heroes in games of that length (minutes).', anLanes: 'Lane matchups',
     anLaneNote: 'Win projection per lane, an estimate from matchup statistics. Use ⇄ to move a hero to the next lane. Tap a hero for builds and counter items.', anWin: 'Core win conditions', anEst: 'All of this is calculated from public statistics and simple rules. Treat it as a hint, not a verdict.',
     tEarly: 'Early game', tLate: 'Late game scaling', tEven: 'Steady all game', bEarly: 'Strongest in short games: press the lead and end before 16 minutes', bLate: 'Stronger the longer it goes: farm safely and stall', bEven: 'No clear timing edge: play around Turtle and Lord',
     wc_id_pick: ['Catch single heroes before fights start', 'Control the jungle paths', 'Avoid long front-to-back fights'], wc_id_ftb: ['Protect the damage dealer in the back', 'Fight at objectives, frontline first', 'Do not chase into their jungle'],
@@ -40,7 +40,7 @@ const T = {
     dna: 'Draft-DNA', dnaDur: 'Standfestigkeit', dnaOff: 'Schaden', dnaCtl: 'Fähigkeiten', combo: 'Kombo', banTitle: 'Bannen lohnt sich', hurts: 'kontert deine', holdHint: 'Tippen wählt. Held gedrückt halten für Builds und Matchups.',
     id_pick: ['Pick-off', 'Assassinen jagen einzelne Ziele. Lange Kämpfe meiden.'], id_ftb: ['Front to back', 'Eine Frontlinie schützt die Schadensverursacher dahinter.'], id_dive: ['Dive', 'Alle springen gemeinsam auf die gegnerische Backline.'],
     id_poke: ['Poke & Burst', 'Magier zermürben den Gegner, bevor der Kampf beginnt.'], id_sustain: ['Sustain', 'Supporter halten das Team in langen Kämpfen am Leben.'], id_team: ['Teamfight', 'Am stärksten, wenn alle fünf zusammen kämpfen.'],
-    mEnemy: 'Gegner-Pick', mAlly: 'Unser Pick', mBan: 'Ban', mFav: '★ Meine Helden', analysis: 'Analyse', anTitle: 'Team-Aufstellung & Siegbedingungen', anSpike: 'Team-Stärke nach Spiellänge', anSpikeNote: 'Durchschnittliche Siegrate der fünf Helden in Spielen dieser Länge (Minuten).', anLanes: 'Lane-Matchups',
+    mEnemy: 'Gegner-Pick', mAlly: 'Unser Pick', mBan: 'Ban', mFav: '★ Meine Helden', startLane: 'Lane', startRole: 'Rolle', startMine: 'Meine Helden', startHint: 'Lane oder Rolle antippen, dann den Helden.', analysis: 'Analyse', anTitle: 'Team-Aufstellung & Siegbedingungen', anSpike: 'Team-Stärke nach Spiellänge', anSpikeNote: 'Durchschnittliche Siegrate der fünf Helden in Spielen dieser Länge (Minuten).', anLanes: 'Lane-Matchups',
     anLaneNote: 'Sieg-Prognose pro Lane, eine Schätzung aus Matchup-Statistiken. Mit ⇄ einen Helden auf die nächste Lane schieben. Held antippen für Builds und Konter-Items.', anWin: 'Siegbedingungen', anEst: 'Alles hier ist aus öffentlichen Statistiken und einfachen Regeln berechnet. Ein Hinweis, kein Urteil.',
     tEarly: 'Early Game', tLate: 'Late-Game-Skalierung', tEven: 'Durchgehend stabil', bEarly: 'Am stärksten in kurzen Spielen: Vorsprung nutzen und vor Minute 16 beenden', bLate: 'Je länger, desto stärker: sicher farmen und verzögern', bEven: 'Kein klarer Zeitvorteil: um Turtle und Lord spielen',
     wc_id_pick: ['Einzelne Helden fangen, bevor Kämpfe beginnen', 'Die Jungle-Wege kontrollieren', 'Lange Front-to-back-Kämpfe meiden'], wc_id_ftb: ['Den Schadensverursacher hinten schützen', 'An Zielen kämpfen, Frontlinie zuerst', 'Nicht in ihren Jungle hinterherlaufen'],
@@ -195,11 +195,11 @@ function drawSuggest() {
 }
 
 // ---- board -----------------------------------------------------------------------------------------------------
-const SIDES = { enemy: { list: () => S.enemy, max: 5, el: 'slotsEnemy' }, ally: { list: () => S.ally, max: 5, el: 'slotsAlly' } };
+const SIDES = { ban: { list: () => S.bans, max: 10, el: 'slotsBan' }, enemy: { list: () => S.enemy, max: 5, el: 'slotsEnemy' }, ally: { list: () => S.ally, max: 5, el: 'slotsAlly' } };
 // The order of a draft. Ranked: all bans, then all picks. Tournament: 3 bans each, 3 picks each, 2 bans each, 2 picks
 // each. Bans are one list (who banned what does not matter here). The page follows the order by itself: it switches to
 // Ban or to picking when a step is full; you can always tap another mode, and skip bans nobody used.
-const FORMATS = { ranked: [['pick', 10]] };   // bans are not tracked (the owner's choice); the ban code below stays unused
+const FORMATS = { ranked: [['pick', 10]] };   // only the picks are counted: bans are optional (Ban mode), there is no ban phase
 function phase() {
   let cb = 0, cp = 0; const steps = FORMATS[S.format] || FORMATS.ranked, picks = S.enemy.length + S.ally.length;
   for (let i = 0; i < steps.length; i++) { const [kind, n] = steps[i];
@@ -226,7 +226,8 @@ function place(id, mode) {
     list.push(id);
     if (mode === 'enemy') loadRelation('counters', id);
     if (mode === 'ally') loadRelation('compatibility', id);
-    loadDetail(id);
+    if (mode !== 'ban') loadDetail(id);
+    clearFilters();
   }
   store.set('draft', { enemy: S.enemy, ally: S.ally, bans: S.bans });
   const full = S.enemy.length === 5 && S.ally.length === 5;
@@ -251,7 +252,8 @@ function drawBoard() {
   for (const [el, list] of [['identEnemy', S.enemy], ['identAlly', S.ally]]) { const k = teamIdentity(list), box = $(el); box.textContent = k ? t(k)[0] : ''; box.title = k ? t(k)[1] : ''; }
   for (const [mode, side] of Object.entries(SIDES)) {
     const list = side.list(), kids = [];
-    for (let i = 0; i < side.max; i++) {
+    if (mode === 'ban') $('banSide').hidden = !list.length;   // the ban row only shows once something is banned
+    for (let i = 0; i < (mode === 'ban' ? list.length : side.max); i++) {
       const x = S.heroes.get(list[i]);
       kids.push(x ? h('button', { class: 'slot filled', title: x.name, onclick: () => openSheet(x.id) }, h('img', { src: x.img, alt: x.name }), h('span', {}, x.name))
         : h('button', { class: 'slot' + (S.mode === mode && i === list.length ? ' next' : ''), onclick: () => setMode(mode) }, ''));
@@ -264,15 +266,20 @@ function setMode(mode) {
   for (const b of document.querySelectorAll('.mode')) b.classList.toggle('on', b.dataset.mode === mode);
   document.body.dataset.mode = mode;
   if (mode === 'fav') toast(t('favHint'));
-  drawBoard(); drawSuggest();
+  drawBoard(); drawGrid(); drawSuggest();
 }
 
 // ---- hero grid -------------------------------------------------------------------------------------------------
+// Filters are built for speed: one lane and one role at a time (a tap switches, a tap on the active one clears), and
+// after every pick they clear by themselves. With no filter and no search the list shows big lane and role buttons
+// and your own heroes instead of all 130 heroes, so a pick is two or three taps without scrolling.
+function pickFilter(set, key) { const on = set.has(key); set.clear(); if (!on) set.add(key); drawChips(); drawGrid(); drawSuggest(); }
+function clearFilters() { S.lanes.clear(); S.roles.clear(); S.q = ''; $('q').value = ''; drawChips(); }
 function drawChips() {
   // a symbol per lane and role instead of the word (the word stays as tooltip and for screen readers)
   const chip = (set, key) => { const icon = S.icons.lanes[key] || S.icons.roles[key];
     return h('button', { class: 'chip' + (icon ? ' sym' : '') + (set.has(key) ? ' on' : ''), title: t(key), 'aria-label': t(key), 'aria-pressed': String(set.has(key)),
-      onclick: () => { if (set.has(key)) set.delete(key); else set.add(key); drawChips(); drawGrid(); drawSuggest(); } }, icon ? h('img', { src: icon, alt: '' }) : t(key)); };
+      onclick: () => pickFilter(set, key) }, icon ? h('img', { src: icon, alt: '' }) : t(key)); };
   $('laneChips').replaceChildren(...LANES.map(k => chip(S.lanes, k)));
   $('roleChips').replaceChildren(...ROLES.map(k => chip(S.roles, k)));
 }
@@ -280,19 +287,28 @@ function drawGrid() {
   const grid = $('grid');
   if (!S.ready) { grid.replaceChildren(h('p', { class: 'faint' }, t(S.failed ? 'failed' : 'loading'))); return; }
   const q = S.q.trim().toLowerCase(), used = taken();
+  const start = !q && !S.lanes.size && !S.roles.size && S.mode !== 'fav';
+  const whereOf = id => (S.enemy.includes(id) ? 'enemy' : S.ally.includes(id) ? 'ally' : S.bans.includes(id) ? 'ban' : '');
+  grid.classList.toggle('start', start); $('picker').classList.toggle('start', start);
+  const tileOf = x => { const where = whereOf(x.id);
+    const tile = h('button', { class: `hero ${where}${S.favs.has(x.id) ? ' fav' : ''}`, title: used.has(x.id) ? `${x.name} · ${t('taken')}` : x.name, onclick: () => place(x.id, S.mode) },
+      h('img', { src: x.img, alt: '', loading: 'lazy', draggable: 'false' }), h('span', { class: 'n' }, x.name), h('span', { class: 'w' }, `${(x.win * 100).toFixed(0)}%`), S.favs.has(x.id) ? h('span', { class: 'star' }, '★') : null);
+    holdToOpen(tile, x.id); return tile; };
+  if (start) {
+    const big = (set, key, icons) => h('button', { class: 'bigbtn', onclick: () => pickFilter(set, key) }, icons[key] ? h('img', { src: icons[key], alt: '' }) : null, h('span', {}, t(key)));
+    const mine = [...S.favs].map(i => S.heroes.get(i)).filter(Boolean).sort((a, b) => b.pick - a.pick);
+    grid.replaceChildren(h('p', { class: 'faint starthint' }, t('startHint')),
+      h('div', { class: 'bigrow lanes' }, LANES.map(k => big(S.lanes, k, S.icons.lanes))), h('div', { class: 'bigrow roles' }, ROLES.map(k => big(S.roles, k, S.icons.roles))),
+      ...(mine.length ? [h('div', { class: 'startlabel' }, t('startMine')), h('div', { class: 'minegrid' }, mine.map(tileOf))] : []));
+    return;
+  }
   // meta = how often a hero is in the draft at all (picked or banned), lifted a little by its win rate
   const meta = x => (x.pick + x.ban) * (0.5 + x.win);
   const by = { meta: (a, b) => meta(b) - meta(a), pick: (a, b) => b.pick - a.pick, win: (a, b) => b.win - a.win, ban: (a, b) => b.ban - a.ban, name: (a, b) => a.name.localeCompare(b.name) }[S.sort];
   const list = [...S.heroes.values()].filter(x => passesFilter(x) && (!q || x.name.toLowerCase().includes(q)))
     .sort((a, b) => (S.favs.has(b.id) ? 1 : 0) - (S.favs.has(a.id) ? 1 : 0) || by(a, b) || a.name.localeCompare(b.name));
   if (!list.length) { grid.replaceChildren(h('p', { class: 'faint' }, t('none'))); return; }
-  grid.replaceChildren(...list.map(x => {
-    const where = S.enemy.includes(x.id) ? 'enemy' : S.ally.includes(x.id) ? 'ally' : S.bans.includes(x.id) ? 'ban' : '';
-    const tile = h('button', { class: `hero ${where}${S.favs.has(x.id) ? ' fav' : ''}`, title: used.has(x.id) ? `${x.name} · ${t('taken')}` : x.name, onclick: () => place(x.id, S.mode) },
-      h('img', { src: x.img, alt: '', loading: 'lazy', draggable: 'false' }), h('span', { class: 'n' }, x.name), h('span', { class: 'w' }, `${(x.win * 100).toFixed(0)}%`), S.favs.has(x.id) ? h('span', { class: 'star' }, '★') : null);
-    holdToOpen(tile, x.id);
-    return tile;
-  }));
+  grid.replaceChildren(...list.map(tileOf));
 }
 
 // ---- hero details, builds, draft DNA -------------------------------------------------------------------------
@@ -390,7 +406,8 @@ async function openSheet(id) {
       h('div', { class: 'srates' }, h('span', {}, `${t('meta')} `, h('b', {}, pct(x.win))), h('span', {}, `${t('sPickShort')} `, h('b', {}, pct(x.pick))), h('span', {}, `${t('sBanShort')} `, h('b', {}, pct(x.ban))))),
     h('button', { class: 'sclose', 'aria-label': t('close'), onclick: closeSheet }, '✕'));
   const acts = h('div', { class: 'sacts' }, where ? h('button', { class: 'act remove', onclick: () => { place(id, where); closeSheet(); } }, t('remove'))
-    : [h('button', { class: 'act ally', onclick: () => { place(id, 'ally'); closeSheet(); } }, t('mAlly')), h('button', { class: 'act enemy', onclick: () => { place(id, 'enemy'); closeSheet(); } }, t('mEnemy'))]);
+    : [h('button', { class: 'act ally', onclick: () => { place(id, 'ally'); closeSheet(); } }, t('mAlly')), h('button', { class: 'act enemy', onclick: () => { place(id, 'enemy'); closeSheet(); } }, t('mEnemy')),
+      h('button', { class: 'act ban', onclick: () => { place(id, 'ban'); closeSheet(); } }, t('mBan'))]);
   const rel = (key, label, cls) => (x[key].length ? h('div', { class: 'srel ' + cls }, h('em', {}, label), minis(x[key]), h('p', { class: 'faint', 'data-desc': key })) : null);
   const body = el.querySelector('.sheetbody');
   const proBox = h('div', { class: 'builds' }, h('p', { class: 'faint' }, t('loading')));
@@ -554,9 +571,10 @@ async function boot(force) {
   // a draft in the address (#d=enemy ids/ally ids/ban ids, e.g. #d=30,88/45/132) wins over the one kept in the browser
   const m = /^#d=([\d,]*)\/([\d,]*)\/?([\d,]*)/.exec(location.hash), nums = s => s.split(',').map(Number).filter(Boolean);
   const d = m ? { enemy: nums(m[1]), ally: nums(m[2]), bans: nums(m[3]) } : store.get('draft', null);
-  if (S.ready && d && !boot.restored) { boot.restored = true; for (const k of ['enemy', 'ally']) S[k] = (d[k] || []).filter(i => S.heroes.has(i)).slice(0, 5); S.bans = []; S.enemy.forEach(i => loadRelation('counters', i)); S.ally.forEach(i => loadRelation('compatibility', i)); [...S.enemy, ...S.ally].forEach(loadDetail); }
+  if (S.ready && d && !boot.restored) { boot.restored = true; for (const k of ['enemy', 'ally']) S[k] = (d[k] || []).filter(i => S.heroes.has(i)).slice(0, 5); S.bans = (d.bans || []).filter(i => S.heroes.has(i)).slice(0, 10); S.enemy.forEach(i => loadRelation('counters', i)); S.ally.forEach(i => loadRelation('compatibility', i)); [...S.enemy, ...S.ally].forEach(loadDetail); }
   drawPhase.last = -1; const ph = phase(); setMode(ph.kind === 'ban' ? 'ban' : 'enemy'); drawPhase.last = ph.i;
   applyLang(); drawBoard(); drawDna();
+  const fm = /[#&]lane=(\w+)/.exec(location.hash); if (S.ready && fm && !boot.fl) { boot.fl = true; S.lanes.add(fm[1]); drawChips(); drawGrid(); }   // #...&lane=<lane> presets a lane filter (support, screenshots)
   if (S.ready && /[#&]analysis/.test(location.hash) && !boot.an) { boot.an = true; setTimeout(openAnalysis, 600); }   // #...&analysis opens the analysis screen (support, screenshots)
   const sm = /[#&]sheet=(\d+)/.exec(location.hash); if (S.ready && sm && !boot.sheet) { boot.sheet = true; openSheet(Number(sm[1])); }   // #...&sheet=<id> opens a hero's sheet (support, screenshots)
 }
