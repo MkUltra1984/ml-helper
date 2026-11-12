@@ -61,9 +61,9 @@ const $ = id => document.getElementById(id);
 const store = { get(k, d) { try { const v = localStorage.getItem('mld.' + k); return v == null ? d : JSON.parse(v); } catch { return d; } }, set(k, v) { try { localStorage.setItem('mld.' + k, JSON.stringify(v)); } catch { } } };
 const S = {
   lang: store.get('lang', (navigator.language || 'en').startsWith('de') ? 'de' : 'en'), rank: store.get('rank', 'mythic'), days: store.get('days', 7),
-  favs: new Set(store.get('favs', [])), sort: store.get('sort', 'meta'), format: store.get('format', 'ranked'), skipped: 0,
+  favs: new Set(store.get('favs', [])), sort: store.get('sort', 'meta'), format: 'ranked', skipped: 0, icons: { lanes: {}, roles: {} },
   design: new URLSearchParams(location.search).get('design') || 'm2',
-  mode: 'ban', lanes: new Set(), roles: new Set(), q: '',
+  mode: 'enemy', lanes: new Set(), roles: new Set(), q: '',
   enemy: [], ally: [], bans: [],
   heroes: new Map(),     // id -> { id, name, img, lanes: [], roles: [], strong: [], weak: [], assist: [], pick, ban, win }
   vs: new Map(),         // enemy id -> { good: Map(heroId -> gain), bad: Map }   (counters endpoint)
@@ -91,13 +91,17 @@ const arr = x => (Array.isArray(x) ? x.filter(v => v && typeof v === 'object') :
 const ids = x => (Array.isArray(x) ? x : (x && x.target_hero_id) || []).map(Number).filter(Boolean);
 
 async function loadHeroes(force) {
-  const key = `heroes2.${S.rank}.${S.days}`, cached = store.get(key, null);
-  if (!force && cached && Date.now() - cached.at < 12 * 3600 * 1000) { S.heroes = new Map(cached.list.map(x => [x.id, x])); return; }
+  const key = `heroes3.${S.rank}.${S.days}`, cached = store.get(key, null);
+  if (!force && cached && Date.now() - cached.at < 12 * 3600 * 1000) { S.heroes = new Map(cached.list.map(x => [x.id, x])); S.icons = cached.icons || S.icons; return; }
+  const icons = { lanes: {}, roles: {} };
   const [pos, rank] = await Promise.all([api('/heroes/positions?size=300&index=1&lang=en'), api(`/heroes/rank?days=${S.days}&rank=${S.rank}&size=300&index=1&sort_field=pick_rate&sort_order=desc`)]);
   const map = new Map();
   for (const rec of pos) {
     const d = rec.data || {}, hero = d.hero || {}, info = hero.data || {}, rel = d.relation || hero.relation || {};
     const id = Number(d.hero_id ?? hero.hero_id); if (!id) continue;
+    // the game's own lane and role symbols, taken from the first hero that carries each
+    for (const r of arr(info.roadsort)) { const q = r.data || r, k = String(q.road_sort_title || '').toLowerCase().split(' ')[0]; if (k && q.road_sort_icon && !icons.lanes[k]) icons.lanes[k] = q.road_sort_icon; }
+    for (const r of arr(info.sortid)) { const q = r.data || r, k = String(q.sort_title || '').toLowerCase(); if (k && q.sort_icon && !icons.roles[k]) icons.roles[k] = q.sort_icon; }
     map.set(id, { id, name: info.name || String(id), img: info.head || info.smallmap || '', small: info.smallmap || '',
       lanes: arr(info.roadsort).map(x => String((x.data || x).road_sort_title || '').toLowerCase().split(' ')[0]).filter(l => LANES.includes(l)),
       roles: arr(info.sortid).map(x => String((x.data || x).sort_title || '').toLowerCase()).filter(Boolean),
@@ -110,7 +114,8 @@ async function loadHeroes(force) {
   }
   if (!map.size) throw new Error('no heroes');
   S.heroes = map;
-  store.set(key, { at: Date.now(), list: [...map.values()] });
+  S.icons = icons;
+  store.set(key, { at: Date.now(), list: [...map.values()], icons });
 }
 // who does best / worst against (counters) or beside (compatibility) one hero
 async function loadRelation(kind, id) {
@@ -188,11 +193,11 @@ function drawSuggest() {
 }
 
 // ---- board -----------------------------------------------------------------------------------------------------
-const SIDES = { ban: { list: () => S.bans, max: 10, el: 'slotsBan' }, enemy: { list: () => S.enemy, max: 5, el: 'slotsEnemy' }, ally: { list: () => S.ally, max: 5, el: 'slotsAlly' } };
+const SIDES = { enemy: { list: () => S.enemy, max: 5, el: 'slotsEnemy' }, ally: { list: () => S.ally, max: 5, el: 'slotsAlly' } };
 // The order of a draft. Ranked: all bans, then all picks. Tournament: 3 bans each, 3 picks each, 2 bans each, 2 picks
 // each. Bans are one list (who banned what does not matter here). The page follows the order by itself: it switches to
 // Ban or to picking when a step is full; you can always tap another mode, and skip bans nobody used.
-const FORMATS = { ranked: [['ban', 10], ['pick', 10]], draft: [['ban', 6], ['pick', 6], ['ban', 4], ['pick', 4]] };
+const FORMATS = { ranked: [['pick', 10]] };   // bans are not tracked (the owner's choice); the ban code below stays unused
 function phase() {
   let cb = 0, cp = 0; const steps = FORMATS[S.format] || FORMATS.ranked, picks = S.enemy.length + S.ally.length;
   for (let i = 0; i < steps.length; i++) { const [kind, n] = steps[i];
@@ -262,7 +267,10 @@ function setMode(mode) {
 
 // ---- hero grid -------------------------------------------------------------------------------------------------
 function drawChips() {
-  const chip = (set, key) => h('button', { class: 'chip' + (set.has(key) ? ' on' : ''), onclick: () => { if (set.has(key)) set.delete(key); else set.add(key); drawChips(); drawGrid(); drawSuggest(); } }, t(key));
+  // a symbol per lane and role instead of the word (the word stays as tooltip and for screen readers)
+  const chip = (set, key) => { const icon = S.icons.lanes[key] || S.icons.roles[key];
+    return h('button', { class: 'chip' + (icon ? ' sym' : '') + (set.has(key) ? ' on' : ''), title: t(key), 'aria-label': t(key), 'aria-pressed': String(set.has(key)),
+      onclick: () => { if (set.has(key)) set.delete(key); else set.add(key); drawChips(); drawGrid(); drawSuggest(); } }, icon ? h('img', { src: icon, alt: '' }) : t(key)); };
   $('laneChips').replaceChildren(...LANES.map(k => chip(S.lanes, k)));
   $('roleChips').replaceChildren(...ROLES.map(k => chip(S.roles, k)));
 }
@@ -380,8 +388,7 @@ async function openSheet(id) {
       h('div', { class: 'srates' }, h('span', {}, `${t('meta')} `, h('b', {}, pct(x.win))), h('span', {}, `${t('sPickShort')} `, h('b', {}, pct(x.pick))), h('span', {}, `${t('sBanShort')} `, h('b', {}, pct(x.ban))))),
     h('button', { class: 'sclose', 'aria-label': t('close'), onclick: closeSheet }, '✕'));
   const acts = h('div', { class: 'sacts' }, where ? h('button', { class: 'act remove', onclick: () => { place(id, where); closeSheet(); } }, t('remove'))
-    : [h('button', { class: 'act ally', onclick: () => { place(id, 'ally'); closeSheet(); } }, t('mAlly')), h('button', { class: 'act enemy', onclick: () => { place(id, 'enemy'); closeSheet(); } }, t('mEnemy')),
-      h('button', { class: 'act ban', onclick: () => { place(id, 'ban'); closeSheet(); } }, t('mBan'))]);
+    : [h('button', { class: 'act ally', onclick: () => { place(id, 'ally'); closeSheet(); } }, t('mAlly')), h('button', { class: 'act enemy', onclick: () => { place(id, 'enemy'); closeSheet(); } }, t('mEnemy'))]);
   const rel = (key, label, cls) => (x[key].length ? h('div', { class: 'srel ' + cls }, h('em', {}, label), minis(x[key]), h('p', { class: 'faint', 'data-desc': key })) : null);
   const body = el.querySelector('.sheetbody');
   const proBox = h('div', { class: 'builds' }, h('p', { class: 'faint' }, t('loading')));
@@ -537,7 +544,7 @@ function applyLang() {
   for (const el of document.querySelectorAll('[data-t]')) el.textContent = t(el.dataset.t);
   $('q').placeholder = t('search');
   $('dataNote').textContent = S.ready ? T[S.lang].data($('rank').selectedOptions[0].textContent, S.days) : '';
-  drawFormat(); drawPhase(false); drawChips(); drawGrid(); drawSuggest();
+  drawPhase(false); drawChips(); drawGrid(); drawSuggest();
 }
 async function boot(force) {
   S.ready = false; S.failed = false; drawGrid(); drawSuggest();
@@ -545,7 +552,7 @@ async function boot(force) {
   // a draft in the address (#d=enemy ids/ally ids/ban ids, e.g. #d=30,88/45/132) wins over the one kept in the browser
   const m = /^#d=([\d,]*)\/([\d,]*)\/?([\d,]*)/.exec(location.hash), nums = s => s.split(',').map(Number).filter(Boolean);
   const d = m ? { enemy: nums(m[1]), ally: nums(m[2]), bans: nums(m[3]) } : store.get('draft', null);
-  if (S.ready && d && !boot.restored) { boot.restored = true; for (const k of ['enemy', 'ally', 'bans']) S[k] = (d[k] || []).filter(i => S.heroes.has(i)); S.enemy.forEach(i => loadRelation('counters', i)); S.ally.forEach(i => loadRelation('compatibility', i)); [...S.enemy, ...S.ally].forEach(loadDetail); }
+  if (S.ready && d && !boot.restored) { boot.restored = true; for (const k of ['enemy', 'ally']) S[k] = (d[k] || []).filter(i => S.heroes.has(i)).slice(0, 5); S.bans = []; S.enemy.forEach(i => loadRelation('counters', i)); S.ally.forEach(i => loadRelation('compatibility', i)); [...S.enemy, ...S.ally].forEach(loadDetail); }
   drawPhase.last = -1; const ph = phase(); setMode(ph.kind === 'ban' ? 'ban' : 'enemy'); drawPhase.last = ph.i;
   applyLang(); drawBoard(); drawDna();
   if (S.ready && /[#&]analysis/.test(location.hash) && !boot.an) { boot.an = true; setTimeout(openAnalysis, 600); }   // #...&analysis opens the analysis screen (support, screenshots)
@@ -554,9 +561,7 @@ async function boot(force) {
 for (const b of document.querySelectorAll('.mode')) b.addEventListener('click', () => setMode(b.dataset.mode));
 $('q').addEventListener('input', e => { S.q = e.target.value; drawGrid(); });
 $('sort').value = S.sort; $('sort').addEventListener('change', e => { S.sort = e.target.value; store.set('sort', S.sort); drawGrid(); });
-const drawFormat = () => { const b = $('btnFormat'); b.textContent = t('fmt_' + S.format); b.title = t('fmtTip_' + S.format); };
-$('btnFormat').addEventListener('click', () => { S.format = S.format === 'ranked' ? 'draft' : 'ranked'; store.set('format', S.format); S.skipped = 0; drawFormat(); toast(t('fmtTip_' + S.format)); drawPhase(true); drawSuggest(); });
-$('btnReset').addEventListener('click', () => { S.enemy = []; S.ally = []; S.bans = []; store.set('draft', { enemy: [], ally: [], bans: [] }); S.skipped = 0; drawPhase.last = -1; setMode('ban'); drawPhase(true); drawGrid(); drawSuggest(); drawDna(); });
+$('btnReset').addEventListener('click', () => { S.enemy = []; S.ally = []; S.bans = []; store.set('draft', { enemy: [], ally: [], bans: [] }); S.skipped = 0; drawPhase.last = -1; place.wasFull = false; setMode('enemy'); drawPhase(true); drawGrid(); drawSuggest(); drawDna(); });
 $('sheet').querySelector('.sheetback').addEventListener('click', () => closeSheet());
 document.addEventListener('keydown', e => { if (e.key === 'Escape') { if (!$('sheet').hidden) closeSheet(); else closeAnalysis(); } });
 $('btnMenu').addEventListener('click', () => $('menu').showModal());

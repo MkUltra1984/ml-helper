@@ -4,9 +4,8 @@ A free draft helper for **Mobile Legends: Bang Bang**. Keep it open beside the g
 
 **Open it:** https://mkultra1984.github.io/ml-helper/ · [Deutsch](#deutsch)
 
-- **Fast input:** all heroes as a grid, sorted by the current meta, with lane and role filters and search. One tap picks. Your own heroes come first.
+- **Fast input:** all heroes as a grid, sorted by the current meta, with lane and role symbols as filters and search. One tap picks. Your own heroes come first.
 - **Why this pick?** Suggestions with a reason: who the hero counters, who it combines with, and what to be careful about.
-- **Follows the draft:** ban phase first with "Worth banning" suggestions (most banned heroes, and the ones that counter your picks and your own heroes), then the picks. Switch between ranked order (all bans, then picks) and tournament order (3 bans, 3 picks, 2 bans, 2 picks per team).
 - **Hero sheet:** hold a hero for its matchups in the game's own words and the core items players use per lane with pick and win rate, and full builds from the newest pro games (MPL Indonesia, Philippines, Malaysia).
 - **Draft DNA:** both teams compared on durability, damage and skill effects, the best combo in each team, and a team type such as Pick-off, Front to back or Dive.
 - **Analysis after the draft:** team power by game length, lane matchups with a win projection, core win conditions for both teams, and items that work against each hero.
@@ -31,9 +30,8 @@ The code was written by an AI coding assistant (Claude, by Anthropic) under my d
 
 Ein kostenloser Draft-Helfer für **Mobile Legends: Bang Bang**. Auf einem zweiten Handy, Tablet oder PC neben dem Spiel offen lassen, antippen, was gewählt wird, und die Seite zeigt, welche Helden jetzt passen und warum.
 
-- **Schnelle Eingabe:** alle Helden als Raster, nach der aktuellen Meta sortiert, mit Lane- und Rollenfiltern und Suche. Ein Tippen wählt. Deine eigenen Helden stehen vorn.
+- **Schnelle Eingabe:** alle Helden als Raster, nach der aktuellen Meta sortiert, mit Lane- und Rollen-Symbolen als Filter und Suche. Ein Tippen wählt. Deine eigenen Helden stehen vorn.
 - **Warum dieser Pick?** Vorschläge mit Begründung: wen der Held kontert, mit wem er zusammenpasst und worauf man achten muss.
-- **Folgt dem Draft:** zuerst die Ban-Phase mit Vorschlägen (meistgebannte Helden und die, die eure Picks und deine eigenen Helden kontern), dann die Picks. Umschaltbar zwischen Ranked-Reihenfolge (erst alle Bans, dann Picks) und Turnier-Reihenfolge (je Team 3 Bans, 3 Picks, 2 Bans, 2 Picks).
 - **Heldenblatt:** Held gedrückt halten für seine Matchups und die Kern-Items der Spieler pro Lane mit Pick- und Siegrate sowie volle Builds aus den neuesten Profi-Spielen (MPL Indonesia, Philippinen, Malaysia). Die Matchup-Texte kommen aus dem Spiel und sind englisch.
 - **Draft-DNA:** beide Teams im Vergleich bei Standfestigkeit, Schaden und Fähigkeiten, die beste Kombo je Team und ein Team-Typ wie Pick-off, Front to back oder Dive.
 

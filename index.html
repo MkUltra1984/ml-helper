@@ -11,13 +11,11 @@
 <header id="top">
   <div class="brand"><b data-t="title">ML Helper</b><span class="faint" id="dataNote"></span></div>
   <div class="grow"></div>
-  <button id="btnFormat" class="ghost fmt" title=""></button>
   <button id="btnReset" class="ghost" data-t="reset">New draft</button>
   <button id="btnMenu" class="ghost" aria-label="Settings">⚙</button>
 </header>
 
 <section id="board" aria-label="Draft">
-  <div class="side bans"><div class="slots small" id="slotsBan"></div></div>
   <div class="side enemy"><div class="sidehead"><span data-t="enemy">Enemy</span><span class="ident" id="identEnemy"></span></div><div class="slots" id="slotsEnemy"></div></div>
   <div class="vs" aria-hidden="true"><span>VS</span></div>
   <div class="side ally"><div class="sidehead"><span data-t="ally">Your team</span><span class="ident" id="identAlly"></span></div><div class="slots" id="slotsAlly"></div></div>
@@ -33,7 +31,6 @@
 <section id="picker" aria-label="Heroes">
   <div class="phase" id="phase"></div>
   <div class="modes" role="tablist">
-    <button class="mode ban" data-mode="ban" data-t="mBan">Ban</button>
     <button class="mode enemy on" data-mode="enemy" data-t="mEnemy">Enemy pick</button>
     <button class="mode ally" data-mode="ally" data-t="mAlly">Our pick</button>
     <button class="mode fav" data-mode="fav" data-t="mFav">★ Edit my heroes</button>
