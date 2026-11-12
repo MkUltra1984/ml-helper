@@ -189,6 +189,8 @@ function passesFilter(x) {
 }
 function drawSuggest() {
   const box = $('sugList');
+  // a full draft needs no suggestions: the row goes and the team comparison gets its space
+  const fullDraft = S.enemy.length === 5 && S.ally.length === 5 && S.mode !== 'ban'; $('suggest').hidden = fullDraft; document.body.classList.toggle('full', fullDraft);
   if (!S.ready) { box.replaceChildren(h('p', { class: 'faint' }, t(S.failed ? 'failed' : 'loading'))); return; }
   $('sugTitle').textContent = t(S.mode === 'ban' ? 'banTitle' : 'suggest');
   if (S.mode === 'ban') {

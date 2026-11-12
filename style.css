@@ -475,6 +475,11 @@ dialog .primary { width: 100%; height: 48px; margin: 0; background: var(--accent
   body:has(#picker.start) .combos { display: none; }
 }
 
+/* upright: no "Why this pick?" heading above the suggestion cards (owner's wish, saves a row) */
+@media (orientation: portrait), (max-width: 699px) { .sughead { display: none; } #suggest { padding-top: 8px; } }
+
+@media (orientation: portrait), (max-width: 699px) { body.full:has(#picker.start) .combos { display: grid; } }
+
 /* ---- motion: short, never looping during a draft; off when the device asks for reduced motion ---- */
 @media (prefers-reduced-motion: no-preference) {
   @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
