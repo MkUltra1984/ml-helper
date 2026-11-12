@@ -533,7 +533,7 @@ body[data-view="mpl"] #board, body[data-view="mpl"] #suggest, body[data-view="mp
 .mpteams { display: grid; grid-template-columns: minmax(0, 1fr) 64px minmax(0, 1fr); gap: 8px; align-items: center; }
 .mpt { display: flex; align-items: center; gap: 8px; color: var(--dim); } .mpt.a { justify-content: flex-end; text-align: right; } .mpt.win { color: var(--ink); }
 .mpt b { font: 700 14px var(--display); letter-spacing: .04em; text-transform: uppercase; overflow-wrap: anywhere; } .mpt img, .nologo { flex: none; width: 30px; height: 30px; object-fit: contain; }
-.mpscore { text-align: center; font: 700 18px var(--display); font-variant-numeric: tabular-nums; } .mprow.up .mpscore { font-size: 13px; color: var(--mute); }
+.mpscore { text-align: center; font: 700 18px var(--display); font-variant-numeric: tabular-nums; } .mpscore.open { font-size: 11px; line-height: 1.2; color: var(--mute); letter-spacing: .04em; text-transform: uppercase; }
 .strow { display: grid; grid-template-columns: 22px 30px minmax(0, 1fr) 64px 64px; gap: 8px; align-items: center; min-height: 46px; border-bottom: 1px solid var(--line); font: 700 14px var(--display); font-variant-numeric: tabular-nums; }
 .strow img { width: 30px; height: 30px; object-fit: contain; } .strow b { letter-spacing: .04em; text-transform: uppercase; overflow-wrap: anywhere; } .strow > span { text-align: right; color: var(--dim); } .strow .mtnum { color: var(--mute); }
 .sthead { min-height: 30px; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
