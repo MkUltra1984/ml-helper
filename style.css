@@ -480,6 +480,40 @@ dialog .primary { width: 100%; height: 48px; margin: 0; background: var(--accent
 
 @media (orientation: portrait), (max-width: 699px) { body.full:has(#picker.start) .combos { display: grid; } }
 
+/* ---- tabs (Draft, Meta) and the meta page ---- */
+.tabs { flex: none; display: flex; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
+.tab { height: 32px; padding: 1px 10px 0; border: 0; border-radius: 0; background: var(--panel2); color: var(--dim); font: 700 12px var(--display); letter-spacing: .08em; text-transform: uppercase; }
+.tab + .tab { border-left: 1px solid var(--line); } .tab.on { background: var(--accent-strong); color: #04141a; }
+.viewbtn { display: none; }
+body[data-view="meta"] #board, body[data-view="meta"] #suggest, body[data-view="meta"] #picker, body[data-view="meta"] #dna, body[data-view="meta"] #btnUndo, body[data-view="meta"] #btnReset { display: none !important; }
+#meta { flex: 1; min-height: 0; display: flex; flex-direction: column; grid-column: 1 / -1; grid-row: 2 / -1; }
+.metahead { flex: none; padding: 8px var(--pad) 0; display: grid; gap: 6px; border-bottom: 1px solid var(--line); }
+.metahead .chiprow { display: flex; } .mtsep { flex: none; width: 1px; height: 28px; background: var(--line); margin: 0 2px; }
+.metalist { flex: 1; min-height: 0; overflow-y: auto; padding: 0 var(--pad) 12px; } .metalist > p { margin: 12px 0; }
+.mtrow { width: 100%; display: grid; grid-template-columns: 24px 36px minmax(0, 1fr) 56px 52px 52px; gap: 8px; align-items: center; min-height: 48px; padding: 4px 0; background: none; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; text-align: left; }
+.mtrow img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; }
+.mtnum { font: 700 12px var(--display); color: var(--mute); text-align: right; }
+.mtname { display: flex; flex-direction: column; } .mtname b { font: 700 14px var(--display); letter-spacing: .04em; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .mtname small { font-size: 12px; color: var(--mute); }
+.mtval { font: 700 14px var(--display); font-variant-numeric: tabular-nums; text-align: right; color: var(--dim); } .mtval.on { color: var(--ink); } .mtval.good { color: var(--good); } .mtval.bad { color: var(--bad); }
+.mthead { min-height: 36px; border-bottom: 0; } .mthead .mtname { font-size: 12px; color: var(--mute); }
+.mtcol { height: 32px; padding: 0; background: none; border: 0; text-align: right; font: 700 12px var(--display); letter-spacing: .08em; text-transform: uppercase; color: var(--dim); } .mtcol.on { color: var(--accent); }
+@media (max-width: 430px) { #top .brand { display: none; } .tab { padding: 1px 12px 0; height: 34px; } .mtrow { grid-template-columns: 20px 34px minmax(0, 1fr) 50px 46px 46px; gap: 6px; } .mtrow img { width: 34px; height: 34px; } }
+@media (orientation: landscape) and (min-width: 700px) { .metalist { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 24px; align-content: start; } .metalist > p { grid-column: 1 / -1; } .metahead .mthead { width: calc(50% - 12px); } }
+.mthead .mtname { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* phone sideways: no room for tabs beside the mode buttons, so the switch sits in the settings menu */
+@media (orientation: landscape) and (min-width: 700px) and (max-height: 520px) {
+  .tabs { display: none; } .viewbtn { display: inline-block; }
+  #meta { grid-row: 1 / -1; } body[data-view="meta"] .metahead { padding-right: 60px; }
+}
+
+/* phone: the title stays; the Draft / Meta tabs are a thin second row of the top bar */
+@media (max-width: 430px) {
+  #top .brand { display: flex; height: 34px; }
+  #top { height: auto; min-height: 0; flex-wrap: wrap; align-content: flex-start; row-gap: 5px; padding-top: 6px; padding-bottom: 6px; }
+  .tabs { order: 9; flex: 0 0 100%; height: 30px; } .tab { flex: 1; height: 28px; }
+}
+.mttrend { font-style: normal; margin-left: 8px; font: 700 11px var(--display); } .mttrend.up { color: var(--good); } .mttrend.down { color: var(--bad); }
+
 /* ---- motion: short, never looping during a draft; off when the device asks for reduced motion ---- */
 @media (prefers-reduced-motion: no-preference) {
   @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
