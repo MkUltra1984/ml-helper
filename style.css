@@ -576,3 +576,15 @@ body[data-design^="m"] .why { padding: 5px 0; }
 body[data-design^="m"] .why + .why { border-top: 1px solid var(--line); }
 body[data-design^="m"] .why:last-child { padding-bottom: 0; }
 .lnstat i { display: block; font-style: normal; font-size: 9.5px; color: var(--faint); margin-bottom: 1px; }
+
+/* ---- picking in steps: step 1 only the six types, step 2 Back + lanes + that type's heroes ---- */
+body[data-design="m2"] .bigrow.roles.step1 { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+body[data-design="m2"] .bigrow.roles.step1 .bigbtn { height: clamp(84px, 15vh, 130px); gap: 8px; }
+body[data-design="m2"] .bigrow.roles.step1 .bigbtn img { width: 46px; height: 46px; }
+body[data-design="m2"] .bigrow.roles.step1 .bigbtn span { font-size: 14px; letter-spacing: .08em; }
+.chipsep, #roleChips { display: none; }
+.chip.back { display: inline-flex; align-items: center; gap: 6px; height: 38px; padding: 0 12px 0 8px; font-weight: 700; color: var(--ink); border-color: var(--gold); background: var(--panel2); text-transform: uppercase; letter-spacing: .05em; font-size: 13px; }
+.chip.back img { width: 20px; height: 20px; object-fit: contain; }
+body[data-design="m2"] .chiprow { gap: 6px; }
+@media (orientation: landscape) and (min-width: 700px) { body[data-design="m2"] .bigrow.roles.step1 { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+@media (orientation: landscape) and (min-width: 700px) and (max-height: 520px) { body[data-design="m2"] .bigrow.roles.step1 .bigbtn { height: 70px; } body[data-design="m2"] .bigrow.roles.step1 .bigbtn img { width: 30px; height: 30px; } }
