@@ -19,7 +19,7 @@ const ROLES = ['tank', 'fighter', 'assassin', 'mage', 'marksman', 'support'];
 const OWN_ICONS = { lanes: Object.fromEntries(LANES.map(k => [k, `img/lane-${k}.png`])), roles: Object.fromEntries(ROLES.map(k => [k, `img/role-${k}.png`])) };
 const T = {
   en: { title: 'MLBB Helper', sMeta: 'Meta picks', reset: 'New draft', enemy: 'Enemy', ally: 'Your team', bans: 'Bans', suggest: 'Why this pick?', poolOnly: 'my heroes only', tagStrong: 'Counters', tagPairs: 'Combo', tagWeak: 'Careful', tagMeta: 'Meta pick',
-    build: 'Build', builds: 'Core items players use', used: 'used by', emblem: 'Emblem', noBuild: 'No build data for this lane.', remove: 'Take out of the draft', undo: 'Undo', trendUp: 'Rising this week', trendDown: 'Falling this week', laneChange: 'Change lane', sPickShort: 'Pick', sBanShort: 'Ban', tagWeakTo: 'Weak against',
+    build: 'Build', builds: 'Core items players use', used: 'used by', emblem: 'Emblem', noBuild: 'No build data for this lane.', remove: 'Take out of the draft', undo: 'Undo', anBack: 'Draft', anBackLong: 'Back to the draft', and: 'and', vdLabel: 'Verdict', vdEstimate: 'Estimate', vdYouBig: 'Your team is favoured', vdYouSmall: 'Small edge: your team', vdEven: 'Even draft', vdEnemySmall: 'Small edge: enemy', vdEnemyBig: 'The enemy is favoured', vdNothing: 'Nothing separates the teams clearly.', vdLeadYou: 'You lead in {0}.', vdLeadEnemy: 'The enemy leads in {0}.', chMatch: 'Matchups', chPairs: 'Pairs', chRate: 'Ratings', gpTitle: 'Your game plan', gpProtect: 'Play around {0}; {1} goes in first.', gpAround: 'Play around {0}.', gpGap: 'You have no {0}; the enemy has it with {1}.', gpThreat: '{0} is their biggest damage threat.', gpHeal: 'Buy anti-heal against {0}.', gpEnemy: 'Enemy plan: {0} around {1}.', gpEnemyNo: 'Enemy plan: {0}.', wcSame: 'Same plan as your team: the better fight decides.', rlCarry: 'Carry', rlFront: 'Front', rlPeel: 'Peel', rlFlank: 'Flank', rlFlex: 'Flex', ckTitle: 'Checklist', ckFront: 'Front line', ckCc: 'Crowd control', ckEngage: 'Engage', ckBurst: 'Burst', ckPoke: 'Poke', ckSustain: 'Sustain', ckYes: '✓ Yes', ckPart: '◐ Partly', ckMiss: '✕ Missing', thTitle: 'Threats and what to buy', thBuy: 'Buy,', thBanned: 'Often banned, still picked:', thNote: 'Tap a hero for the full item list.', mmTitle: 'Key matchups', mmYou: 'You have the upper hand', mmEnemy: 'The enemy has the upper hand', mmNone: 'No clear hero-against-hero edge.', mmListed: '{0} is listed as strong against {1}', mmStat: '{0} wins more games against {1}', edClear: 'Clear edge', edSmall: 'Small edge', lnTitle: 'Assumed lanes', lnNote: 'Lanes are guesses. Tap a lane to change it.', lpMove: 'Move {0} to:', anFoot: 'Advice, not a prediction. Built from the game data (counter lists and statistics, ratings, tags) and simple rules. One dot or arrow is a small edge, two are a clear edge.',  trendUp: 'Rising this week', trendDown: 'Falling this week', laneChange: 'Change lane', sPickShort: 'Pick', sBanShort: 'Ban', tagWeakTo: 'Weak against',
     pro: 'Pro builds', proNote: 'Full builds from the newest pro games (MPL Indonesia, Philippines, Malaysia), newest first.', proNone: 'No full build for this hero in the newest pro games.', proFail: 'The pro games could not be loaded.', won: 'won', lost: 'lost',
     dna: 'Draft DNA', dnaEarly: 'Short games', dnaMid: 'Mid-length', dnaLate: 'Long games', dnaOff: 'Damage', dnaCc: 'Control', dnaSus: 'Sustain', dnaYou: 'You', dnaThem: 'Enemy', dnaEven: 'Even', combo: 'Combo', banTitle: 'Worth banning', hurts: 'counters your', holdHint: 'Tap picks. Hold a hero for builds and matchups.',
     id_pick: ['Pick-off', 'Assassins hunt single targets. Avoid long fights.'], id_ftb: ['Front to back', 'A frontline protects the damage dealers in the back.'], id_dive: ['Dive', 'Everyone jumps the enemy backline together.'],
@@ -40,7 +40,7 @@ const T = {
     strong: 'strong against', pairs: 'pairs with', weak: 'careful:', meta: 'win rate', full: 'That side is full.', favHint: 'Tap heroes you play. They show first and can be the only ones suggested.', taken: 'already taken',
     data: (r, d) => `${r} · ${d} days`, all: 'All' },
   de: { title: 'MLBB Helper', sMeta: 'Meta-Picks', reset: 'Neuer Draft', enemy: 'Gegner', ally: 'Dein Team', bans: 'Bans', suggest: 'Warum dieser Pick?', poolOnly: 'nur meine Helden', tagStrong: 'Kontert', tagPairs: 'Kombo', tagWeak: 'Vorsicht', tagMeta: 'Meta-Pick',
-    build: 'Build', builds: 'Kern-Items der Spieler', used: 'genutzt von', emblem: 'Emblem', noBuild: 'Keine Build-Daten für diese Lane.', remove: 'Aus dem Draft nehmen', undo: 'Rückgängig', trendUp: 'Steigt diese Woche', trendDown: 'Fällt diese Woche', laneChange: 'Lane ändern', sPickShort: 'Pick', sBanShort: 'Ban', tagWeakTo: 'Schwach gegen',
+    build: 'Build', builds: 'Kern-Items der Spieler', used: 'genutzt von', emblem: 'Emblem', noBuild: 'Keine Build-Daten für diese Lane.', remove: 'Aus dem Draft nehmen', undo: 'Rückgängig', anBack: 'Draft', anBackLong: 'Zurück zum Draft', and: 'und', vdLabel: 'Einschätzung', vdEstimate: 'Schätzung', vdYouBig: 'Dein Team ist im Vorteil', vdYouSmall: 'Leichter Vorteil: dein Team', vdEven: 'Ausgeglichener Draft', vdEnemySmall: 'Leichter Vorteil: Gegner', vdEnemyBig: 'Der Gegner ist im Vorteil', vdNothing: 'Nichts trennt die Teams deutlich.', vdLeadYou: 'Du liegst vorn bei {0}.', vdLeadEnemy: 'Der Gegner liegt vorn bei {0}.', chMatch: 'Matchups', chPairs: 'Paare', chRate: 'Werte', gpTitle: 'Dein Spielplan', gpProtect: 'Spielt um {0}; {1} geht zuerst rein.', gpAround: 'Spielt um {0}.', gpGap: 'Euch fehlt {0}; der Gegner hat das mit {1}.', gpThreat: '{0} ist ihre größte Schadensgefahr.', gpHeal: 'Kauft Anti-Heal gegen {0}.', gpEnemy: 'Plan des Gegners: {0} um {1}.', gpEnemyNo: 'Plan des Gegners: {0}.', wcSame: 'Gleicher Plan wie dein Team: der bessere Kampf entscheidet.', rlCarry: 'Carry', rlFront: 'Front', rlPeel: 'Schutz', rlFlank: 'Flanke', rlFlex: 'Flex', ckTitle: 'Checkliste', ckFront: 'Frontlinie', ckCc: 'Kontrolle', ckEngage: 'Engage', ckBurst: 'Burst', ckPoke: 'Poke', ckSustain: 'Standfestigkeit', ckYes: '✓ Ja', ckPart: '◐ Teilweise', ckMiss: '✕ Fehlt', thTitle: 'Gefahren und was kaufen', thBuy: 'Kaufen,', thBanned: 'Oft gebannt, trotzdem gewählt:', thNote: 'Held antippen für die ganze Item-Liste.', mmTitle: 'Wichtige Matchups', mmYou: 'Du hast die Oberhand', mmEnemy: 'Der Gegner hat die Oberhand', mmNone: 'Kein klarer Vorteil Held gegen Held.', mmListed: '{0} gilt als stark gegen {1}', mmStat: '{0} gewinnt öfter gegen {1}', edClear: 'Klarer Vorteil', edSmall: 'Leichter Vorteil', lnTitle: 'Vermutete Lanes', lnNote: 'Die Lanes sind geschätzt. Lane antippen, um sie zu ändern.', lpMove: '{0} verschieben nach:', anFoot: 'Ein Rat, keine Vorhersage. Aus den Spieldaten (Konter-Listen und Statistik, Werte, Tags) und einfachen Regeln. Ein Punkt oder Pfeil ist ein leichter, zwei sind ein klarer Vorteil.',  trendUp: 'Steigt diese Woche', trendDown: 'Fällt diese Woche', laneChange: 'Lane ändern', sPickShort: 'Pick', sBanShort: 'Ban', tagWeakTo: 'Schwach gegen',
     pro: 'Profi-Builds', proNote: 'Volle Builds aus den neuesten Profi-Spielen (MPL Indonesia, Philippinen, Malaysia), neueste zuerst.', proNone: 'Kein voller Build für diesen Helden in den neuesten Profi-Spielen.', proFail: 'Die Profi-Spiele konnten nicht geladen werden.', won: 'gewonnen', lost: 'verloren',
     dna: 'Draft-DNA', dnaEarly: 'Kurze Spiele', dnaMid: 'Mittellange', dnaLate: 'Lange Spiele', dnaOff: 'Schaden', dnaCc: 'Kontrolle', dnaSus: 'Standfestigkeit', dnaYou: 'Du', dnaThem: 'Gegner', dnaEven: 'Gleich', combo: 'Kombo', banTitle: 'Bannen lohnt sich', hurts: 'kontert deine', holdHint: 'Tippen wählt. Held gedrückt halten für Builds und Matchups.',
     id_pick: ['Pick-off', 'Assassinen jagen einzelne Ziele. Lange Kämpfe meiden.'], id_ftb: ['Front to back', 'Eine Frontlinie schützt die Schadensverursacher dahinter.'], id_dive: ['Dive', 'Alle springen gemeinsam auf die gegnerische Backline.'],
@@ -621,53 +621,112 @@ function laneInfo(a, e, lane) {   // our hero a against their hero e on one lane
   const live = S.vs.get(e.id); if (live) { if (live.good.has(a.id)) p += live.good.get(a.id) * 100; if (live.bad.has(a.id)) p += live.bad.get(a.id) * 100; }
   return { p: Math.max(30, Math.min(70, Math.round(p))), na, ne, why: why.slice(0, 4) };
 }
+// The analysis screen (after the tenth pick, or by a tap on the team comparison). Answer first, then the evidence:
+//   verdict       three signals, each "even" or a small / clear edge, never a number: matchups (the game's counter lists and the
+//                 counter statistics of the enemy picks), pairs (the game's "works well with" lists inside each team) and
+//                 ratings (the game's durability, offense and skill-effect ratings). "Favoured" only when all three agree.
+//   game plan     up to three sentences built from the blocks below (who to play around, what is missing, the biggest threat, anti-heal)
+//   win conditions  team type (teamIdentity) and a role per hero: the two highest offense ratings carry, tanks are the front line
+//   checklist     front line, crowd control, engage, burst, poke, sustain per team from roles and speciality tags, as yes / partly / missing
+//   threats       the three most dangerous enemy picks with the items that answer them (COUNTER_RULES)
+//   key matchups  hero against hero, independent of lanes
+//   assumed lanes the lanes are a guess; a tap on a lane tag moves the hero (only this card is redrawn)
+// Everything is an estimate from public data and simple rules. There is no early / mid / late strength: no usable source exists.
+const fillT = (key, ...parts) => t(key).split(/\{(\d)\}/).map((s, i) => (i % 2 ? parts[Number(s)] : s));
+const andList = nodes => nodes.flatMap((n, i) => (i ? [i === nodes.length - 1 ? ` ${t('and')} ` : ', ', n] : [n]));
+const CHECK = [   // [label key, points of a hero, points for "yes", points for "partly"]
+  ['ckFront', (x, has) => (x.roles[0] === 'tank' ? 1 : x.roles[0] === 'support' ? 0 : has(['Guard']) ? 0.75 : x.roles[0] === 'fighter' ? 0.5 : 0), 1.5, 0.5],
+  ['ckCc', (x, has) => (has(['Crowd Control', 'Control']) ? 1 : 0), 3, 1],
+  ['ckEngage', (x, has) => (has(['Initiator', 'Charge']) ? 1 : 0), 2, 1],
+  ['ckBurst', (x, has) => (has(['Burst', 'Finisher']) ? 1 : 0), 2, 1],
+  ['ckPoke', (x, has) => (has(['Poke']) ? 1 : 0), 2, 1],
+  ['ckSustain', (x, has) => (has(['Regen', 'Guard']) ? 1 : 0), 2, 1],
+];
 async function openAnalysis() {
   if (!S.enemy.length || !S.ally.length) return;
-  const el = $('analysis'), body = el.querySelector('.anbody'), LA = assignLanes('ally'), LE = assignLanes('enemy');
-  el.hidden = false; AN.open = true;
-  const heroCard = (id, side) => { const x = S.heroes.get(id); return x ? h('button', { class: 'ancard ' + side, title: x.name, onclick: () => openSheet(x.id) }, h('img', { src: x.img, alt: '' }), h('span', {}, x.name)) : h('span', { class: 'ancard none' }); };
-  const move = (side, lane) => { const map = side === 'ally' ? LA : LE, id = map[lane]; if (!id) return; const next = LANE_ORDER[(LANE_ORDER.indexOf(lane) + 1) % 5], other = map[next];
-    AN.lanes[side] = { ...Object.fromEntries(Object.entries(map).map(([l, i]) => [i, l])), [id]: next }; if (other) AN.lanes[side][other] = lane; openAnalysis(); };
-  // The lane of a hero is a guess (the data says which lanes are possible, not which one is played in this game), so each hero has a
-  // small lane button: a tap shows the five lane symbols, a tap on one puts the hero there and swaps with the hero that was on it.
-  const setLane = (side, from, to) => { const map = side === 'ally' ? LA : LE, id = map[from], other = map[to]; if (!id || from === to) return;
-    AN.lanes[side] = { ...Object.fromEntries(Object.entries(map).map(([l, i]) => [i, l])), [id]: to }; if (other) AN.lanes[side][other] = from; openAnalysis(); };
-  const lanePick = (side, lane) => { if (!(side === 'ally' ? LA : LE)[lane]) return null;
-    const menu = h('div', { class: 'lanemenu', hidden: '' }, LANE_ORDER.map(k => h('button', { class: 'lanebtn' + (k === lane ? ' on' : ''), title: t(k), 'aria-label': t(k), onclick: () => setLane(side, lane, k) }, h('img', { src: S.icons.lanes[k], alt: '' }))));
-    return h('div', { class: 'lanepick' }, h('button', { class: 'lanecur', 'aria-label': t('laneChange'), title: t('laneChange'), onclick: () => { menu.hidden = !menu.hidden; } }, h('img', { src: S.icons.lanes[lane], alt: '' }), t(lane), ' ▾'), menu); };
-  const spec = id => { const d = D.detail.get(id); return d && d.spec.length ? d.spec[0] : ''; };
-  const stat = n => (n ? h('span', { class: 'lnstat' }, h('b', {}, `${n.wr.toFixed(1)}%`), n.onLane ? h('i', {}, t('lnOnLane')) : null, n.early != null ? ` ${t('lnEarly')} ${n.early.toFixed(0)} · ${t('lnLate')} ${n.late.toFixed(0)}` : '') : null);
-  const laneRows = () => LANE_ORDER.map(l => { const a = S.heroes.get(LA[l]), e = S.heroes.get(LE[l]), r = laneInfo(a, e, l), p = r.p;
-    return h('div', { class: 'anlane' }, h('div', { class: 'anlanehead' }, h('b', {}, S.icons.lanes[l] ? h('img', { src: S.icons.lanes[l], alt: '' }) : null, t(l))),
-      h('div', { class: 'anlanerow' }, h('div', { class: 'lnside' }, heroCard(LA[l], 'ally'), lanePick('ally', l), stat(r.na)),
-        h('div', { class: 'anproj' }, p == null ? h('span', { class: 'faint' }, '–') : [h('b', { class: p >= 50 ? 'a' : 'e' }, `${p >= 50 ? '◀ ' : ''}${p >= 50 ? p : 100 - p}%${p < 50 ? ' ▶' : ''}`),
-          h('div', { class: 'projbar' }, h('i', { class: 'a', style: `width:${p}%` }), h('i', { class: 'e', style: `width:${100 - p}%` })),
-          h('span', { class: 'lnspec' }, [spec(LA[l]), spec(LE[l])].filter(Boolean).join(' vs. ')),
-          h('ul', { class: 'lnwhy' }, (r.why.length ? r.why : [t('lnEven')]).map(w => h('li', {}, w)))]),
-        h('div', { class: 'lnside' }, heroCard(LE[l], 'enemy'), lanePick('enemy', l), stat(r.ne)))); });
-  const lanesBox = h('div', { class: 'anlanes' }, laneRows());
-  const spikeBox = h('div', { class: 'anspike' }, h('p', { class: 'faint' }, t('loading'))), winBox = h('div', { class: 'anwin' });
-  body.replaceChildren(h('div', { class: 'anhead' }, h('h2', {}, t('anTitle')), h('button', { class: 'sclose', 'aria-label': t('close'), onclick: closeAnalysis }, '✕')),
-    h('h3', {}, t('anSpike')), spikeBox, h('p', { class: 'faint' }, t('anSpikeNote')),
-    h('h3', {}, t('anLanes')), lanesBox, h('p', { class: 'faint' }, t('anLaneNote')),
-    h('h3', {}, t('anWin')), winBox, h('p', { class: 'faint' }, t('anEst')));
-  const curve = async map => { const rows = (await Promise.all(Object.entries(map).map(([l, id]) => loadTimeline(id, l)))).filter(Boolean); if (!rows.length) return null;
-    const n = Math.min(...rows.map(r => r.length)); return Array.from({ length: n }, (_, i) => ({ from: rows[0][i].from, w: rows.reduce((s, r) => s + r[i].w, 0) / rows.length })); };
-  const [ca, ce] = await Promise.all([curve(LA), curve(LE)]);
+  const el = $('analysis'); el.hidden = false; AN.open = true;
+  const body = h('div', { class: 'anbody' }, h('p', { class: 'faint' }, t('loading')));
+  el.replaceChildren(h('div', { class: 'anbar' }, h('button', { class: 'anback', onclick: closeAnalysis }, '‹ ' + t('anBack')), h('h2', {}, t('anTitle'))), body); el.scrollTop = 0;
+  const A = S.ally.map(i => S.heroes.get(i)).filter(Boolean), E = S.enemy.map(i => S.heroes.get(i)).filter(Boolean);
+  await Promise.all([...A, ...E].map(x => loadDetail(x.id)));
   if (!AN.open) return;
-  lanesBox.replaceChildren(...laneRows());   // now with the early and late numbers
-  const timing = c => (!c ? 'Even' : c[0].w - c[c.length - 1].w > 0.012 ? 'Early' : c[c.length - 1].w - c[0].w > 0.012 ? 'Late' : 'Even');
-  const box = (side, list, c) => { const idk = teamIdentity(list) || 'id_team', tm = timing(c);
-    return h('div', { class: 'wcbox ' + side }, h('b', {}, `${t(idk)[0]} · ${t('t' + tm)}`), h('ul', {}, [...t('wc_' + idk), t('b' + tm)].map(s => h('li', {}, s)))); };
-  winBox.replaceChildren(box('ally', S.ally, ca), box('enemy', S.enemy, ce));
-  if (!ca && !ce) { spikeBox.replaceChildren(h('p', { class: 'faint' }, t('noBuild'))); return; }
-  const all = [...(ca || []), ...(ce || [])].map(p => p.w), lo = Math.min(...all, 0.47) - 0.005, hi = Math.max(...all, 0.53) + 0.005, W = 300, H = 90;
-  const pts = c => c.map((p, i) => `${(i * W / (c.length - 1)).toFixed(1)},${(H - (p.w - lo) / (hi - lo) * H).toFixed(1)}`).join(' ');
-  const base = ca || ce, svg = `<svg viewBox="-4 -6 ${W + 8} ${H + 12}" preserveAspectRatio="none" role="img"><line x1="0" x2="${W}" y1="${(H - (0.5 - lo) / (hi - lo) * H).toFixed(1)}" y2="${(H - (0.5 - lo) / (hi - lo) * H).toFixed(1)}" class="mid"/>${ca ? `<polyline class="a" points="${pts(ca)}"/>` : ''}${ce ? `<polyline class="e" points="${pts(ce)}"/>` : ''}</svg>`;
-  const wrap = h('div', { class: 'spikesvg' }); wrap.innerHTML = svg;
-  const ends = c => (c ? `${(c[0].w * 100).toFixed(1)}% → ${(c[c.length - 1].w * 100).toFixed(1)}%` : '–');
-  spikeBox.replaceChildren(h('div', { class: 'spikelegend' }, h('span', { class: 'a' }, `${t('ally')}: ${ends(ca)}`), h('span', { class: 'e' }, `${t('enemy')}: ${ends(ce)}`)), wrap,
-    h('div', { class: 'spikeaxis' }, base.map((p, i) => h('span', {}, i === base.length - 1 ? `${p.from}+` : String(p.from)))));
+  const det = x => D.detail.get(x.id) || { ab: [], spec: [] }, has = x => tags => det(x).spec.some(s => tags.includes(s));
+  const nm = (x, side) => h('b', { class: 'nm ' + side }, x.name);
+  const port = (x, side, cls) => h('button', { class: `anp ${side} ${cls || ''}`, title: x.name, 'aria-label': x.name, onclick: () => openSheet(x.id) }, h('img', { src: x.img, alt: '' }));
+  const edge = (v, small, clear) => (v >= clear ? 2 : v >= small ? 1 : v <= -clear ? -2 : v <= -small ? -1 : 0);
+  const sideOf = e => (e > 0 ? 'you' : e < 0 ? 'enemy' : 'even');
+  // ---- the three signals
+  const pairs = []; let mScore = 0;
+  for (const a of A) for (const e of E) { let v = 0, listed = 0;
+    if (a.strong.includes(e.id) || e.weak.includes(a.id)) { v += 3; listed = 1; }
+    if (a.weak.includes(e.id) || e.strong.includes(a.id)) { v -= 3; listed = listed ? 0 : -1; }
+    const live = S.vs.get(e.id); if (live) { if (live.good.has(a.id)) v += live.good.get(a.id) * 100; else if (live.bad.has(a.id)) v += live.bad.get(a.id) * 100; }
+    mScore += v; if (Math.abs(v) >= 2) pairs.push({ a, e, v, listed }); }
+  const syn = list => { let c = 0; for (let i = 0; i < list.length; i++) for (let j = i + 1; j < list.length; j++) if (list[i].assist.includes(list[j].id) || list[j].assist.includes(list[i].id)) c++; return c; };
+  const rate = list => { const v = list.map(x => det(x).ab).filter(ab => ab.length >= 3).map(ab => (ab[0] + ab[1] + ab[2]) / 3); return v.length ? v.reduce((p, q) => p + q, 0) / v.length : null; };
+  const rA = rate(A), rE = rate(E);
+  const chips = [['chMatch', edge(mScore, 3, 8)], ['chPairs', edge(syn(A) - syn(E), 1, 3)], ['chRate', rA == null || rE == null ? 0 : edge(rA - rE, 3, 8)]];
+  // ---- checklist
+  const levelOf = (list, row) => { const pts = list.map(x => [x, row[1](x, has(x))]).filter(p => p[1] > 0).sort((p, q) => q[1] - p[1]), sum = pts.reduce((s, p) => s + p[1], 0);
+    return { lvl: sum >= row[2] ? 2 : sum >= row[3] ? 1 : 0, who: pts.slice(0, 2).map(p => p[0]) }; };
+  const rows = CHECK.map(row => ({ key: row[0], a: levelOf(A, row), e: levelOf(E, row) }));
+  // ---- verdict
+  const sum = chips.reduce((s, c) => s + c[1], 0), agree = chips.every(c => c[1] > 0) || chips.every(c => c[1] < 0);
+  const vKey = Math.abs(sum) >= 4 && agree ? (sum > 0 ? 'vdYouBig' : 'vdEnemyBig') : Math.abs(sum) >= 2 ? (sum > 0 ? 'vdYouSmall' : 'vdEnemySmall') : 'vdEven';
+  const leads = sgn => [...chips.filter(c => c[1] * sgn > 0).map(c => t(c[0])), ...rows.filter(r => (r.a.lvl - r.e.lvl) * sgn >= 2).map(r => t(r.key))].slice(0, 2).map(s => s.toLowerCase());
+  const lY = leads(1), lE = leads(-1), listText = l => l.join(` ${t('and')} `);
+  const reason = !lY.length && !lE.length ? t('vdNothing') : [lY.length ? fillT('vdLeadYou', listText(lY)).join('') : '', lE.length ? fillT('vdLeadEnemy', listText(lE)).join('') : ''].filter(Boolean).join(' ');
+  const verdict = h('div', { class: 'ancard vd ' + sideOf(sum >= 2 ? 1 : sum <= -2 ? -1 : 0) }, h('div', { class: 'vd-top' }, h('span', {}, t('vdLabel')), h('span', { class: 'vd-tag' }, t('vdEstimate'))),
+    h('h2', {}, t(vKey)), h('p', {}, reason),
+    h('div', { class: 'vd-chips' }, chips.map(([k, e]) => h('div', { class: 'vd-chip ' + sideOf(e) }, h('small', {}, t(k)), h('b', {}, e ? `${t(e > 0 ? 'dnaYou' : 'dnaThem')} ${'●'.repeat(Math.abs(e))}` : t('dnaEven'))))));
+  // ---- roles and plans
+  const off = x => det(x).ab[1] || 0, frontPts = x => CHECK[0][1](x, has(x));
+  const carriesOf = list => list.filter(x => !['tank', 'support'].includes(x.roles[0])).sort((p, q) => (q.roles[0] === 'marksman') - (p.roles[0] === 'marksman') || off(q) - off(p)).slice(0, 2);   // a marksman always carries, then the highest offense rating
+  const frontOf = (list, not) => list.filter(x => !not.includes(x) && frontPts(x) >= 0.5).sort((p, q) => frontPts(q) - frontPts(p) || (det(q).ab[0] || 0) - (det(p).ab[0] || 0))[0] || null;
+  const roleOf = (x, list) => { const c = carriesOf(list); return c.includes(x) ? 'rlCarry' : x.roles[0] === 'support' ? 'rlPeel' : frontPts(x) >= 0.75 || x === frontOf(list, c) ? 'rlFront' : ['assassin', 'fighter'].includes(x.roles[0]) ? 'rlFlank' : 'rlFlex'; };
+  const cA = carriesOf(A), fA = frontOf(A, cA), cE = carriesOf(E), idA = teamIdentity(S.ally) || 'id_team', idE = teamIdentity(S.enemy) || 'id_team';
+  const plan = [];
+  if (cA.length) plan.push(fA ? fillT('gpProtect', andList(cA.map(x => nm(x, 'ally'))), nm(fA, 'ally')) : fillT('gpAround', andList(cA.map(x => nm(x, 'ally')))));
+  const gap = rows.find(r => r.a.lvl === 0 && r.e.lvl >= 1); if (gap) plan.push(fillT('gpGap', t(gap.key).toLowerCase(), andList(gap.e.who.map(x => nm(x, 'enemy')))));
+  const threatTop = [...E].sort((p, q) => off(q) - off(p))[0]; if (threatTop && off(threatTop)) plan.push(fillT('gpThreat', nm(threatTop, 'enemy')));
+  const healer = E.find(x => has(x)(['Regen'])); if (healer) plan.push(fillT('gpHeal', nm(healer, 'enemy')));
+  const planCard = h('div', { class: 'ancard gp' }, h('h3', {}, t('gpTitle')), h('ul', {}, plan.slice(0, 3).map(p => h('li', {}, p))),
+    h('p', { class: 'gp-enemy' }, cE.length ? fillT('gpEnemy', t(idE)[0], andList(cE.map(x => nm(x, 'enemy')))) : fillT('gpEnemyNo', t(idE)[0])));
+  const order = ['rlCarry', 'rlFront', 'rlPeel', 'rlFlank', 'rlFlex'];
+  const winCard = (list, side, idk, same) => h('div', { class: 'ancard wc ' + side }, h('div', { class: 'wc-head' }, h('span', { class: 'wc-side' }, t(side === 'ally' ? 'ally' : 'enemy')), h('span', { class: 'wc-plan' }, t(idk)[0])),
+    h('p', {}, same ? t('wcSame') : t(idk)[1]),
+    h('div', { class: 'wc-row' }, list.map(x => [x, roleOf(x, list)]).sort((p, q) => order.indexOf(p[1]) - order.indexOf(q[1])).map(([x, r]) => h('div', { class: 'wc-hero' }, port(x, side), h('span', {}, t(r))))));
+  // ---- checklist table
+  const cell = (lv, side, ahead) => h('div', { class: `ck-cell ${['miss', 'part', 'yes'][lv.lvl]}${ahead ? ' ahead ' + side : ''}` }, h('b', {}, t(['ckMiss', 'ckPart', 'ckYes'][lv.lvl])), lv.who.length ? h('small', {}, lv.who.map(x => x.name).join(', ')) : null);
+  const checkCard = h('div', { class: 'ancard ck' }, h('div', { class: 'ck-head' }, h('span', { class: 'y' }, t('dnaYou')), h('span', {}), h('span', { class: 'e' }, t('dnaThem'))),
+    rows.map(r => { const d = r.a.lvl - r.e.lvl; return h('div', { class: 'ck-row' }, cell(r.a, 'you', d > 0), h('div', { class: 'ck-mid' }, h('span', {}, t(r.key)), h('i', { class: sideOf(d) }, d > 0 ? '◀'.repeat(d) : d < 0 ? '▶'.repeat(-d) : '=')), cell(r.e, 'enemy', d < 0)); }));
+  // ---- threats and what to buy
+  const threats = [...E].sort((p, q) => (off(q) + q.ban * 60) - (off(p) + p.ban * 60)).slice(0, 3);
+  const threatRow = x => { const buy = h('div', { class: 'th-buy' });
+    counterItems(x, det(x)).then(ci => { if (ci.length) buy.replaceChildren(h('span', {}, `${t(ci[0].why).replace(/^./, ch => ch.toUpperCase())}:`), ...ci.slice(0, 3).map(c => h('span', { class: 'th-item' }, c.icon ? h('img', { src: c.icon, alt: '', loading: 'lazy' }) : null, c.name))); }).catch(() => { });
+    return h('div', { class: 'th-row' }, port(x, 'enemy'), h('div', {}, h('b', {}, x.name), h('span', { class: 'tag' }, det(x).spec.slice(0, 2).join(' · ')), buy)); };
+  const banned = E.filter(x => x.ban >= 0.3);
+  const threatCard = h('div', { class: 'ancard th' }, threats.map(threatRow), banned.length ? h('p', { class: 'th-ban' }, `${t('thBanned')} ${banned.map(x => x.name).join(', ')}`) : null, h('p', { class: 'faint' }, t('thNote')));
+  // ---- key matchups
+  const mmRow = (p, side) => { const clear = Math.abs(p.v) >= 5, w = side === 'you' ? p.a : p.e, l = side === 'you' ? p.e : p.a;
+    return h('div', { class: 'mm-row' }, port(p.a, 'ally', side === 'you' ? 'win' : ''), h('div', { class: 'mm-mid ' + side }, h('b', {}, `${side === 'you' ? (clear ? '◀◀ ' : '◀ ') : ''}${t(clear ? 'edClear' : 'edSmall')}${side === 'enemy' ? (clear ? ' ▶▶' : ' ▶') : ''}`),
+      h('p', {}, fillT((side === 'you' ? p.listed > 0 : p.listed < 0) ? 'mmListed' : 'mmStat', w.name, l.name).join(''))), port(p.e, 'enemy', side === 'enemy' ? 'win' : '')); };
+  const mY = pairs.filter(p => p.v > 0).sort((p, q) => q.v - p.v).slice(0, 3), mE = pairs.filter(p => p.v < 0).sort((p, q) => p.v - q.v).slice(0, 3);
+  const matchCard = h('div', { class: 'ancard mm' }, !mY.length && !mE.length ? h('p', { class: 'faint' }, t('mmNone')) : [mY.length ? [h('div', { class: 'mm-sub you' }, t('mmYou')), mY.map(p => mmRow(p, 'you'))] : null, mE.length ? [h('div', { class: 'mm-sub enemy' }, t('mmEnemy')), mE.map(p => mmRow(p, 'enemy'))] : null]);
+  // ---- assumed lanes: only this card is redrawn when a lane changes
+  const lanesCard = h('div', { class: 'ancard ln' }); let picking = null;
+  const drawLanes = () => { const LA = assignLanes('ally'), LE = assignLanes('enemy'), maps = { ally: LA, enemy: LE };
+    const setLane = (side, from, to) => { const map = maps[side], id = map[from], other = map[to]; picking = null; if (id && from !== to) { AN.lanes[side] = { ...Object.fromEntries(Object.entries(map).map(([l, i]) => [i, l])), [id]: to }; if (other) AN.lanes[side][other] = from; } drawLanes(); };
+    const tag = (side, l) => (maps[side][l] ? h('button', { class: 'ln-tag' + (picking && picking.side === side && picking.lane === l ? ' on' : ''), 'aria-label': `${t('laneChange')}: ${(S.heroes.get(maps[side][l]) || {}).name || ''}`, onclick: () => { picking = picking && picking.side === side && picking.lane === l ? null : { side, lane: l }; drawLanes(); } }, h('img', { src: S.icons.lanes[l], alt: '' }), t(l)) : h('span', { class: 'ln-tag none' }));
+    const hero = (side, l) => { const x = S.heroes.get(maps[side][l]); return x ? port(x, side, 'big') : h('span', { class: 'anp none' }); };
+    const px = picking && S.heroes.get(maps[picking.side][picking.lane]);
+    lanesCard.replaceChildren(h('div', { class: 'ln-lab y' }, t('dnaYou')), h('div', { class: 'ln-row' }, LANE_ORDER.map(l => hero('ally', l))), h('div', { class: 'ln-row' }, LANE_ORDER.map(l => tag('ally', l))),
+      h('div', { class: 'ln-row' }, LANE_ORDER.map(l => tag('enemy', l))), h('div', { class: 'ln-row' }, LANE_ORDER.map(l => hero('enemy', l))), h('div', { class: 'ln-lab e' }, t('dnaThem')),
+      px ? h('div', { class: 'lp' }, h('span', {}, fillT('lpMove', px.name).join('')), h('div', { class: 'lp-grid' }, LANE_ORDER.map(k => h('button', { class: 'lp-btn' + (k === picking.lane ? ' on' : ''), onclick: () => setLane(picking.side, picking.lane, k) }, h('img', { src: S.icons.lanes[k], alt: '' }), t(k))))) : h('p', { class: 'faint' }, t('lnNote'))); };
+  drawLanes();
+  body.replaceChildren(h('div', { class: 'ancol' }, verdict, planCard, h('h3', {}, t('anWin')), winCard(A, 'ally', idA, false), winCard(E, 'enemy', idE, idA === idE)),
+    h('div', { class: 'ancol' }, h('h3', {}, t('ckTitle')), checkCard, h('h3', {}, t('thTitle')), threatCard, h('h3', {}, t('mmTitle')), matchCard, h('h3', {}, t('lnTitle')), lanesCard,
+      h('p', { class: 'faint anfoot' }, t('anFoot')), h('button', { class: 'anback wide', onclick: closeAnalysis }, '‹ ' + t('anBackLong'))));
 }
 function closeAnalysis() { AN.open = false; $('analysis').hidden = true; }
 
