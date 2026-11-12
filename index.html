@@ -10,7 +10,7 @@
 // version.txt past every cache; if a newer version is online it reloads itself once under a new address.
 // To publish: put the same new version into version.txt, BUILD below and the two ?v= file addresses.
 (function () {
-  var BUILD = '20261113d';
+  var BUILD = '20261113e';
   function check() {
     fetch('version.txt?t=' + Date.now(), { cache: 'no-store' }).then(function (r) { return r.ok ? r.text() : ''; }).then(function (v) {
       v = v.trim();
@@ -20,7 +20,7 @@
   check(); document.addEventListener('visibilitychange', function () { if (!document.hidden) check(); });
 })();
 </script>
-<link rel="stylesheet" href="style.css?v=20261113d">
+<link rel="stylesheet" href="style.css?v=20261113e">
 </head>
 <body>
 <header id="top">
@@ -85,6 +85,6 @@
 <div id="analysis" hidden><div class="anbody"></div></div>
 <div id="sheet" hidden><div class="sheetback"></div><div class="sheetbody" role="dialog" aria-modal="true"></div></div>
 <div id="toast" hidden></div>
-<script src="app.js?v=20261113d"></script>
+<script src="app.js?v=20261113e"></script>
 </body>
 </html>
