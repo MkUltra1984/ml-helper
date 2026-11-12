@@ -61,7 +61,7 @@ const $ = id => document.getElementById(id);
 const store = { get(k, d) { try { const v = localStorage.getItem('mld.' + k); return v == null ? d : JSON.parse(v); } catch { return d; } }, set(k, v) { try { localStorage.setItem('mld.' + k, JSON.stringify(v)); } catch { } } };
 const S = {
   lang: store.get('lang', (navigator.language || 'en').startsWith('de') ? 'de' : 'en'), rank: store.get('rank2', 'glory'), days: store.get('days', 7),
-  favs: new Set(store.get('favs', [])), sort: store.get('sort', 'meta'), format: 'ranked', skipped: 0, icons: { lanes: {}, roles: {} },
+  favs: new Set(),   // the 'My heroes' list was removed at the owner's request; the code that reads it stays harmless sort: store.get('sort', 'meta'), format: 'ranked', skipped: 0, icons: { lanes: {}, roles: {} },
   design: new URLSearchParams(location.search).get('design') || 'm2',
   mode: 'enemy', lanes: new Set(), roles: new Set(), q: '',
   enemy: [], ally: [], bans: [],

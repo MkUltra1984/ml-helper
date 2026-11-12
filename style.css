@@ -595,3 +595,6 @@ body[data-design="m2"] .chiprow { gap: 6px; }
   font-family: "Bahnschrift Condensed", "Arial Narrow", "Roboto Condensed", Impact, sans-serif; }
 .rankbtn.on { background: var(--gold); border-color: var(--gold); color: #06101f; }
 .stag.phase { background: var(--good); }
+
+/* three modes: Enemy pick, Our pick, Ban */
+body[data-design="m2"] .modes { grid-template-columns: 1fr 1fr 0.6fr; }
