@@ -180,7 +180,9 @@ function drawSuggest() {
   }
   const used = taken();
   const list = [...S.heroes.values()].filter(x => !used.has(x.id) && passesFilter(x))
-    .map(x => { const r = scoreHero(x); if (S.favs.has(x.id)) r.s += 1.5; return { x, r }; })   // heroes you play get a small lift.sort((a, b) => b.r.s - a.r.s || b.x.pick - a.x.pick).slice(0, 8);
+    .map(x => { const r = scoreHero(x); if (S.favs.has(x.id)) r.s += 1.5; return { x, r }; })   // heroes you play get a small lift
+    // heroes that counter an enemy pick always come before plain meta picks, the more enemies countered the earlier
+    .sort((a, b) => b.r.strong.length - a.r.strong.length || b.r.s - a.r.s || b.x.pick - a.x.pick).slice(0, 8);
   if (!list.length) { box.replaceChildren(h('p', { class: 'faint' }, t('none'))); return; }
   const names = idsList => idsList.map(i => (S.heroes.get(i) || {}).name).filter(Boolean).join(', ');
   box.replaceChildren(...list.map(({ x, r }, i) => h('button', { class: 'sug' + (i === 0 ? ' top' : ''), title: x.name, onclick: () => openSheet(x.id) },
