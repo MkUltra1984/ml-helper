@@ -568,3 +568,10 @@ body[data-design="m2"] .dnarow.tug > b.a { color: var(--ally); } body[data-desig
   body[data-design="m2"] #suggest { -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - 26px), transparent); mask-image: linear-gradient(180deg, #000 calc(100% - 26px), transparent); }
   body[data-design="m2"] .slot img { object-position: center 30%; }
 }
+
+/* suggestion cards: a thin line under the name and between the reasons, so each reason reads as its own row */
+body[data-design^="m"] .sugtext { gap: 0; padding: 6px 10px 7px; }
+body[data-design^="m"] .sug b { padding-bottom: 5px; border-bottom: 1px solid var(--line); }
+body[data-design^="m"] .why { padding: 5px 0; }
+body[data-design^="m"] .why + .why { border-top: 1px solid var(--line); }
+body[data-design^="m"] .why:last-child { padding-bottom: 0; }
