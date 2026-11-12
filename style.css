@@ -263,6 +263,99 @@ dialog .primary { width: 100%; height: 48px; margin: 0; background: var(--accent
 @media (max-width: 380px) { :root { --pad: 10px; } .side { grid-template-columns: 48px minmax(0, 1fr); } .sidehead { font-size: 11px; } .mode { font-size: 13px; } .bigbtn span { font-size: 12px; letter-spacing: .04em; } .why { grid-template-columns: 70px minmax(0, 1fr); } }
 @media (min-width: 600px) and (orientation: portrait) { .slot { height: 64px; } .sug { flex-basis: 46%; } .grid { grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); } .bigrow.step1 { max-height: 520px; } }
 
+/* ---- after the first phone test: compact suggestion cards with reasons that wrap instead of being cut ---- */
+.sug { height: auto; min-height: 54px; grid-template-columns: 40px minmax(0, 1fr); gap: 8px; padding: 5px 8px; flex-basis: 80%; }
+.sug img { width: 40px; height: 40px; }
+.sug b { font-size: 15px; }
+.sugtext { gap: 2px; }
+/* name, lane and the reasons flow in one wrapping row, so a short card uses its whole width; a reason that wraps stays beside its tag */
+.sugtext { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 3px 10px; }
+.sug b { flex: none; max-width: 100%; justify-content: flex-start; gap: 6px; }
+.why { display: flex; align-items: flex-start; gap: 5px; font-size: 13px; line-height: 1.3; max-width: 100%; }
+.why em { flex: none; display: block; height: auto; padding: 0 5px; margin-top: 1px; font-size: 10px; line-height: 15px; }
+.why > span { white-space: normal; }
+.lanepick { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.lanecur { display: inline-flex; align-items: center; gap: 3px; height: 28px; padding: 0 6px; background: var(--panel2); border: 1px solid var(--line); color: var(--dim); font: 700 11px var(--display); letter-spacing: .04em; text-transform: uppercase; }
+.lanecur img { width: 18px; height: 18px; object-fit: contain; }
+.lanemenu { display: grid; grid-template-columns: repeat(3, 26px); gap: 3px; justify-content: center; }
+.lanemenu .lanebtn { width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; } .lanemenu img { width: 20px; height: 20px; object-fit: contain; }
+.lanemenu .lanebtn.on { background: var(--accent-strong); border-color: var(--accent); } .lanemenu .lanebtn.on img { filter: brightness(0); }
+.anlanehead { justify-content: center; }
+@media (orientation: portrait) and (max-width: 430px) { #dna { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 14px; } }
+/* phone held sideways: very little height. Left: buttons, both teams, suggestions. Right: the picker over the full height. */
+@media (orientation: landscape) and (min-width: 700px) and (max-height: 520px) {
+  body { grid-template-columns: minmax(250px, 36%) minmax(0, 1fr); grid-template-rows: auto auto minmax(0, 1fr); }
+  #top { grid-column: 1; grid-row: 1; height: 36px; border-bottom: 0; gap: 6px; } .brand b { font-size: 15px; } .ghost { height: 28px; font-size: 12px; padding: 0 8px; } #btnUndo, #btnMenu { width: 32px; }
+  #board { grid-column: 1; grid-row: 2; grid-template-columns: minmax(0, 1fr); gap: 3px; padding: 2px var(--pad) 5px; border-top: 0; border-bottom: 1px solid var(--line); }
+  .side.enemy { order: 1; } .side.ally { order: 2; }
+  .slot { height: 36px; } .slot span { font-size: 10px; padding: 1px 2px; } .slotnum { font-size: 15px; }
+  #suggest { grid-column: 1; grid-row: 3; padding: 5px var(--pad); } .sughead { display: none; } .suglist { gap: 5px; }
+  .sug { min-height: 46px; height: auto; grid-template-columns: 34px minmax(0, 1fr); } .sug img { width: 34px; height: 34px; }
+  #dna { display: none; }
+  #picker { grid-column: 2; grid-row: 1 / 4; }
+  .phase { min-height: 0; padding: 0 var(--pad); justify-content: flex-end; } .phase b { display: none; } .phase .skipbtn { margin-top: 5px; }
+  .modes { margin-top: 5px; } .mode { height: 38px; }
+  .bigrow.step1 { max-height: 110px; } .bigbtn img { width: 40px; height: 40px; } .bigbtn span { font-size: 11px; letter-spacing: .02em; }
+  .grid { grid-template-columns: repeat(auto-fill, minmax(58px, 1fr)); }
+}
+
+/* ---- second phone review ---- */
+/* upright: a suggestion card is only as wide as its content, so several fit side by side */
+.sug { flex: 0 0 auto; width: auto; max-width: 78%; }
+/* type and rank tiles keep one calm shape instead of stretching with the free height */
+.bigrow.step1 { flex: none; grid-auto-rows: 92px; max-height: none; }
+.bigbtn img { width: 48px; height: 48px; max-height: none; } .bigbtn { gap: 6px; }
+.rankstep { max-width: 420px; } .rankbtn { aspect-ratio: 1 / 1; padding: 8px; max-height: none; }
+/* analysis: the middle of a lane matchup is centred */
+.anproj, .lnwhy { text-align: center; } .lnwhy li { margin: 1px 0; }
+@media (orientation: landscape) and (min-width: 700px) {
+  /* in the side column the cards are full width: name on top, reasons below it with the tags in one column */
+  .sug { flex: none; width: 100%; max-width: none; }
+  .sugtext { flex-direction: column; flex-wrap: nowrap; align-items: stretch; gap: 3px; }
+  .why em { width: 76px; text-align: center; }
+  .bigrow.step1 { grid-auto-rows: 96px; }
+}
+@media (orientation: landscape) and (min-width: 700px) and (max-height: 520px) { .bigrow.step1 { grid-auto-rows: 76px; } .bigbtn img { width: 36px; height: 36px; } .why em { width: 70px; } }
+@media (min-width: 600px) and (orientation: portrait) { .bigrow.step1 { grid-auto-rows: 120px; } .bigbtn img { width: 60px; height: 60px; } }
+
+/* upright: suggestion cards are narrow and taller (picture and name on top, reasons below), so two and a half fit the width */
+@media (orientation: portrait), (max-width: 699px) {
+  .sug { flex: 0 0 150px; width: 150px; max-width: none; grid-template-columns: 34px minmax(0, 1fr); gap: 5px 7px; padding: 6px 7px; align-items: center; align-content: start; }
+  .sug img { width: 34px; height: 34px; }
+  .sugtext { display: contents; }
+  .sug b { flex-direction: column; align-items: flex-start; gap: 1px; font-size: 14px; white-space: normal; }
+  .sug b .lane { font-size: 10px; }
+  .why { grid-column: 1 / -1; flex-direction: column; gap: 2px; font-size: 12px; line-height: 1.25; }
+  .why em { align-self: flex-start; }
+}
+@media (min-width: 600px) and (orientation: portrait) { .sug { flex-basis: 180px; width: 180px; } }
+
+/* the pick counter and the Analysis button are gone (owner's wish); the analysis still opens by itself after the tenth pick */
+.phase { display: none !important; }
+
+/* no search field (owner's wish): a hero is found by type, then lane */
+.filters .row { display: none; } #picker.start .filters { display: none; } .grid.start { padding-top: 8px; }
+
+/* upright, before a type is chosen: the team comparison (Draft DNA) fills the free space under the type tiles, large and
+   readable; a tap opens the analysis. While heroes are listed it is the small strip at the bottom again. */
+#dna { cursor: pointer; }
+@media (orientation: portrait), (max-width: 699px) {
+  body:has(#picker.start) #picker { flex: none; }
+  body:has(#picker.start) #dna { flex: 1; min-height: 0; overflow: hidden; display: flex; flex-direction: column; gap: 11px; padding: 12px var(--pad); background: none; }
+  body:has(#picker.start) .dnatitle { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 8px; }
+  body:has(#picker.start) .dnatitle b { font: 700 12px var(--display); letter-spacing: .12em; text-transform: uppercase; color: var(--dim); padding-left: 8px; border-left: 3px solid var(--accent); line-height: 14px; }
+  .dnaid { font: 700 11px var(--display); letter-spacing: .06em; text-transform: uppercase; padding: 1px 7px; border: 1px solid; border-radius: 3px; } .dnaid.a { color: var(--ally); } .dnaid.e { color: var(--enemy); }
+  .dnaopen { margin-left: auto; height: 28px; display: inline-flex; align-items: center; padding: 0 10px; border-radius: 4px; background: var(--accent-strong); color: #04141a; font: 700 12px var(--display); letter-spacing: .08em; text-transform: uppercase; }
+  body:has(#picker.start) .dnarow { grid-template-columns: 104px minmax(0, 1fr) 86px; grid-template-areas: "l b v"; gap: 10px; align-items: center; }
+  body:has(#picker.start) .dnarow > span { font-size: 13px; } body:has(#picker.start) .dnarow > b { font-size: 13px; text-align: right; }
+  body:has(#picker.start) .tugbar { height: 10px; }
+  body:has(#picker.start) .combos { display: grid; grid-template-columns: 1fr; gap: 6px; } body:has(#picker.start) .combo.e { justify-content: flex-start; }
+}
+
+/* hero sheet: weekly trend tag; builds show emblem, its three talents and the battle spell as pictures */
+.stag.trend.up { color: var(--good); border-color: rgba(75, 224, 138, .4); } .stag.trend.down { color: var(--bad); border-color: rgba(255, 143, 74, .4); }
+.bmeta { flex-wrap: wrap; gap: 6px 14px; } .bmeta img { width: 24px; height: 24px; } .bmeta .talents { gap: 4px; }
+
 /* ---- motion: short, never looping during a draft; off when the device asks for reduced motion ---- */
 @media (prefers-reduced-motion: no-preference) {
   @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
@@ -270,7 +363,6 @@ dialog .primary { width: 100%; height: 48px; margin: 0; background: var(--accent
   @keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
   @keyframes popin { 0% { opacity: 0; transform: scale(.7); } 70% { transform: scale(1.06); } 100% { opacity: 1; transform: none; } }
   @keyframes grow { from { transform: scaleX(0); } to { transform: none; } }
-  .sug { animation: rise .22s ease-out both; } .sug:nth-child(2) { animation-delay: .04s; } .sug:nth-child(n+3) { animation-delay: .08s; }
   .grid > * { animation: fadein .16s ease-out both; }
   .bigbtn, .rankbtn { animation: rise .2s ease-out both; }
   .bigbtn:nth-child(2), .rankbtn:nth-child(2) { animation-delay: .03s; } .bigbtn:nth-child(3), .rankbtn:nth-child(3) { animation-delay: .06s; } .bigbtn:nth-child(4) { animation-delay: .09s; } .bigbtn:nth-child(5) { animation-delay: .12s; } .bigbtn:nth-child(6) { animation-delay: .15s; }
