@@ -1,0 +1,5 @@
+# secrets (API keys); never commit
+.env
+.env.*
+# working files of the icon script
+img/_*.png
