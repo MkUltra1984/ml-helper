@@ -613,3 +613,16 @@ body[data-design="m2"] #q { width: 100%; }
 #intro ol { margin: 0 0 14px; padding-left: 22px; } #intro li { margin: 6px 0; font-size: 15.5px; }
 #intro .primary { width: 100%; height: 44px; background: var(--gold); border-color: var(--gold); color: #06101f; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
 dialog { border-radius: 0; border: 2px solid var(--gold); }
+
+/* upright: exactly two suggestion cards fit the width, nothing is cut; more by swiping (they snap into place) */
+@media (orientation: portrait), (max-width: 699px) {
+  body[data-design="m2"] .suglist { scroll-snap-type: x mandatory; gap: 8px; scrollbar-width: none; }
+  body[data-design="m2"] .suglist::-webkit-scrollbar { display: none; }
+  body[data-design="m2"] .sug { flex: 0 0 calc(50% - 4px); width: auto; min-width: 0; scroll-snap-align: start; grid-template-columns: 50px minmax(0, 1fr); min-height: 104px; }
+  body[data-design="m2"] .sug img { width: 50px; min-height: 104px; }
+  body[data-design="m2"] .sugtext { padding: 6px 8px 7px; }
+  body[data-design="m2"] .sug b { font-size: 15px; white-space: normal; overflow: visible; display: block; }
+  body[data-design="m2"] .sug b .lane { display: none; }
+  body[data-design="m2"] .why { grid-template-columns: minmax(0, 1fr); gap: 2px; font-size: 12.5px; overflow-wrap: anywhere; }
+  body[data-design="m2"] .why em { display: inline-block; justify-self: start; padding: 1px 7px; }
+}
