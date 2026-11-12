@@ -582,7 +582,9 @@ async function boot(force) {
   try { await loadHeroes(force); S.ready = true; } catch (e) { console.warn('load', e.message); S.failed = true; }
   // a draft in the address (#d=enemy ids/ally ids/ban ids, e.g. #d=30,88/45/132) wins over the one kept in the browser
   const m = /^#d=([\d,]*)\/([\d,]*)\/?([\d,]*)/.exec(location.hash), nums = s => s.split(',').map(Number).filter(Boolean);
-  const d = m ? { enemy: nums(m[1]), ally: nums(m[2]), bans: nums(m[3]) } : store.get('draft', null);
+  // #h=enemy names/ally names (e.g. #h=paquito,atlas/sora,nolan) does the same with hero names (support, screenshots)
+  const hm = /^#h=([^\/&]*)\/([^\/&]*)/.exec(decodeURIComponent(location.hash)), byName = s2 => s2.split(',').map(n => { const k = n.toLowerCase().replace(/[^a-z0-9]/g, ''); const x = k && [...S.heroes.values()].find(o => o.name.toLowerCase().replace(/[^a-z0-9]/g, '') === k); return x ? x.id : 0; }).filter(Boolean);
+  const d = hm && S.ready ? { enemy: byName(hm[1]), ally: byName(hm[2]), bans: [] } : m ? { enemy: nums(m[1]), ally: nums(m[2]), bans: nums(m[3]) } : store.get('draft', null);
   if (S.ready && d && !boot.restored) { boot.restored = true; for (const k of ['enemy', 'ally']) S[k] = (d[k] || []).filter(i => S.heroes.has(i)).slice(0, 5); S.bans = (d.bans || []).filter(i => S.heroes.has(i)).slice(0, 10); S.enemy.forEach(i => loadRelation('counters', i)); S.ally.forEach(i => loadRelation('compatibility', i)); [...S.enemy, ...S.ally].forEach(i => { loadDetail(i); const hx = S.heroes.get(i); loadTimeline(i, (hx && hx.lanes[0]) || 'mid').then(drawDna); }); }
   drawPhase.last = -1; const ph = phase(); setMode(ph.kind === 'ban' ? 'ban' : 'enemy'); drawPhase.last = ph.i;
   applyLang(); drawBoard(); drawDna();
