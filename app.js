@@ -17,7 +17,7 @@ const RANK_ICONS = { mythic: RANK_IMG + '641379610654942449fa3d5cf633d38c.png', 
 const ROLES = ['tank', 'fighter', 'assassin', 'mage', 'marksman', 'support'];
 const T = {
   en: { title: 'ML Helper', sMeta: 'Meta picks', reset: 'New draft', enemy: 'Enemy', ally: 'Your team', bans: 'Bans', suggest: 'Why this pick?', poolOnly: 'my heroes only', tagStrong: 'Counters', tagPairs: 'Combo', tagWeak: 'Careful', tagMeta: 'Meta pick',
-    build: 'Build', builds: 'Core items players use', used: 'used by', emblem: 'Emblem', noBuild: 'No build data for this lane.', remove: 'Take out of the draft', sPickShort: 'Pick', sBanShort: 'Ban', tagWeakTo: 'Weak against',
+    build: 'Build', builds: 'Core items players use', used: 'used by', emblem: 'Emblem', noBuild: 'No build data for this lane.', remove: 'Take out of the draft', undo: 'Undo', sPickShort: 'Pick', sBanShort: 'Ban', tagWeakTo: 'Weak against',
     pro: 'Pro builds', proNote: 'Full builds from the newest pro games (MPL Indonesia, Philippines, Malaysia), newest first.', proNone: 'No full build for this hero in the newest pro games.', proFail: 'The pro games could not be loaded.', won: 'won', lost: 'lost',
     dna: 'Draft DNA', dnaEarly: 'Short games', dnaMid: 'Mid-length', dnaLate: 'Long games', dnaOff: 'Damage', dnaCc: 'Control', dnaSus: 'Sustain', dnaYou: 'You', dnaThem: 'Enemy', dnaEven: 'Even', combo: 'Combo', banTitle: 'Worth banning', hurts: 'counters your', holdHint: 'Tap picks. Hold a hero for builds and matchups.',
     id_pick: ['Pick-off', 'Assassins hunt single targets. Avoid long fights.'], id_ftb: ['Front to back', 'A frontline protects the damage dealers in the back.'], id_dive: ['Dive', 'Everyone jumps the enemy backline together.'],
@@ -38,7 +38,7 @@ const T = {
     strong: 'strong against', pairs: 'pairs with', weak: 'careful:', meta: 'win rate', full: 'That side is full.', favHint: 'Tap heroes you play. They show first and can be the only ones suggested.', taken: 'already taken',
     data: (r, d) => `${r} · ${d} days`, all: 'All' },
   de: { title: 'ML Helper', sMeta: 'Meta-Picks', reset: 'Neuer Draft', enemy: 'Gegner', ally: 'Dein Team', bans: 'Bans', suggest: 'Warum dieser Pick?', poolOnly: 'nur meine Helden', tagStrong: 'Kontert', tagPairs: 'Kombo', tagWeak: 'Vorsicht', tagMeta: 'Meta-Pick',
-    build: 'Build', builds: 'Kern-Items der Spieler', used: 'genutzt von', emblem: 'Emblem', noBuild: 'Keine Build-Daten für diese Lane.', remove: 'Aus dem Draft nehmen', sPickShort: 'Pick', sBanShort: 'Ban', tagWeakTo: 'Schwach gegen',
+    build: 'Build', builds: 'Kern-Items der Spieler', used: 'genutzt von', emblem: 'Emblem', noBuild: 'Keine Build-Daten für diese Lane.', remove: 'Aus dem Draft nehmen', undo: 'Rückgängig', sPickShort: 'Pick', sBanShort: 'Ban', tagWeakTo: 'Schwach gegen',
     pro: 'Profi-Builds', proNote: 'Volle Builds aus den neuesten Profi-Spielen (MPL Indonesia, Philippinen, Malaysia), neueste zuerst.', proNone: 'Kein voller Build für diesen Helden in den neuesten Profi-Spielen.', proFail: 'Die Profi-Spiele konnten nicht geladen werden.', won: 'gewonnen', lost: 'verloren',
     dna: 'Draft-DNA', dnaEarly: 'Kurze Spiele', dnaMid: 'Mittellange', dnaLate: 'Lange Spiele', dnaOff: 'Schaden', dnaCc: 'Kontrolle', dnaSus: 'Standfestigkeit', dnaYou: 'Du', dnaThem: 'Gegner', dnaEven: 'Gleich', combo: 'Kombo', banTitle: 'Bannen lohnt sich', hurts: 'kontert deine', holdHint: 'Tippen wählt. Held gedrückt halten für Builds und Matchups.',
     id_pick: ['Pick-off', 'Assassinen jagen einzelne Ziele. Lange Kämpfe meiden.'], id_ftb: ['Front to back', 'Eine Frontlinie schützt die Schadensverursacher dahinter.'], id_dive: ['Dive', 'Alle springen gemeinsam auf die gegnerische Backline.'],
@@ -81,7 +81,13 @@ function h(tag, attrs, ...kids) {
   return el;
 }
 let toastTimer = 0;
-function toast(msg) { const el = $('toast'); el.textContent = msg; el.hidden = false; clearTimeout(toastTimer); toastTimer = setTimeout(() => { el.hidden = true; }, 2200); }
+// a short message at the bottom; with an action it carries one button (Undo) and stays 8 seconds
+function toast(msg, label, act) { const el = $('toast'); el.replaceChildren(h('span', {}, msg), ...(label ? [h('button', { onclick: () => { el.hidden = true; act(); } }, label)] : [])); el.hidden = false; clearTimeout(toastTimer); toastTimer = setTimeout(() => { el.hidden = true; }, label ? 8000 : 2200); }
+// Undo: every change of the draft (pick, ban, taking out, New draft) first keeps the draft as it was; Undo steps back.
+const UNDO = [];
+function keep() { UNDO.push({ enemy: [...S.enemy], ally: [...S.ally], bans: [...S.bans] }); if (UNDO.length > 30) UNDO.shift(); $('btnUndo').disabled = false; }
+function undo() { const d = UNDO.pop(); $('btnUndo').disabled = !UNDO.length; if (!d) return; S.enemy = d.enemy; S.ally = d.ally; S.bans = d.bans; store.set('draft', d); $('toast').hidden = true;
+  place.wasFull = S.enemy.length === 5 && S.ally.length === 5; if (S.enemy.length || S.ally.length) S.rankPicked = true; clearFilters(); drawPhase(false); drawBoard(); drawGrid(); drawSuggest(); drawDna(); }
 
 // ---- data ------------------------------------------------------------------------------------------------------
 // A polite client: the data service limits how fast it may be asked (it answers 429 when it is too much). So at most
@@ -191,9 +197,9 @@ function drawSuggest() {
     const bans = [...S.heroes.values()].filter(x => !usedNow.has(x.id)).map(x => ({ x, s: x.ban * 10 + (ours.get(x.id) || []).length * 3 + (threat.get(x.id) || []).length * 1.5 + (x.win - 0.5) * 10 })).sort((a, b) => b.s - a.s).slice(0, 8);
     box.replaceChildren(...bans.map(({ x }, i) => h('button', { class: 'sug' + (i === 0 ? ' top' : ''), title: x.name, onclick: () => place(x.id, 'ban') }, h('img', { src: x.img, alt: '', loading: 'lazy' }),
       h('span', { class: 'sugtext' }, h('b', {}, x.name, h('i', { class: 'lane' }, x.lanes.map(l => t(l)).join(' / '))),
-        h('span', { class: 'why bad' }, h('em', {}, t('mBan')), `${t('sBanShort')} ${(x.ban * 100).toFixed(0)}% · ${t('meta')} ${(x.win * 100).toFixed(1)}%`),
-        ours.has(x.id) ? h('span', { class: 'why' }, h('em', {}, t('tagWeak')), `${t('vsOurs')} ${ours.get(x.id).join(', ')}`)
-          : threat.has(x.id) ? h('span', { class: 'why' }, h('em', {}, t('tagWeak')), `${t('hurts')} ${threat.get(x.id).join(', ')}`) : null))));
+        h('span', { class: 'why bad' }, h('em', {}, t('mBan')), h('span', {}, `${t('sBanShort')} ${(x.ban * 100).toFixed(0)}% · ${t('meta')} ${(x.win * 100).toFixed(1)}%`)),
+        ours.has(x.id) ? h('span', { class: 'why' }, h('em', {}, t('tagWeak')), h('span', {}, `${t('vsOurs')} ${ours.get(x.id).join(', ')}`))
+          : threat.has(x.id) ? h('span', { class: 'why' }, h('em', {}, t('tagWeak')), h('span', {}, `${t('hurts')} ${threat.get(x.id).join(', ')}`)) : null))));
     return;
   }
   const used = taken();
@@ -206,10 +212,10 @@ function drawSuggest() {
   box.replaceChildren(...list.map(({ x, r }, i) => h('button', { class: 'sug' + (i === 0 ? ' top' : ''), title: x.name, onclick: () => openSheet(x.id) },
     h('img', { src: x.img, alt: '', loading: 'lazy' }),
     h('span', { class: 'sugtext' }, h('b', {}, x.name, S.favs.has(x.id) ? h('span', { class: 'star' }, ' ★') : null, h('i', { class: 'lane' }, x.lanes.map(l => t(l)).join(' / '))),
-      r.strong.length ? h('span', { class: 'why good' }, h('em', {}, t('tagStrong')), `${t('strong')} ${names(r.strong)}`) : null,
-      r.pairs.length ? h('span', { class: 'why pair' }, h('em', {}, t('tagPairs')), `${t('pairs')} ${names(r.pairs)}`) : null,
-      r.weak.length ? h('span', { class: 'why bad' }, h('em', {}, t('tagWeak')), `${t('weak')} ${names(r.weak)}`) : null,
-      !r.strong.length && !r.pairs.length && !r.weak.length ? h('span', { class: 'why' }, h('em', {}, t('tagMeta')), `${t('meta')} ${(x.win * 100).toFixed(1)}%`) : null))));
+      r.strong.length ? h('span', { class: 'why good' }, h('em', {}, t('tagStrong')), h('span', {}, `${t('strong')} ${names(r.strong)}`)) : null,
+      r.pairs.length ? h('span', { class: 'why pair' }, h('em', {}, t('tagPairs')), h('span', {}, `${t('pairs')} ${names(r.pairs)}`)) : null,
+      r.weak.length ? h('span', { class: 'why bad' }, h('em', {}, t('tagWeak')), h('span', {}, `${t('weak')} ${names(r.weak)}`)) : null,
+      !r.strong.length && !r.pairs.length && !r.weak.length ? h('span', { class: 'why' }, h('em', {}, t('tagMeta')), h('span', {}, `${t('meta')} ${(x.win * 100).toFixed(1)}%`)) : null))));
 }
 
 // ---- board -----------------------------------------------------------------------------------------------------
@@ -237,11 +243,12 @@ function place(id, mode) {
   if (mode === 'fav') { if (S.favs.has(id)) S.favs.delete(id); else S.favs.add(id); store.set('favs', [...S.favs]); drawGrid(); drawSuggest(); return; }
   const side = SIDES[mode], list = side.list();
   if (!side) return;
-  if (taken().has(id)) { // a second tap on a taken hero takes it out again
+  let added = false;
+  if (taken().has(id)) { keep(); // a second tap on a taken hero takes it out again
     for (const k of ['enemy', 'ally', 'bans']) { const i = S[k].indexOf(id); if (i >= 0) S[k].splice(i, 1); }
   } else {
     if (list.length >= side.max) { toast(t(mode === 'ban' ? 'banFull' : 'full')); return; }
-    list.push(id); S.justPlaced = id; setTimeout(() => { if (S.justPlaced === id) S.justPlaced = 0; }, 600);
+    keep(); added = true; list.push(id); S.justPlaced = id; setTimeout(() => { if (S.justPlaced === id) S.justPlaced = 0; }, 600);
     if (mode === 'enemy') loadRelation('counters', id);
     if (mode === 'ally') loadRelation('compatibility', id);
     if (mode !== 'ban') { loadDetail(id); const hx = S.heroes.get(id); loadTimeline(id, (hx && hx.lanes[0]) || 'mid').then(drawDna); }
@@ -252,6 +259,7 @@ function place(id, mode) {
   if (full && !place.wasFull) setTimeout(openAnalysis, 250);
   place.wasFull = full;
   drawPhase(true); drawBoard(); drawGrid(); drawSuggest(); drawDna();
+  if (added && !full) toast(`${(S.heroes.get(id) || {}).name || ''} · ${t(mode === 'ban' ? 'mBan' : mode)}`, t('undo'), undo);
 }
 // What kind of team five (or at least three) picks make, read from the heroes' main roles. A rough label, like the
 // "draft identity" line on tournament streams: pick-off, front to back, dive, poke, sustain, teamfight.
@@ -274,7 +282,7 @@ function drawBoard() {
     for (let i = 0; i < (mode === 'ban' ? list.length : side.max); i++) {
       const x = S.heroes.get(list[i]);
       kids.push(x ? h('button', { class: 'slot filled' + (x.id === S.justPlaced ? ' new' : ''), title: x.name, onclick: () => openSheet(x.id) }, h('img', { src: x.img, alt: x.name }), h('span', {}, x.name))
-        : h('button', { class: 'slot' + (S.mode === mode && i === list.length ? ' next' : ''), onclick: () => setMode(mode) }, ''));
+        : h('button', { class: 'slot' + (S.mode === mode && i === list.length ? ' next' : ''), onclick: () => setMode(mode) }, mode === 'ban' ? '' : h('i', { class: 'slotnum' }, String(i + 1))));
     }
     $(side.el).replaceChildren(...kids);
   }
@@ -658,7 +666,8 @@ async function boot(force) {
 }
 for (const b of document.querySelectorAll('.mode')) b.addEventListener('click', () => setMode(b.dataset.mode));
 $('q').addEventListener('input', e => { S.q = e.target.value; drawGrid(); });
-$('btnReset').addEventListener('click', () => { S.enemy = []; S.ally = []; S.bans = []; store.set('draft', { enemy: [], ally: [], bans: [] }); S.skipped = 0; drawPhase.last = -1; place.wasFull = false; S.rankPicked = false; clearFilters(); setMode('enemy'); drawPhase(true); drawGrid(); drawSuggest(); drawDna(); });
+$('btnUndo').addEventListener('click', undo);
+$('btnReset').addEventListener('click', () => { if (S.enemy.length || S.ally.length || S.bans.length) keep(); S.enemy = []; S.ally = []; S.bans = []; store.set('draft', { enemy: [], ally: [], bans: [] }); S.skipped = 0; drawPhase.last = -1; place.wasFull = false; S.rankPicked = false; clearFilters(); setMode('enemy'); drawPhase(true); drawGrid(); drawSuggest(); drawDna(); });
 $('sheet').querySelector('.sheetback').addEventListener('click', () => closeSheet());
 document.addEventListener('keydown', e => { if (e.key === 'Escape') { if (!$('sheet').hidden) closeSheet(); else closeAnalysis(); } });
 $('btnMenu').addEventListener('click', () => $('menu').showModal());

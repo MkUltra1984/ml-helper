@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0d1020">
+<meta name="theme-color" content="#050C10">
 <title>ML Helper</title>
 <link rel="stylesheet" href="style.css">
 </head>
@@ -11,6 +11,7 @@
 <header id="top">
   <div class="brand"><b data-t="title">ML Helper</b><span class="faint" id="dataNote"></span></div>
   <div class="grow"></div>
+  <button id="btnUndo" class="ghost" aria-label="Undo" title="Undo" disabled>↶</button>
   <button id="btnReset" class="ghost" data-t="reset">New draft</button>
   <button id="btnMenu" class="ghost" aria-label="Settings">⚙</button>
 </header>
@@ -26,8 +27,6 @@
   <div class="sughead"><b id="sugTitle">Why this pick?</b><span class="faint" id="sugNote"></span></div>
   <div id="sugList" class="suglist"></div>
 </section>
-
-<section id="dna" aria-label="Draft DNA" hidden></section>
 
 <section id="picker" aria-label="Heroes">
   <div class="phase" id="phase"></div>
@@ -45,6 +44,8 @@
   </div>
   <div id="grid" class="grid"></div>
 </section>
+
+<section id="dna" aria-label="Draft DNA" hidden></section>
 
 <dialog id="menu">
   <h2 data-t="settings">Settings</h2>
