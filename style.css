@@ -395,3 +395,38 @@ body[data-design^="m"] .bans .slot span { display: none; }
 body[data-design^="m"] .bans .slot.next { box-shadow: inset 0 -3px 0 var(--gold); }
 @media (max-width: 899px) { .phase { padding: 3px 10px 0; font-size: 12px; } body[data-design^="m"] .mode { font-size: 13px; } }
 @media (orientation: landscape) and (max-height: 560px) { body[data-design="m2"] .bans .slot { height: 18px; } }
+
+/* ---- analysis screen after the draft, counter items in the hero sheet ---- */
+.skipbtn.an { color: var(--gold); border-color: var(--gold); }
+#analysis { position: fixed; inset: 0; z-index: 9; background: var(--bg); overflow-y: auto; }
+#analysis[hidden] { display: none; }
+.anbody { max-width: 760px; margin: 0 auto; padding: 10px 12px 28px; }
+.anhead { display: flex; align-items: center; justify-content: space-between; gap: 10px; border-bottom: 2px solid var(--gold); padding-bottom: 8px; }
+.anhead h2 { margin: 0; font-size: 20px; text-transform: uppercase; letter-spacing: .05em; font-family: "Bahnschrift Condensed", "Arial Narrow", Impact, sans-serif; }
+.anbody h3 { display: inline-block; margin: 16px 0 8px; font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; padding: 2px 8px; color: #06101f; background: var(--gold); }
+.anbody > p.faint { margin: 6px 0 0; font-size: 12px; }
+.spikelegend { display: flex; justify-content: space-between; font-size: 12.5px; font-weight: 700; } .spikelegend .a { color: var(--ally); } .spikelegend .e { color: var(--enemy); }
+.spikesvg svg { display: block; width: 100%; height: 110px; background: var(--panel); border: 1px solid var(--line); }
+.spikesvg polyline { fill: none; stroke-width: 2.5; vector-effect: non-scaling-stroke; stroke-linejoin: round; } .spikesvg .a { stroke: var(--ally); } .spikesvg .e { stroke: var(--enemy); }
+.spikesvg .mid { stroke: var(--line); stroke-width: 1; stroke-dasharray: 3 3; vector-effect: non-scaling-stroke; }
+.spikeaxis { display: flex; justify-content: space-between; font-size: 11px; color: var(--dim); margin-top: 2px; }
+.anlanes { display: grid; gap: 6px; }
+.anlane { background: var(--panel); border: 1px solid var(--line); padding: 6px 8px 8px; }
+.anlanehead { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; } .anlanehead b { text-transform: uppercase; letter-spacing: .1em; font-size: 13px; color: var(--gold); }
+.lanebtn { background: none; border: 1px solid var(--line); color: var(--dim); width: 30px; height: 24px; padding: 0; }
+.anlanerow { display: grid; grid-template-columns: 64px 1fr 64px; gap: 8px; align-items: center; }
+.ancard { display: flex; flex-direction: column; align-items: center; gap: 2px; background: none; border: 0; padding: 0; font-size: 11px; color: var(--ink); min-width: 0; }
+.ancard img { width: 52px; height: 52px; object-fit: cover; border: 2px solid; } .ancard.ally img { border-color: var(--ally); } .ancard.enemy img { border-color: var(--enemy); }
+.ancard span { max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.anproj { display: flex; flex-direction: column; align-items: center; gap: 3px; min-width: 0; text-align: center; }
+.projbar { width: 100%; height: 8px; background: var(--panel2); } .projbar i { display: block; height: 100%; } .projbar .a { background: var(--ally); } .projbar .e { background: var(--enemy); }
+.anproj b { font-size: 15px; } .anproj b.a { color: var(--ally); } .anproj b.e { color: var(--enemy); }
+.anwin { display: grid; grid-template-columns: 1fr; gap: 8px; }
+.wcbox { border: 1px solid; padding: 8px 10px; } .wcbox.ally { border-color: var(--ally); background: rgba(47, 123, 255, .1); } .wcbox.enemy { border-color: var(--enemy); background: rgba(229, 72, 77, .1); }
+.wcbox b { text-transform: uppercase; letter-spacing: .05em; font-size: 15px; } .wcbox ul { margin: 6px 0 0; padding-left: 18px; font-size: 13.5px; } .wcbox li { margin: 2px 0; }
+@media (min-width: 700px) { .anwin { grid-template-columns: 1fr 1fr; } }
+.cilist { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 6px; }
+.ciitem { display: flex; gap: 8px; align-items: center; background: var(--bg); border: 1px solid var(--line); padding: 5px 7px; min-width: 0; }
+.ciitem img { width: 34px; height: 34px; border-radius: 6px; flex: none; }
+.ciitem span { display: flex; flex-direction: column; min-width: 0; } .ciitem b { font-size: 12.5px; } .ciitem i { font-style: normal; font-size: 11px; color: var(--dim); }
+.srel.ci em { background: var(--gold); }
