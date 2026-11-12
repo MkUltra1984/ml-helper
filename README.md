@@ -1,4 +1,4 @@
-# ML Helper
+# MLBB Helper
 
 A free draft helper for **Mobile Legends: Bang Bang**. Keep it open beside the game on a second phone, a tablet or a PC, tap what gets picked, and it shows which heroes fit now and why.
 
@@ -13,7 +13,7 @@ A free draft helper for **Mobile Legends: Bang Bang**. Keep it open beside the g
 
 ## Safe to use
 
-ML Helper is a web page. You enter the draft by hand. It does not read, change or touch the game, it needs no account, and nothing is installed. Your heroes and settings stay in your browser.
+MLBB Helper is a web page. You enter the draft by hand. It does not read, change or touch the game, it needs no account, and nothing is installed. Your heroes and settings stay in your browser.
 
 ## Data and credits
 
@@ -37,6 +37,6 @@ Ein kostenloser Draft-Helfer für **Mobile Legends: Bang Bang**. Auf einem zweit
 
 - **Analyse nach dem Draft:** Team-Stärke nach Spiellänge, Lane-Matchups mit Sieg-Prognose, Siegbedingungen beider Teams und Items, die gegen jeden Helden wirken.
 
-**Sicher:** ML Helper ist eine Webseite. Du gibst den Draft von Hand ein. Die Seite liest, verändert oder berührt das Spiel nicht, braucht kein Konto, und nichts wird installiert.
+**Sicher:** MLBB Helper ist eine Webseite. Du gibst den Draft von Hand ein. Die Seite liest, verändert oder berührt das Spiel nicht, braucht kein Konto, und nichts wird installiert.
 
 **Daten:** Spieldaten © Moonton, gelesen über die öffentliche Community-API von RoneAI (arena.rone.dev). Vorschläge, Team-Typen und Draft-DNA sind berechnete Schätzungen. Inoffizielles Fanprojekt ohne Verbindung zu Moonton.
