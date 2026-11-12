@@ -14,8 +14,8 @@ const LANES = ['exp', 'jungle', 'mid', 'gold', 'roam'];
 const ROLES = ['tank', 'fighter', 'assassin', 'mage', 'marksman', 'support'];
 const T = {
   en: { title: 'ML Helper', sMeta: 'Meta picks', reset: 'New draft', enemy: 'Enemy', ally: 'Your team', bans: 'Bans', suggest: 'Why this pick?', poolOnly: 'my heroes only', tagStrong: 'Counters', tagPairs: 'Combo', tagWeak: 'Careful', tagMeta: 'Meta pick',
-    build: 'Build', builds: 'Builds players use', used: 'used by', emblem: 'Emblem', noBuild: 'No build data for this lane.', remove: 'Take out of the draft', sPickShort: 'Pick', sBanShort: 'Ban', tagWeakTo: 'Weak against',
-    pro: 'Pro builds', proNote: 'from the latest MPL Indonesia games', proNone: 'None of the latest pro games had this hero.', proFail: 'The pro games could not be loaded.', won: 'won', lost: 'lost',
+    build: 'Build', builds: 'Core items players use', used: 'used by', emblem: 'Emblem', noBuild: 'No build data for this lane.', remove: 'Take out of the draft', sPickShort: 'Pick', sBanShort: 'Ban', tagWeakTo: 'Weak against',
+    pro: 'Pro builds', proNote: 'Full builds from the newest pro games (MPL Indonesia, Philippines, Malaysia), newest first.', proNone: 'No full build for this hero in the newest pro games.', proFail: 'The pro games could not be loaded.', won: 'won', lost: 'lost',
     dna: 'Draft DNA', dnaDur: 'Durability', dnaOff: 'Damage', dnaCtl: 'Skill effects', combo: 'Combo', banTitle: 'Worth banning', hurts: 'counters your', holdHint: 'Tap picks. Hold a hero for builds and matchups.',
     id_pick: ['Pick-off', 'Assassins hunt single targets. Avoid long fights.'], id_ftb: ['Front to back', 'A frontline protects the damage dealers in the back.'], id_dive: ['Dive', 'Everyone jumps the enemy backline together.'],
     id_poke: ['Poke & burst', 'Mages wear the enemy down before the fight starts.'], id_sustain: ['Sustain', 'Supports keep the team alive through long fights.'], id_team: ['Teamfight', 'Strongest when all five fight together.'],
@@ -27,8 +27,8 @@ const T = {
     strong: 'strong against', pairs: 'pairs with', weak: 'careful:', meta: 'win rate', full: 'That side is full.', favHint: 'Tap heroes you play. They show first and can be the only ones suggested.', taken: 'already taken',
     data: (r, d) => `${r} · ${d} days`, all: 'All' },
   de: { title: 'ML Helper', sMeta: 'Meta-Picks', reset: 'Neuer Draft', enemy: 'Gegner', ally: 'Dein Team', bans: 'Bans', suggest: 'Warum dieser Pick?', poolOnly: 'nur meine Helden', tagStrong: 'Kontert', tagPairs: 'Kombo', tagWeak: 'Vorsicht', tagMeta: 'Meta-Pick',
-    build: 'Build', builds: 'Builds der Spieler', used: 'genutzt von', emblem: 'Emblem', noBuild: 'Keine Build-Daten für diese Lane.', remove: 'Aus dem Draft nehmen', sPickShort: 'Pick', sBanShort: 'Ban', tagWeakTo: 'Schwach gegen',
-    pro: 'Profi-Builds', proNote: 'aus den letzten Spielen der MPL Indonesia', proNone: 'In den letzten Profi-Spielen kam dieser Held nicht vor.', proFail: 'Die Profi-Spiele konnten nicht geladen werden.', won: 'gewonnen', lost: 'verloren',
+    build: 'Build', builds: 'Kern-Items der Spieler', used: 'genutzt von', emblem: 'Emblem', noBuild: 'Keine Build-Daten für diese Lane.', remove: 'Aus dem Draft nehmen', sPickShort: 'Pick', sBanShort: 'Ban', tagWeakTo: 'Schwach gegen',
+    pro: 'Profi-Builds', proNote: 'Volle Builds aus den neuesten Profi-Spielen (MPL Indonesia, Philippinen, Malaysia), neueste zuerst.', proNone: 'Kein voller Build für diesen Helden in den neuesten Profi-Spielen.', proFail: 'Die Profi-Spiele konnten nicht geladen werden.', won: 'gewonnen', lost: 'verloren',
     dna: 'Draft-DNA', dnaDur: 'Standfestigkeit', dnaOff: 'Schaden', dnaCtl: 'Fähigkeiten', combo: 'Kombo', banTitle: 'Bannen lohnt sich', hurts: 'kontert deine', holdHint: 'Tippen wählt. Held gedrückt halten für Builds und Matchups.',
     id_pick: ['Pick-off', 'Assassinen jagen einzelne Ziele. Lange Kämpfe meiden.'], id_ftb: ['Front to back', 'Eine Frontlinie schützt die Schadensverursacher dahinter.'], id_dive: ['Dive', 'Alle springen gemeinsam auf die gegnerische Backline.'],
     id_poke: ['Poke & Burst', 'Magier zermürben den Gegner, bevor der Kampf beginnt.'], id_sustain: ['Sustain', 'Supporter halten das Team in langen Kämpfen am Leben.'], id_team: ['Teamfight', 'Am stärksten, wenn alle fünf zusammen kämpfen.'],
@@ -198,7 +198,6 @@ function teamIdentity(list) {
   if (c('support') >= 2) return 'id_sustain';
   return 'id_team';
 }
-const SLOT_LANES = ['exp', 'jungle', 'mid', 'roam', 'gold'];
 function drawBoard() {
   for (const [el, list] of [['identEnemy', S.enemy], ['identAlly', S.ally]]) { const k = teamIdentity(list), box = $(el); box.textContent = k ? t(k)[0] : ''; box.title = k ? t(k)[1] : ''; }
   for (const [mode, side] of Object.entries(SIDES)) {
@@ -206,7 +205,7 @@ function drawBoard() {
     for (let i = 0; i < side.max; i++) {
       const x = S.heroes.get(list[i]);
       kids.push(x ? h('button', { class: 'slot filled', title: x.name, onclick: () => openSheet(x.id) }, h('img', { src: x.img, alt: x.name }), h('span', {}, x.name))
-        : h('button', { class: 'slot' + (S.mode === mode && i === list.length ? ' next' : ''), onclick: () => setMode(mode) }, h('i', { class: 'lanehint' }, t(SLOT_LANES[i]))));
+        : h('button', { class: 'slot' + (S.mode === mode && i === list.length ? ' next' : ''), onclick: () => setMode(mode) }, ''));
     }
     $(side.el).replaceChildren(...kids);
   }
@@ -278,31 +277,37 @@ async function loadBuilds(id, lane) {
   return list;
 }
 const pct = v => `${(v * 100).toFixed(1)}%`;
-// Pro builds: what players built in the latest MPL Indonesia games (the league's public match pages, through the same
-// API). The schedule and the last 10 finished matches are read once and kept for a day: about 11 requests.
-//   /api/esports/id/schedule        weeks > days > matches { match_id, start_at, status, team1, team2 }
-//   /api/esports/id/matches/<id>    games > teams > players { name, hero { name }, kills, deaths, assists, items, emblem, talents }
+// Pro builds: what players built in the newest pro games of MPL Indonesia, Philippines and Malaysia (the leagues'
+// public match pages, through the same API). The data does not say which patch a game was played on, so "newest" is by
+// date: the schedules and playoffs are read, the 12 newest finished matches opened, and all of it kept for a day
+// (about 18 requests). Only full builds (six items) are shown.
+//   /api/esports/<league>/schedule, /playoffs    matches { match_id, start_at, status }
+//   /api/esports/<league>/matches/<id>           games > teams > players { name, hero { name }, kills, deaths, assists, items, emblem, talents }
 async function loadPro() {
   if (D.pro) return D.pro;
-  const c = store.get('pro', null);
+  const c = store.get('pro2', null);
   if (c && Date.now() - c.at < 24 * 3600 * 1000) return D.pro = c.list;
   const raw = async path => { const r = await fetch(API + path, { headers: { Accept: 'application/json' } }); if (!r.ok) throw new Error(`${path}: ${r.status}`); return r.json(); };
-  const sched = await raw('/esports/id/schedule');
-  const matches = arr(sched.weeks).flatMap(w => arr(w.days).flatMap(d => arr(d.matches))).filter(m => m.status === 'finished' && m.match_id != null)
-    .sort((a, b) => String(b.start_at).localeCompare(String(a.start_at))).slice(0, 10);
+  // every object with a match id and a start time, wherever it sits in the answer (schedule and playoffs differ)
+  const collect = (node, lg, out) => { if (Array.isArray(node)) node.forEach(n => collect(n, lg, out)); else if (node && typeof node === 'object') {
+    if (node.match_id != null && node.start_at && node.status === 'finished') out.push({ lg, id: node.match_id, at: String(node.start_at) }); else Object.values(node).forEach(n => collect(n, lg, out)); } };
+  const found = [];
+  await Promise.all(['id', 'ph', 'my'].flatMap(lg => ['schedule', 'playoffs'].map(async part => { try { collect(await raw(`/esports/${lg}/${part}`), lg, found); } catch (e) { console.warn('pro list', lg, part, e.message); } })));
+  const seen = new Set(), matches = found.sort((a, b) => b.at.localeCompare(a.at)).filter(m => !seen.has(m.lg + m.id) && seen.add(m.lg + m.id)).slice(0, 12);
+  if (!matches.length) throw new Error('no pro matches');
   const list = [];
   await Promise.all(matches.map(async m => {
     try {
-      const det = await raw(`/esports/id/matches/${m.match_id}`);
+      const det = await raw(`/esports/${m.lg}/matches/${encodeURIComponent(m.id)}`);
       for (const g of arr(det.games)) for (const tm of arr(g.teams)) for (const p of arr(tm.players)) {
         if (!p.hero || !p.hero.name) continue;
-        list.push({ hero: norm(p.hero.name), player: p.name || '', team: (tm.team || {}).name || '', date: String(m.start_at || '').slice(0, 10), win: !!tm.winner, kda: [p.kills, p.deaths, p.assists].map(n => n ?? 0).join(' / '),
+        list.push({ hero: norm(p.hero.name), player: p.name || '', team: (tm.team || {}).name || '', lg: m.lg.toUpperCase(), date: m.at.slice(0, 10), win: !!tm.winner, kda: [p.kills, p.deaths, p.assists].map(n => n ?? 0).join(' / '),
           items: arr(p.items).map(i => ({ id: Number(i.id), img: i.image || '' })), emblem: (p.emblem || {}).image || '', talents: arr(p.talents).map(x => x.image || '').filter(Boolean) });
       }
-    } catch (e) { console.warn('pro match', m.match_id, e.message); }
+    } catch (e) { console.warn('pro match', m.lg, m.id, e.message); }
   }));
   list.sort((a, b) => b.date.localeCompare(a.date));
-  if (list.length) store.set('pro', { at: Date.now(), list });
+  if (list.length) store.set('pro2', { at: Date.now(), list });
   return D.pro = list;
 }
 const norm = s => String(s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -341,9 +346,9 @@ async function openSheet(id) {
     h('h3', {}, t('pro')), h('p', { class: 'faint pronote' }, t('proNote')), proBox);
   Promise.all([loadPro(), loadItems().catch(() => new Map())]).then(([pro, items]) => {
     if (D.open !== id) return;
-    const mine = pro.filter(p => p.hero === norm(x.name)).slice(0, 4);
+    const mine = pro.filter(p => p.hero === norm(x.name) && p.items.length >= 6).slice(0, 4);
     proBox.replaceChildren(...(mine.length ? mine.map(p => h('div', { class: 'build' },
-      h('div', { class: 'bhead' }, h('b', {}, p.player), h('span', {}, `${p.team} · ${p.date}`), h('span', { class: p.win ? 'good' : 'bad' }, `${t(p.win ? 'won' : 'lost')} · ${p.kda}`)),
+      h('div', { class: 'bhead' }, h('b', {}, p.player), h('span', {}, `${p.team} · MPL ${p.lg} · ${p.date}`), h('span', { class: p.win ? 'good' : 'bad' }, `${t(p.win ? 'won' : 'lost')} · ${p.kda}`)),
       h('div', { class: 'bitems' }, p.items.map(it => { const o = items.get(it.id) || {}; return h('span', { class: 'bitem', title: o.name || '' }, h('img', { src: it.img || o.icon || '', alt: '', loading: 'lazy' }), h('i', {}, o.name || '')); })),
       h('div', { class: 'bmeta' }, p.emblem ? h('span', {}, h('img', { src: p.emblem, alt: '' }), t('emblem')) : null, p.talents.length ? h('span', {}, p.talents.map(u => h('img', { src: u, alt: '' }))) : null)))
       : [h('p', { class: 'faint' }, t('proNone'))]));
