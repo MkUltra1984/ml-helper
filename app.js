@@ -19,7 +19,7 @@ const T = {
     dna: 'Draft DNA', dnaEarly: 'Early', dnaMid: 'Mid', dnaLate: 'Late', dnaOff: 'Damage', dnaCc: 'Crowd control', dnaSus: 'Sustain', combo: 'Combo', banTitle: 'Worth banning', hurts: 'counters your', holdHint: 'Tap picks. Hold a hero for builds and matchups.',
     id_pick: ['Pick-off', 'Assassins hunt single targets. Avoid long fights.'], id_ftb: ['Front to back', 'A frontline protects the damage dealers in the back.'], id_dive: ['Dive', 'Everyone jumps the enemy backline together.'],
     id_poke: ['Poke & burst', 'Mages wear the enemy down before the fight starts.'], id_sustain: ['Sustain', 'Supports keep the team alive through long fights.'], id_team: ['Teamfight', 'Strongest when all five fight together.'],
-    mEnemy: 'Enemy pick', mAlly: 'Our pick', mBan: 'Ban', mFav: '★ My heroes', startLane: 'Lane', startRole: 'Role', startMine: 'My heroes', startHint: 'Tap a lane or a role, then the hero.', analysis: 'Analysis', anTitle: 'Team composition & win conditions', anSpike: 'Team power by game length', anSpikeNote: 'Average win rate of the five heroes in games of that length (minutes).', anLanes: 'Lane matchups',
+    mEnemy: 'Enemy pick', mAlly: 'Our pick', mBan: 'Ban', mFav: '★ My heroes', startLane: 'Lane', startRole: 'Role', startMine: 'My heroes', startHint: 'Tap a role or a lane, then the hero.', lnWr: 'win rate', lnEarly: 'early', lnLate: 'late', lnCounters: 'counters', lnEarlyEdge: 'is stronger early', lnLateEdge: 'scales better late', lnEven: 'Even matchup', analysis: 'Analysis', anTitle: 'Team composition & win conditions', anSpike: 'Team power by game length', anSpikeNote: 'Average win rate of the five heroes in games of that length (minutes).', anLanes: 'Lane matchups',
     anLaneNote: 'Win projection per lane, an estimate from matchup statistics. Use ⇄ to move a hero to the next lane. Tap a hero for builds and counter items.', anWin: 'Core win conditions', anEst: 'All of this is calculated from public statistics and simple rules. Treat it as a hint, not a verdict.',
     tEarly: 'Early game', tLate: 'Late game scaling', tEven: 'Steady all game', bEarly: 'Strongest in short games: press the lead and end before 16 minutes', bLate: 'Stronger the longer it goes: farm safely and stall', bEven: 'No clear timing edge: play around Turtle and Lord',
     wc_id_pick: ['Catch single heroes before fights start', 'Control the jungle paths', 'Avoid long front-to-back fights'], wc_id_ftb: ['Protect the damage dealer in the back', 'Fight at objectives, frontline first', 'Do not chase into their jungle'],
@@ -40,7 +40,7 @@ const T = {
     dna: 'Draft-DNA', dnaEarly: 'Früh', dnaMid: 'Mitte', dnaLate: 'Spät', dnaOff: 'Schaden', dnaCc: 'Kontrolle', dnaSus: 'Standfestigkeit', combo: 'Kombo', banTitle: 'Bannen lohnt sich', hurts: 'kontert deine', holdHint: 'Tippen wählt. Held gedrückt halten für Builds und Matchups.',
     id_pick: ['Pick-off', 'Assassinen jagen einzelne Ziele. Lange Kämpfe meiden.'], id_ftb: ['Front to back', 'Eine Frontlinie schützt die Schadensverursacher dahinter.'], id_dive: ['Dive', 'Alle springen gemeinsam auf die gegnerische Backline.'],
     id_poke: ['Poke & Burst', 'Magier zermürben den Gegner, bevor der Kampf beginnt.'], id_sustain: ['Sustain', 'Supporter halten das Team in langen Kämpfen am Leben.'], id_team: ['Teamfight', 'Am stärksten, wenn alle fünf zusammen kämpfen.'],
-    mEnemy: 'Gegner-Pick', mAlly: 'Unser Pick', mBan: 'Ban', mFav: '★ Meine Helden', startLane: 'Lane', startRole: 'Rolle', startMine: 'Meine Helden', startHint: 'Lane oder Rolle antippen, dann den Helden.', analysis: 'Analyse', anTitle: 'Team-Aufstellung & Siegbedingungen', anSpike: 'Team-Stärke nach Spiellänge', anSpikeNote: 'Durchschnittliche Siegrate der fünf Helden in Spielen dieser Länge (Minuten).', anLanes: 'Lane-Matchups',
+    mEnemy: 'Gegner-Pick', mAlly: 'Unser Pick', mBan: 'Ban', mFav: '★ Meine Helden', startLane: 'Lane', startRole: 'Rolle', startMine: 'Meine Helden', startHint: 'Rolle oder Lane antippen, dann den Helden.', lnWr: 'Siegrate', lnEarly: 'früh', lnLate: 'spät', lnCounters: 'kontert', lnEarlyEdge: 'ist früh stärker', lnLateEdge: 'skaliert spät besser', lnEven: 'Ausgeglichenes Matchup', analysis: 'Analyse', anTitle: 'Team-Aufstellung & Siegbedingungen', anSpike: 'Team-Stärke nach Spiellänge', anSpikeNote: 'Durchschnittliche Siegrate der fünf Helden in Spielen dieser Länge (Minuten).', anLanes: 'Lane-Matchups',
     anLaneNote: 'Sieg-Prognose pro Lane, eine Schätzung aus Matchup-Statistiken. Mit ⇄ einen Helden auf die nächste Lane schieben. Held antippen für Builds und Konter-Items.', anWin: 'Siegbedingungen', anEst: 'Alles hier ist aus öffentlichen Statistiken und einfachen Regeln berechnet. Ein Hinweis, kein Urteil.',
     tEarly: 'Early Game', tLate: 'Late-Game-Skalierung', tEven: 'Durchgehend stabil', bEarly: 'Am stärksten in kurzen Spielen: Vorsprung nutzen und vor Minute 16 beenden', bLate: 'Je länger, desto stärker: sicher farmen und verzögern', bEven: 'Kein klarer Zeitvorteil: um Turtle und Lord spielen',
     wc_id_pick: ['Einzelne Helden fangen, bevor Kämpfe beginnen', 'Die Jungle-Wege kontrollieren', 'Lange Front-to-back-Kämpfe meiden'], wc_id_ftb: ['Den Schadensverursacher hinten schützen', 'An Zielen kämpfen, Frontlinie zuerst', 'Nicht in ihren Jungle hinterherlaufen'],
@@ -60,7 +60,7 @@ const T = {
 const $ = id => document.getElementById(id);
 const store = { get(k, d) { try { const v = localStorage.getItem('mld.' + k); return v == null ? d : JSON.parse(v); } catch { return d; } }, set(k, v) { try { localStorage.setItem('mld.' + k, JSON.stringify(v)); } catch { } } };
 const S = {
-  lang: store.get('lang', (navigator.language || 'en').startsWith('de') ? 'de' : 'en'), rank: store.get('rank', 'mythic'), days: store.get('days', 7),
+  lang: store.get('lang', (navigator.language || 'en').startsWith('de') ? 'de' : 'en'), rank: store.get('rank2', 'glory'), days: store.get('days', 7),
   favs: new Set(store.get('favs', [])), sort: store.get('sort', 'meta'), format: 'ranked', skipped: 0, icons: { lanes: {}, roles: {} },
   design: new URLSearchParams(location.search).get('design') || 'm2',
   mode: 'enemy', lanes: new Set(), roles: new Set(), q: '',
@@ -81,10 +81,25 @@ let toastTimer = 0;
 function toast(msg) { const el = $('toast'); el.textContent = msg; el.hidden = false; clearTimeout(toastTimer); toastTimer = setTimeout(() => { el.hidden = true; }, 2200); }
 
 // ---- data ------------------------------------------------------------------------------------------------------
+// A polite client: the data service limits how fast it may be asked (it answers 429 when it is too much). So at most
+// two requests run at a time with a short pause between them, and a 429 is retried twice after waiting.
+const Q = { running: 0, waiting: [] };
+function fetchJson(path) {
+  return new Promise((resolve, reject) => { Q.waiting.push({ path, resolve, reject, tries: 0 }); pump(); });
+}
+function pump() {
+  while (Q.running < 2 && Q.waiting.length) {
+    const job = Q.waiting.shift(); Q.running++;
+    const done = () => { setTimeout(() => { Q.running--; pump(); }, 120); };
+    fetch(API + job.path, { headers: { Accept: 'application/json' } }).then(async r => {
+      if (r.status === 429 && job.tries < 2) { job.tries++; const wait = Math.min(8000, (Number(r.headers.get('Retry-After')) || 2 * job.tries) * 1000); setTimeout(() => { Q.waiting.unshift(job); pump(); }, wait); done(); return; }
+      if (!r.ok) throw new Error(`${job.path}: ${r.status}`);
+      job.resolve(await r.json()); done();
+    }).catch(e => { job.reject(e); done(); });
+  }
+}
 async function api(path) {
-  const r = await fetch(API + path, { headers: { Accept: 'application/json' } });
-  if (!r.ok) throw new Error(`${path}: ${r.status}`);
-  const j = await r.json();
+  const j = await fetchJson(path);
   return (j && j.data && j.data.records) || [];
 }
 const arr = x => (Array.isArray(x) ? x.filter(v => v && typeof v === 'object') : []);
@@ -298,7 +313,7 @@ function drawGrid() {
     const big = (set, key, icons) => h('button', { class: 'bigbtn', onclick: () => pickFilter(set, key) }, icons[key] ? h('img', { src: icons[key], alt: '' }) : null, h('span', {}, t(key)));
     const mine = [...S.favs].map(i => S.heroes.get(i)).filter(Boolean).sort((a, b) => b.pick - a.pick);
     grid.replaceChildren(h('p', { class: 'faint starthint' }, t('startHint')),
-      h('div', { class: 'bigrow lanes' }, LANES.map(k => big(S.lanes, k, S.icons.lanes))), h('div', { class: 'bigrow roles' }, ROLES.map(k => big(S.roles, k, S.icons.roles))),
+      h('div', { class: 'bigrow roles' }, ROLES.map(k => big(S.roles, k, S.icons.roles))), h('div', { class: 'bigrow lanes' }, LANES.map(k => big(S.lanes, k, S.icons.lanes))),
       ...(mine.length ? [h('div', { class: 'startlabel' }, t('startMine')), h('div', { class: 'minegrid' }, mine.map(tileOf))] : []));
     return;
   }
@@ -355,7 +370,7 @@ async function loadPro() {
   if (D.pro) return D.pro;
   const c = store.get('pro2', null);
   if (c && Date.now() - c.at < 24 * 3600 * 1000) return D.pro = c.list;
-  const raw = async path => { const r = await fetch(API + path, { headers: { Accept: 'application/json' } }); if (!r.ok) throw new Error(`${path}: ${r.status}`); return r.json(); };
+  const raw = fetchJson;
   // every object with a match id and a start time, wherever it sits in the answer (schedule and playoffs differ)
   const collect = (node, lg, out) => { if (Array.isArray(node)) node.forEach(n => collect(n, lg, out)); else if (node && typeof node === 'object') {
     if (node.match_id != null && node.start_at && node.status === 'finished') out.push({ lg, id: node.match_id, at: String(node.start_at) }); else Object.values(node).forEach(n => collect(n, lg, out)); } };
@@ -501,10 +516,13 @@ async function counterItems(x, d) {
 // condition" graphic of tournament streams:
 //   power by game length   /api/academy/heroes/<id>/win-rate/timeline?lane=   win rate in games of 10-12 ... 20+ minutes
 //   lane matchups          the heroes are put on the five lanes by their usual lanes (tap a lane name to move one);
-//                          the projection is 50% shifted by the matchup statistics, the game's strong/weak lists and
-//                          the two heroes' win rates, kept between 35 and 65
+//                          the projection is 50% shifted by who wins more in short games on that lane (the
+//                          laning phase), the two win rates, the game's strong/weak lists and the matchup
+//                          statistics, kept between 30 and 70; each lane also says why
 //   win conditions         the team type (teamIdentity) and whether the team is better early or late
 const AN = { lanes: { ally: {}, enemy: {} }, time: new Map() };
+{ const c = store.get('timelines', null); if (c && Date.now() - c.at < 24 * 3600 * 1000) for (const [k, v] of c.list) AN.time.set(k, v); }
+let timeSave = 0;
 function assignLanes(side) {
   const ids = S[side].slice(0, 5), fixed = AN.lanes[side]; let best = null, bestScore = -1;
   const go = (i, used, cur, score) => { if (i === ids.length) { if (score > bestScore) { bestScore = score; best = { ...cur }; } return; }
@@ -519,17 +537,22 @@ async function loadTimeline(id, lane) {
   const key = `${id}.${lane}.${S.rank}`; if (AN.time.has(key)) return AN.time.get(key);
   let v = null;
   try { const recs = await api(`/academy/heroes/${id}/win-rate/timeline?lane=${lane}&rank=${S.rank}&lang=en`); const tw = arr(((recs[0] || {}).data || {}).time_win_rate);
-    if (tw.length >= 3) v = tw.map(b => ({ from: b.time_min, w: Number(b.win_rate) || 0 })); } catch (e) { console.warn('timeline', id, e.message); }
+    if (tw.length >= 3) v = tw.map(b => ({ from: b.time_min, w: Number(b.win_rate) || 0 })); } catch (e) { console.warn('timeline', id, e.message); return null; }
   AN.time.set(key, v);
+  clearTimeout(timeSave); timeSave = setTimeout(() => { const old = store.get('timelines', null); store.set('timelines', { at: old && Date.now() - old.at < 24 * 3600 * 1000 ? old.at : Date.now(), list: [...AN.time].filter(x => x[1]) }); }, 800);
   return v;
 }
-function laneProjection(a, e) {   // chance of our hero a against their hero e on one lane, in percent
-  if (!a || !e) return null;
-  let p = 50 + (a.win - e.win) * 50;
-  if (a.strong.includes(e.id) || e.weak.includes(a.id)) p += 4;
-  if (a.weak.includes(e.id) || e.strong.includes(a.id)) p -= 4;
+function laneInfo(a, e, lane) {   // our hero a against their hero e on one lane: chance in percent, numbers and reasons
+  const tl = x => (x ? AN.time.get(`${x.id}.${lane}.${S.rank}`) : null);
+  const num = x => { if (!x) return null; const c = tl(x); return { wr: x.win * 100, early: c && c.length ? c[0].w * 100 : null, late: c && c.length ? c[c.length - 1].w * 100 : null }; };
+  const na = num(a), ne = num(e); if (!a || !e) return { p: null, na, ne, why: [] };
+  const why = []; let p = 50 + (a.win - e.win) * 40;
+  if (na.early != null && ne.early != null) { const d = na.early - ne.early; p += d * 0.9; if (Math.abs(d) >= 1) why.push(`${(d > 0 ? a : e).name} ${t('lnEarlyEdge')}`); }
+  if (na.late != null && ne.late != null) { const d = na.late - ne.late; if (Math.abs(d) >= 1.5) why.push(`${(d > 0 ? a : e).name} ${t('lnLateEdge')}`); }
+  if (a.strong.includes(e.id) || e.weak.includes(a.id)) { p += 5; why.unshift(`${a.name} ${t('lnCounters')} ${e.name}`); }
+  if (a.weak.includes(e.id) || e.strong.includes(a.id)) { p -= 5; why.unshift(`${e.name} ${t('lnCounters')} ${a.name}`); }
   const live = S.vs.get(e.id); if (live) { if (live.good.has(a.id)) p += live.good.get(a.id) * 100; if (live.bad.has(a.id)) p += live.bad.get(a.id) * 100; }
-  return Math.max(35, Math.min(65, Math.round(p)));
+  return { p: Math.max(30, Math.min(70, Math.round(p))), na, ne, why: why.slice(0, 3) };
 }
 async function openAnalysis() {
   if (!S.enemy.length || !S.ally.length) return;
@@ -539,21 +562,27 @@ async function openAnalysis() {
   const move = (side, lane) => { const map = side === 'ally' ? LA : LE, id = map[lane]; if (!id) return; const next = LANE_ORDER[(LANE_ORDER.indexOf(lane) + 1) % 5], other = map[next];
     AN.lanes[side] = { ...Object.fromEntries(Object.entries(map).map(([l, i]) => [i, l])), [id]: next }; if (other) AN.lanes[side][other] = lane; openAnalysis(); };
   const spec = id => { const d = D.detail.get(id); return d && d.spec.length ? d.spec[0] : ''; };
-  const laneRows = LANE_ORDER.map(l => { const a = S.heroes.get(LA[l]), e = S.heroes.get(LE[l]), p = laneProjection(a, e);
-    return h('div', { class: 'anlane' }, h('div', { class: 'anlanehead' }, h('button', { class: 'lanebtn a', onclick: () => move('ally', l), 'aria-label': t(l) }, '⇄'), h('b', {}, t(l)), h('button', { class: 'lanebtn e', onclick: () => move('enemy', l), 'aria-label': t(l) }, '⇄')),
-      h('div', { class: 'anlanerow' }, heroCard(LA[l], 'ally'),
-        h('div', { class: 'anproj' }, p == null ? h('span', { class: 'faint' }, '–') : [h('div', { class: 'projbar' }, h('i', { class: p >= 50 ? 'a' : 'e', style: `width:${p >= 50 ? p : 100 - p}%;margin-left:${p >= 50 ? 0 : p}%` })), h('b', { class: p >= 50 ? 'a' : 'e' }, `${p >= 50 ? '◀' : ''} ${p >= 50 ? p : 100 - p}% ${p < 50 ? '▶' : ''}`),
-          h('span', { class: 'faint' }, [spec(LA[l]), spec(LE[l])].filter(Boolean).join(' vs. '))]),
-        heroCard(LE[l], 'enemy'))); });
+  const stat = n => (n ? h('span', { class: 'lnstat' }, h('b', {}, `${n.wr.toFixed(1)}%`), n.early != null ? ` ${t('lnEarly')} ${n.early.toFixed(0)} · ${t('lnLate')} ${n.late.toFixed(0)}` : '') : null);
+  const laneRows = () => LANE_ORDER.map(l => { const a = S.heroes.get(LA[l]), e = S.heroes.get(LE[l]), r = laneInfo(a, e, l), p = r.p;
+    return h('div', { class: 'anlane' }, h('div', { class: 'anlanehead' }, h('button', { class: 'lanebtn a', onclick: () => move('ally', l), 'aria-label': t(l) }, '⇄'),
+        h('b', {}, S.icons.lanes[l] ? h('img', { src: S.icons.lanes[l], alt: '' }) : null, t(l)), h('button', { class: 'lanebtn e', onclick: () => move('enemy', l), 'aria-label': t(l) }, '⇄')),
+      h('div', { class: 'anlanerow' }, h('div', { class: 'lnside' }, heroCard(LA[l], 'ally'), stat(r.na)),
+        h('div', { class: 'anproj' }, p == null ? h('span', { class: 'faint' }, '–') : [h('b', { class: p >= 50 ? 'a' : 'e' }, `${p >= 50 ? '◀ ' : ''}${p >= 50 ? p : 100 - p}%${p < 50 ? ' ▶' : ''}`),
+          h('div', { class: 'projbar' }, h('i', { class: 'a', style: `width:${p}%` }), h('i', { class: 'e', style: `width:${100 - p}%` })),
+          h('span', { class: 'lnspec' }, [spec(LA[l]), spec(LE[l])].filter(Boolean).join(' vs. ')),
+          h('ul', { class: 'lnwhy' }, (r.why.length ? r.why : [t('lnEven')]).map(w => h('li', {}, w)))]),
+        h('div', { class: 'lnside' }, heroCard(LE[l], 'enemy'), stat(r.ne)))); });
+  const lanesBox = h('div', { class: 'anlanes' }, laneRows());
   const spikeBox = h('div', { class: 'anspike' }, h('p', { class: 'faint' }, t('loading'))), winBox = h('div', { class: 'anwin' });
   body.replaceChildren(h('div', { class: 'anhead' }, h('h2', {}, t('anTitle')), h('button', { class: 'sclose', 'aria-label': t('close'), onclick: closeAnalysis }, '✕')),
     h('h3', {}, t('anSpike')), spikeBox, h('p', { class: 'faint' }, t('anSpikeNote')),
-    h('h3', {}, t('anLanes')), h('div', { class: 'anlanes' }, laneRows), h('p', { class: 'faint' }, t('anLaneNote')),
+    h('h3', {}, t('anLanes')), lanesBox, h('p', { class: 'faint' }, t('anLaneNote')),
     h('h3', {}, t('anWin')), winBox, h('p', { class: 'faint' }, t('anEst')));
   const curve = async map => { const rows = (await Promise.all(Object.entries(map).map(([l, id]) => loadTimeline(id, l)))).filter(Boolean); if (!rows.length) return null;
     const n = Math.min(...rows.map(r => r.length)); return Array.from({ length: n }, (_, i) => ({ from: rows[0][i].from, w: rows.reduce((s, r) => s + r[i].w, 0) / rows.length })); };
   const [ca, ce] = await Promise.all([curve(LA), curve(LE)]);
   if (!AN.open) return;
+  lanesBox.replaceChildren(...laneRows());   // now with the early and late numbers
   const timing = c => (!c ? 'Even' : c[0].w - c[c.length - 1].w > 0.012 ? 'Early' : c[c.length - 1].w - c[0].w > 0.012 ? 'Late' : 'Even');
   const box = (side, list, c) => { const idk = teamIdentity(list) || 'id_team', tm = timing(c);
     return h('div', { class: 'wcbox ' + side }, h('b', {}, `${t(idk)[0]} · ${t('t' + tm)}`), h('ul', {}, [...t('wc_' + idk), t('b' + tm)].map(s => h('li', {}, s)))); };
@@ -600,7 +629,7 @@ $('sheet').querySelector('.sheetback').addEventListener('click', () => closeShee
 document.addEventListener('keydown', e => { if (e.key === 'Escape') { if (!$('sheet').hidden) closeSheet(); else closeAnalysis(); } });
 $('btnMenu').addEventListener('click', () => $('menu').showModal());
 $('lang').value = S.lang; $('lang').addEventListener('change', e => { S.lang = e.target.value; store.set('lang', S.lang); applyLang(); });
-$('rank').value = S.rank; $('rank').addEventListener('change', e => { S.rank = e.target.value; store.set('rank', S.rank); S.vs.clear(); S.beside.clear(); boot(false); });
+$('rank').value = S.rank; $('rank').addEventListener('change', e => { S.rank = e.target.value; store.set('rank2', S.rank); S.vs.clear(); S.beside.clear(); boot(false); });
 $('days').value = String(S.days); $('days').addEventListener('change', e => { S.days = Number(e.target.value); store.set('days', S.days); S.vs.clear(); S.beside.clear(); boot(false); });
 $('btnRefresh').addEventListener('click', () => { S.vs.clear(); S.beside.clear(); boot(true); $('menu').close(); });
 document.body.dataset.mode = S.mode;
