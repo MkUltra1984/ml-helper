@@ -514,6 +514,12 @@ body[data-view="meta"] #board, body[data-view="meta"] #suggest, body[data-view="
 }
 .mttrend { font-style: normal; margin-left: 8px; font: 700 11px var(--display); } .mttrend.up { color: var(--good); } .mttrend.down { color: var(--bad); }
 
+/* hero sheet: the hero at five ranks */
+.rkbtn { height: 44px; padding: 0 16px; background: var(--panel); border: 1px solid var(--line); font: 700 13px var(--display); letter-spacing: .08em; text-transform: uppercase; }
+.rkrow { display: grid; grid-template-columns: minmax(0, 1fr) 64px 60px 60px; gap: 8px; align-items: center; min-height: 36px; padding: 0 8px; border-bottom: 1px solid var(--line); font: 700 14px var(--display); font-variant-numeric: tabular-nums; }
+.rkrow span { text-align: right; color: var(--dim); } .rkrow span.good { color: var(--good); } .rkrow b { font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+.rkrow.on { background: rgba(79, 216, 240, .10); box-shadow: inset 3px 0 0 var(--accent); } .rkhead { min-height: 28px; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+
 /* ---- motion: short, never looping during a draft; off when the device asks for reduced motion ---- */
 @media (prefers-reduced-motion: no-preference) {
   @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
