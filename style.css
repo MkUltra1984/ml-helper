@@ -588,3 +588,10 @@ body[data-design="m2"] .bigrow.roles.step1 .bigbtn span { font-size: 14px; lette
 body[data-design="m2"] .chiprow { gap: 6px; }
 @media (orientation: landscape) and (min-width: 700px) { body[data-design="m2"] .bigrow.roles.step1 { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
 @media (orientation: landscape) and (min-width: 700px) and (max-height: 520px) { body[data-design="m2"] .bigrow.roles.step1 .bigbtn { height: 70px; } body[data-design="m2"] .bigrow.roles.step1 .bigbtn img { width: 30px; height: 30px; } }
+
+/* rank choice at the start of a draft */
+.rankrow { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-bottom: 12px; }
+.rankbtn { height: 44px; padding: 0 4px; background: var(--panel2); border: 1px solid var(--line); color: var(--dim); font-weight: 700; text-transform: uppercase; letter-spacing: .05em; font-size: 13px;
+  font-family: "Bahnschrift Condensed", "Arial Narrow", "Roboto Condensed", Impact, sans-serif; }
+.rankbtn.on { background: var(--gold); border-color: var(--gold); color: #06101f; }
+.stag.phase { background: var(--good); }
