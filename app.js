@@ -843,7 +843,8 @@ async function drawMpl() {
   } else {
     const when = m => { const d = new Date(m.at); return Number.isNaN(d.getTime()) ? '' : d.toLocaleString(S.lang, { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }); };
     // a match without a result whose start lies more than half a day back is not "upcoming": the league data simply has no result for it
-    const old = m => { const d = new Date(m.at).getTime(); return !Number.isNaN(d) && d < Date.now() - 12 * 3600e3; };
+    const nm = /[#&]now=([\d-]+)/.exec(location.hash), now = nm ? new Date(nm[1]).getTime() : Date.now();   // #...&now=2026-10-28 pretends it is that day (support: to see upcoming matches)
+    const old = m => { const d = new Date(m.at).getTime(); return !Number.isNaN(d) && d < now - 12 * 3600e3; };
     const up = v.matches.filter(m => !m.done && !old(m)).sort((p, q) => p.at.localeCompare(q.at)), done = v.matches.filter(m => m.done || old(m)).sort((p, q) => q.at.localeCompare(p.at)).slice(0, 40);
     const row = m => h('div', { class: 'mprow' }, h('div', { class: 'mpmeta' }, h('span', {}, when(m)), h('span', {}, [m.round || (m.week ? `${t('mplWeek')} ${m.week}` : t('mplPlayoffs')), m.bo ? `Bo${m.bo}` : ''].filter(Boolean).join(' · ')),
         m.replay ? h('a', { href: m.replay, target: '_blank', rel: 'noopener' }, t('mplReplay') + ' ›') : null),

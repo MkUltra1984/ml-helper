@@ -539,6 +539,9 @@ body[data-view="mpl"] #board, body[data-view="mpl"] #suggest, body[data-view="mp
 .sthead { min-height: 30px; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
 @media (orientation: landscape) and (min-width: 700px) and (max-height: 520px) { #mpl { grid-row: 1 / -1; } body[data-view="mpl"] .metahead { padding-right: 60px; } }
 
+/* wide and sideways: league and part buttons of the MPL page share one row, so the list gets the height */
+@media (orientation: landscape) and (min-width: 700px) { #mpl .metahead { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; } }
+
 /* ---- motion: short, never looping during a draft; off when the device asks for reduced motion ---- */
 @media (prefers-reduced-motion: no-preference) {
   @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
