@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0d1020">
+<title>ML Helper</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header id="top">
+  <div class="brand"><b data-t="title">ML Helper</b><span class="faint" id="dataNote"></span></div>
+  <div class="grow"></div>
+  <button id="btnReset" class="ghost" data-t="reset">New draft</button>
+  <button id="btnMenu" class="ghost" aria-label="Settings">⚙</button>
+</header>
+
+<section id="board" aria-label="Draft">
+  <div class="side enemy"><div class="sidehead"><span data-t="enemy">Enemy</span><span class="ident" id="identEnemy"></span></div><div class="slots" id="slotsEnemy"></div></div>
+  <div class="vs" aria-hidden="true"><span>VS</span></div>
+  <div class="side ally"><div class="sidehead"><span data-t="ally">Your team</span><span class="ident" id="identAlly"></span></div><div class="slots" id="slotsAlly"></div></div>
+</section>
+
+<section id="suggest" aria-label="Suggestions">
+  <div class="sughead"><b id="sugTitle">Why this pick?</b>
+    <label class="tog"><input type="checkbox" id="poolOnly"><span data-t="poolOnly">my heroes only</span></label></div>
+  <div id="sugList" class="suglist"></div>
+</section>
+
+<section id="dna" aria-label="Draft DNA" hidden></section>
+
+<section id="picker" aria-label="Heroes">
+  <div class="modes" role="tablist">
+    <button class="mode enemy on" data-mode="enemy" data-t="mEnemy">Enemy pick</button>
+    <button class="mode ally" data-mode="ally" data-t="mAlly">Our pick</button>
+    <button class="mode fav" data-mode="fav" data-t="mFav">★ Edit my heroes</button>
+  </div>
+  <p class="hint faint" data-t="holdHint">Tap picks. Hold a hero for builds and matchups.</p>
+  <div class="filters">
+    <div class="chips" id="laneChips"></div>
+    <div class="chips" id="roleChips"></div>
+    <div class="row">
+      <input id="q" type="search" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Search hero">
+      <select id="sort" aria-label="Sort">
+        <option value="meta" data-t="sMeta">Meta picks</option>
+        <option value="pick" data-t="sPick">Most picked</option>
+        <option value="win" data-t="sWin">Win rate</option>
+        <option value="ban" data-t="sBan">Most banned</option>
+        <option value="name" data-t="sName">Name</option>
+      </select>
+    </div>
+  </div>
+  <div id="grid" class="grid"></div>
+</section>
+
+<dialog id="menu">
+  <h2 data-t="settings">Settings</h2>
+  <label><span data-t="lang">Language</span> <select id="lang"><option value="en">English</option><option value="de">Deutsch</option></select></label>
+  <label><span data-t="rank">Statistics from rank</span> <select id="rank"><option value="all">All</option><option value="epic">Epic</option><option value="legend">Legend</option><option value="mythic">Mythic</option><option value="honor">Mythical Honor</option><option value="glory">Mythical Glory</option></select></label>
+  <label><span data-t="days">Time window</span> <select id="days"><option value="7">7</option><option value="15">15</option><option value="30">30</option></select></label>
+  <button id="btnRefresh" data-t="refresh">Reload game data</button>
+  <p class="faint" data-t="credit">Unofficial fan tool. Game data © Moonton (Mobile Legends: Bang Bang), read through the public API of RoneAI (arena.rone.dev). Not affiliated with or endorsed by Moonton. You enter the draft by hand; this page does not read or touch the game.</p>
+  <form method="dialog"><button data-t="close">Close</button></form>
+</dialog>
+<div id="sheet" hidden><div class="sheetback"></div><div class="sheetbody" role="dialog" aria-modal="true"></div></div>
+<div id="toast" hidden></div>
+<script src="app.js"></script>
+</body>
+</html>
