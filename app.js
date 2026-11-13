@@ -593,16 +593,21 @@ const COUNTER_RULES = [
   [(x, d) => d.spec.includes('Regen'), 'ci_heal', ['Sea Halberd', 'Dominance Ice']],
   [(x, d) => x.roles[0] === 'mage' || d.spec.includes('Magic Damage'), 'ci_magic', ['Athena\'s Shield', 'Radiant Armor']],
   [(x) => x.roles[0] === 'marksman', 'ci_mm', ['Blade Armor', 'Wind of Nature', 'Dominance Ice']],
-  [(x, d) => x.roles[0] === 'assassin' || d.spec.includes('Burst'), 'ci_burst', ['Rose Gold Meteor', 'Winter Crown', 'Immortality']],
+  // Rose Gold Meteor answers a hero that kills in one combo: assassins and burst mages. Not marksmen that merely carry a Burst tag
+  // (Popol and Kupa): their damage is sustained, and the marksman rule above covers them.
+  [(x, d) => x.roles[0] === 'assassin' || (x.roles[0] === 'mage' && d.spec.includes('Burst')), 'ci_burst', ['Rose Gold Meteor']],
+  [(x, d) => x.roles[0] === 'assassin' || d.spec.includes('Burst'), 'ci_burst', ['Winter Crown', 'Immortality']],
   // physical burst (an assassin or burst hero that is no mage and has no magic damage tag, such as Saber): Wind of Nature as well
-  [(x, d) => (x.roles[0] === 'assassin' || d.spec.includes('Burst')) && x.roles[0] !== 'mage' && !d.spec.includes('Magic Damage'), 'ci_burst', ['Wind of Nature']],
+  [(x, d) => (x.roles[0] === 'assassin' || d.spec.includes('Burst')) && !['mage', 'marksman'].includes(x.roles[0]) && !d.spec.includes('Magic Damage'), 'ci_burst', ['Wind of Nature']],
   [(x, d) => d.spec.includes('Crowd Control') || d.spec.includes('Control'), 'ci_cc', ['Tough Boots']],
   [(x, d) => x.roles[0] === 'tank' || d.spec.includes('Guard'), 'ci_tank', ['Demon Hunter Sword', 'Glowing Wand', 'Malefic Gun']],
 ];
 async function counterItems(x, d) {
   const items = await loadItems(), byName = new Map([...items.values()].map(o => [o.name.toLowerCase(), o])), out = [], seen = new Set();
   for (const [test, why, names] of COUNTER_RULES) { if (!test(x, d)) continue; for (const n of names) { const o = byName.get(n.toLowerCase()); if (o && !seen.has(o.name)) { seen.add(o.name); out.push({ name: o.name, icon: o.icon, why }); } } }
-  return out.slice(0, 6);
+  // owner's rule: Immortality and Winter Crown fit against almost anything, so they are shown only when nothing else was found
+  const generic = o => ['immortality', 'wintercrown'].includes(norm(o.name)), rest = out.filter(o => !generic(o));
+  return (rest.length ? rest : out).slice(0, 6);
 }
 
 // The analysis screen (after the tenth pick, or by the Analysis button), modelled on the "team composition & win
