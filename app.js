@@ -593,7 +593,9 @@ const COUNTER_RULES = [
   [(x, d) => d.spec.includes('Regen'), 'ci_heal', ['Sea Halberd', 'Dominance Ice']],
   [(x, d) => x.roles[0] === 'mage' || d.spec.includes('Magic Damage'), 'ci_magic', ['Athena\'s Shield', 'Radiant Armor']],
   [(x) => x.roles[0] === 'marksman', 'ci_mm', ['Blade Armor', 'Wind of Nature', 'Dominance Ice']],
-  [(x, d) => x.roles[0] === 'assassin' || d.spec.includes('Burst'), 'ci_burst', ['Winter Crown', 'Immortality']],
+  [(x, d) => x.roles[0] === 'assassin' || d.spec.includes('Burst'), 'ci_burst', ['Rose Gold Meteor', 'Winter Crown', 'Immortality']],
+  // physical burst (an assassin or burst hero that is no mage and has no magic damage tag, such as Saber): Wind of Nature as well
+  [(x, d) => (x.roles[0] === 'assassin' || d.spec.includes('Burst')) && x.roles[0] !== 'mage' && !d.spec.includes('Magic Damage'), 'ci_burst', ['Wind of Nature']],
   [(x, d) => d.spec.includes('Crowd Control') || d.spec.includes('Control'), 'ci_cc', ['Tough Boots']],
   [(x, d) => x.roles[0] === 'tank' || d.spec.includes('Guard'), 'ci_tank', ['Demon Hunter Sword', 'Glowing Wand', 'Malefic Gun']],
 ];
