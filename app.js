@@ -777,10 +777,10 @@ function closeAnalysis() { AN.open = false; $('analysis').hidden = true; }
 // already loads), filtered by type and lane, sorted by a tap on a column. A tap on a hero opens its sheet.
 const MT = { role: '', lane: '', sort: 'win' };
 function setView(v) {
-  S.view = v; document.body.dataset.view = v; $('meta').hidden = v !== 'meta'; $('mpl').hidden = v !== 'mpl';
+  S.view = v; document.body.dataset.view = v; $('meta').hidden = v !== 'meta';
   for (const b of document.querySelectorAll('.tab')) b.classList.toggle('on', b.dataset.view === v);
   $('btnView').textContent = t(v === 'draft' ? 'tabMetaLong' : 'tabDraftLong');
-  if (v === 'meta') drawMeta(); if (v === 'mpl') drawMpl();
+  if (v === 'meta') drawMeta();
 }
 function drawMeta() {
   if (S.view !== 'meta') return;
@@ -805,63 +805,13 @@ function drawMeta() {
 for (const b of document.querySelectorAll('.tab')) b.addEventListener('click', () => setView(b.dataset.view));
 $('btnView').addEventListener('click', () => { $('menu').close(); setView(S.view === 'draft' ? 'meta' : 'draft'); });
 
-// ---- MPL page ----------------------------------------------------------------------------------------------------
-// The third tab: matches and standings of the four MPL leagues the data service follows.
-//   /api/esports/<id|ph|my|kh>/standings    rank, team, matches won and lost, games won and lost
-//   /api/esports/<league>/schedule          weeks > days > matches { start_at, team1, team2, score1, score2, status, winner, best_of, replay_url }
-//   /api/esports/<league>/playoffs          days > matches, with a round name
-// Three requests per league, kept for half an hour.
-const ML = { lg: 'id', part: 'matches', data: new Map() };
-const LEAGUES = [['id', 'Indonesia'], ['ph', 'Philippines'], ['my', 'Malaysia'], ['kh', 'Cambodia']];
-{ const m = /[#&]lg=(\w+)/.exec(location.hash); if (m) ML.lg = m[1]; if (/[#&]standings/.test(location.hash)) ML.part = 'standings'; }   // #...&mpl&lg=ph&standings opens a league and part (support, screenshots)
-async function loadLeague(lg) {
-  if (ML.data.has(lg)) return ML.data.get(lg);
-  const c = store.get('mpl2.' + lg, null); if (c && Date.now() - c.at < 30 * 60e3) { ML.data.set(lg, c.v); return c.v; }
-  const grab = async p => { try { return await fetchJson(`/esports/${lg}/${p}`); } catch (e) { console.warn('mpl', lg, p, e.message); return null; } };
-  const [st, sc, po] = await Promise.all([grab('standings'), grab('schedule'), grab('playoffs')]);
-  const matches = [], tm = x => ({ n: (x || {}).name || '?', l: (x || {}).logo || '' });
-  const add = (days, week) => { for (const day of arr(days)) for (const m of arr(day.matches)) matches.push({ at: m.start_at || '', a: tm(m.team1), b: tm(m.team2), sa: m.score1, sb: m.score2, done: m.status === 'finished', win: m.winner || '', round: m.round || '', week, bo: m.best_of || 0, replay: m.replay_url || '' }); };
-  for (const w of arr(sc && sc.weeks)) add(w.days, w.week || 0);
-  add(po && po.days, 0);
-  const v = { standings: arr(st && st.standings).map(r => ({ rank: r.rank, name: (r.team || {}).full_name || (r.team || {}).name || '?', logo: (r.team || {}).logo || '', mw: (r.match_wl || {}).win ?? 0, ml: (r.match_wl || {}).lose ?? 0, gw: (r.game_wl || {}).win ?? 0, gl: (r.game_wl || {}).lose ?? 0 })), matches };
-  // kept only when all three parts answered: a half answer (the service sometimes refuses a request) must not stick for half an hour
-  if (st && sc && po && (v.standings.length || matches.length)) { ML.data.set(lg, v); store.set('mpl2.' + lg, { at: Date.now(), v }); }
-  return v;
-}
-async function drawMpl() {
-  if (S.view !== 'mpl') return;
-  const head = $('mplHead'), list = $('mplList'), lg = ML.lg;
-  const seg = (on, label, act) => h('button', { class: 'chip' + (on ? ' on' : ''), 'aria-pressed': String(on), onclick: act }, label);
-  head.replaceChildren(h('div', { class: 'chiprow' }, h('div', { class: 'chips' }, LEAGUES.map(([k, n]) => seg(ML.lg === k, n, () => { ML.lg = k; drawMpl(); })))),
-    h('div', { class: 'chiprow mplseg' }, h('div', { class: 'chips' }, seg(ML.part === 'matches', t('mplMatches'), () => { ML.part = 'matches'; drawMpl(); }), seg(ML.part === 'standings', t('mplStand'), () => { ML.part = 'standings'; drawMpl(); }))));
-  if (!ML.data.has(lg)) list.replaceChildren(h('p', { class: 'faint' }, t('loading')));
-  const v = await loadLeague(lg); if (S.view !== 'mpl' || ML.lg !== lg) return;
-  const logo = u => (u ? h('img', { src: u, alt: '', loading: 'lazy', onerror: e => e.target.replaceWith(h('span', { class: 'nologo' })) }) : h('span', { class: 'nologo' }));
-  if (ML.part === 'standings') {
-    list.replaceChildren(...(v.standings.length ? [h('div', { class: 'strow sthead' }, h('span', {}), h('span', {}), h('span', {}), h('span', {}, t('mplMatches')), h('span', {}, t('mplGames'))),
-      ...v.standings.map(r => h('div', { class: 'strow' }, h('span', { class: 'mtnum' }, String(r.rank)), logo(r.logo), h('b', {}, r.name), h('span', {}, `${r.mw} – ${r.ml}`), h('span', {}, `${r.gw} – ${r.gl}`)))] : [h('p', { class: 'faint' }, t('mplNone'))]));
-  } else {
-    const when = m => { const d = new Date(m.at); return Number.isNaN(d.getTime()) ? '' : d.toLocaleString(S.lang, { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }); };
-    // a match without a result whose start lies more than half a day back is not "upcoming": the league data simply has no result for it
-    const nm = /[#&]now=([\d-]+)/.exec(location.hash), now = nm ? new Date(nm[1]).getTime() : Date.now();   // #...&now=2026-10-28 pretends it is that day (support: to see upcoming matches)
-    const old = m => { const d = new Date(m.at).getTime(); return !Number.isNaN(d) && d < now - 12 * 3600e3; };
-    const up = v.matches.filter(m => !m.done && !old(m)).sort((p, q) => p.at.localeCompare(q.at)), done = v.matches.filter(m => m.done || old(m)).sort((p, q) => q.at.localeCompare(p.at)).slice(0, 40);
-    const row = m => h('div', { class: 'mprow' }, h('div', { class: 'mpmeta' }, h('span', {}, when(m)), h('span', {}, [m.round || (m.week ? `${t('mplWeek')} ${m.week}` : t('mplPlayoffs')), m.bo ? `Bo${m.bo}` : ''].filter(Boolean).join(' · ')),
-        m.replay ? h('a', { href: m.replay, target: '_blank', rel: 'noopener' }, t('mplReplay') + ' ›') : null),
-      h('div', { class: 'mpteams' }, h('span', { class: 'mpt a' + (m.win === 'team1' ? ' win' : '') }, h('b', {}, m.a.n), logo(m.a.l)), h('span', { class: 'mpscore' + (m.done ? '' : ' open') }, m.done ? `${m.sa ?? 0} : ${m.sb ?? 0}` : old(m) ? t('mplNoResult') : 'vs'), h('span', { class: 'mpt b' + (m.win === 'team2' ? ' win' : '') }, logo(m.b.l), h('b', {}, m.b.n))));
-    list.replaceChildren(...(up.length || done.length ? [...(up.length ? [h('div', { class: 'mpsub' }, t('mplUpcoming')), ...up.map(row)] : []), ...(done.length ? [h('div', { class: 'mpsub' }, t('mplResults')), ...done.map(row)] : [])] : [h('p', { class: 'faint' }, t('mplNone'))]));
-  }
-  list.scrollTop = 0;
-}
-$('btnMpl').addEventListener('click', () => { $('menu').close(); setView('mpl'); });
-
 // ---- start -----------------------------------------------------------------------------------------------------
 function applyLang() {
   document.documentElement.lang = S.lang;
   for (const el of document.querySelectorAll('[data-t]')) el.textContent = t(el.dataset.t);
   $('q').placeholder = t('search');
   $('dataNote').textContent = S.ready ? T[S.lang].data($('rank').selectedOptions[0].textContent, S.days) : '';
-  drawPhase(false); drawChips(); drawGrid(); drawSuggest(); setView(S.view || (/[#&]meta/.test(location.hash) ? 'meta' : /[#&]mpl/.test(location.hash) ? 'mpl' : 'draft'));
+  drawPhase(false); drawChips(); drawGrid(); drawSuggest(); setView(S.view || (/[#&]meta/.test(location.hash) ? 'meta' : 'draft'));
 }
 async function boot(force) {
   S.ready = false; S.failed = false; drawGrid(); drawSuggest();

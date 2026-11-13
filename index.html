@@ -10,7 +10,7 @@
 // version.txt past every cache; if a newer version is online it reloads itself once under a new address.
 // To publish: put the same new version into version.txt, BUILD below and the two ?v= file addresses.
 (function () {
-  var BUILD = '20261114b';
+  var BUILD = '20261114c';
   function check() {
     fetch('version.txt?t=' + Date.now(), { cache: 'no-store' }).then(function (r) { return r.ok ? r.text() : ''; }).then(function (v) {
       v = v.trim();
@@ -20,12 +20,12 @@
   check(); document.addEventListener('visibilitychange', function () { if (!document.hidden) check(); });
 })();
 </script>
-<link rel="stylesheet" href="style.css?v=20261114b">
+<link rel="stylesheet" href="style.css?v=20261114c">
 </head>
 <body>
 <header id="top">
   <div class="brand"><b data-t="title">MLBB Helper</b><span class="faint" id="dataNote"></span></div>
-  <nav class="tabs" id="tabs"><button class="tab on" data-view="draft" data-t="tabDraft">Draft</button><button class="tab" data-view="meta" data-t="tabMeta">Meta</button><button class="tab" data-view="mpl" data-t="tabMpl">MPL</button></nav>
+  <nav class="tabs" id="tabs"><button class="tab on" data-view="draft" data-t="tabDraft">Draft</button><button class="tab" data-view="meta" data-t="tabMeta">Meta</button></nav>
   <div class="grow"></div>
   <button id="btnUndo" class="ghost" aria-label="Undo" title="Undo" disabled><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg></button>
   <button id="btnReset" class="ghost" data-t="reset">New draft</button>
@@ -33,8 +33,6 @@
 </header>
 
 <section id="meta" aria-label="Meta" hidden><div class="metahead" id="metaHead"></div><div class="metalist" id="metaList"></div></section>
-
-<section id="mpl" aria-label="MPL" hidden><div class="metahead" id="mplHead"></div><div class="metalist" id="mplList"></div></section>
 
 <section id="board" aria-label="Draft">
   <div class="side bans" id="banSide" hidden><div class="slots small" id="slotsBan"></div></div>
@@ -74,7 +72,6 @@
   <label><span data-t="days">Time window</span> <select id="days"><option value="7">7</option><option value="15">15</option><option value="30">30</option></select></label>
   <button id="btnRefresh" data-t="refresh">Reload game data</button>
   <button id="btnView" class="viewbtn"></button>
-  <button id="btnMpl" class="viewbtn" data-t="tabMplLong"></button>
   <button id="btnHelp" data-t="inHelp">How it works</button>
   <p class="faint" data-t="credit">Unofficial fan tool. Game data © Moonton (Mobile Legends: Bang Bang), read through the public API of RoneAI (arena.rone.dev). Not affiliated with or endorsed by Moonton. You enter the draft by hand; this page does not read or touch the game.</p>
   <form method="dialog"><button data-t="close">Close</button></form>
@@ -92,6 +89,6 @@
 <div id="analysis" hidden><div class="anbody"></div></div>
 <div id="sheet" hidden><div class="sheetback"></div><div class="sheetbody" role="dialog" aria-modal="true"></div></div>
 <div id="toast" hidden></div>
-<script src="app.js?v=20261114b"></script>
+<script src="app.js?v=20261114c"></script>
 </body>
 </html>
